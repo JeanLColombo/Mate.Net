@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\USER\\Source\\Repos\\Mate.Net\\Source\\Mate.Net.csproj": {}
+    "C:\\Users\\USER\\Source\\Repos\\Mate.Net\\Source\\Mate.Net.csproj": {}
   },
   "projects": {
-    "c:\\Users\\USER\\Source\\Repos\\Mate.Net\\Source\\Mate.Net.csproj": {
+    "C:\\Users\\USER\\Source\\Repos\\Mate.Net\\Source\\Mate.Net.csproj": {
       "version": "0.1.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\USER\\Source\\Repos\\Mate.Net\\Source\\Mate.Net.csproj",
+        "projectUniqueName": "C:\\Users\\USER\\Source\\Repos\\Mate.Net\\Source\\Mate.Net.csproj",
         "projectName": "Mate.Net",
-        "projectPath": "c:\\Users\\USER\\Source\\Repos\\Mate.Net\\Source\\Mate.Net.csproj",
+        "projectPath": "C:\\Users\\USER\\Source\\Repos\\Mate.Net\\Source\\Mate.Net.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\USER\\Source\\Repos\\Mate.Net\\Source\\obj\\",
+        "outputPath": "C:\\Users\\USER\\Source\\Repos\\Mate.Net\\Source\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

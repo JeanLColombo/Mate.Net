@@ -1,0 +1,9 @@
+C:\Users\USER\Source\Repos\Mate.Net\Source\obj\Debug\netstandard2.0\Mate.Net.csprojAssemblyReference.cache
+C:\Users\USER\Source\Repos\Mate.Net\Source\obj\Debug\netstandard2.0\Mate.Net.csproj.CoreCompileInputs.cache
+C:\Users\USER\Source\Repos\Mate.Net\Source\obj\Debug\netstandard2.0\Mate.Net.AssemblyInfoInputs.cache
+C:\Users\USER\Source\Repos\Mate.Net\Source\obj\Debug\netstandard2.0\Mate.Net.AssemblyInfo.cs
+C:\Users\USER\Source\Repos\Mate.Net\bin\netstandard2.0\Mate.Net.deps.json
+C:\Users\USER\Source\Repos\Mate.Net\bin\netstandard2.0\Mate.Net.dll
+C:\Users\USER\Source\Repos\Mate.Net\bin\netstandard2.0\Mate.Net.pdb
+C:\Users\USER\Source\Repos\Mate.Net\Source\obj\Debug\netstandard2.0\Mate.Net.dll
+C:\Users\USER\Source\Repos\Mate.Net\Source\obj\Debug\netstandard2.0\Mate.Net.pdb

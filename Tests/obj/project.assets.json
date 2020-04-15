@@ -5985,11 +5985,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\USER\\Source\\Repos\\Mate.Net\\Tests\\Mate.Net.UT.csproj",
+      "projectUniqueName": "C:\\Users\\USER\\Source\\Repos\\Mate.Net\\Tests\\Mate.Net.UT.csproj",
       "projectName": "Mate.Net.UT",
-      "projectPath": "c:\\Users\\USER\\Source\\Repos\\Mate.Net\\Tests\\Mate.Net.UT.csproj",
+      "projectPath": "C:\\Users\\USER\\Source\\Repos\\Mate.Net\\Tests\\Mate.Net.UT.csproj",
       "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\USER\\Source\\Repos\\Mate.Net\\Tests\\obj\\",
+      "outputPath": "C:\\Users\\USER\\Source\\Repos\\Mate.Net\\Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -6009,8 +6009,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "c:\\Users\\USER\\Source\\Repos\\Mate.Net\\Source\\Mate.Net.csproj": {
-              "projectPath": "c:\\Users\\USER\\Source\\Repos\\Mate.Net\\Source\\Mate.Net.csproj"
+            "C:\\Users\\USER\\Source\\Repos\\Mate.Net\\Source\\Mate.Net.csproj": {
+              "projectPath": "C:\\Users\\USER\\Source\\Repos\\Mate.Net\\Source\\Mate.Net.csproj"
             }
           }
         }

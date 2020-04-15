@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "V2DlMwBdh+0qDZV70VbDb+56P5GSN7N5z0ceLOtci4oxuEXMoGhbdaF0Y5P7TvWHttdpXpT5lLGij/l3RVfddQ==",
+  "dgSpecHash": "9xWGDFR+PCkURMBitJcPE7FCGp8Rn4B3MybnolxUAP/IaCt2WdwW6wXivVyUn0C2Qhe0DIzYgPJTTxYpYtXNkg==",
   "success": true,
-  "projectFilePath": "c:\\Users\\USER\\Source\\Repos\\Mate.Net\\Tests\\Mate.Net.UT.csproj",
+  "projectFilePath": "C:\\Users\\USER\\Source\\Repos\\Mate.Net\\Tests\\Mate.Net.UT.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\coverlet.msbuild\\2.6.0\\coverlet.msbuild.2.6.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.codecoverage\\15.9.0\\microsoft.codecoverage.15.9.0.nupkg.sha512",
