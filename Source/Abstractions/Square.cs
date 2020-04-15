@@ -6,14 +6,14 @@ namespace Mate.Abstractions
 {
     public class Square
     {
-        public Definitions.Files File { get; private set; }
+        public readonly Definitions.Files File;
 
-        public Definitions.Ranks Rank { get; private set; }
+        public readonly Definitions.Ranks Rank;
 
         /// <summary>
         /// Color of the square. If <see cref="Color"/> equals <see cref="true"/>, then it is a white square.
         /// </summary>
-        public bool Color { get; private set; }
+        public readonly bool Color;
 
         /// <summary>
         /// <see cref="Piece"/> default value is null, meaning no piece on the square.
@@ -33,6 +33,8 @@ namespace Mate.Abstractions
             Piece = piece;
         }
 
+        // TODO: Create method bool IsAttacked().
+        // TODO: Create method List<> IsAttackedBy().
 
     }
 }

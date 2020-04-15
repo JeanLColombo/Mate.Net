@@ -7,7 +7,7 @@ namespace Mate
 {
     public class Board  
     {
-        public Dictionary<Tuple<Definitions.Files,Definitions.Ranks>, Square> Squares { get; internal set; }
+        public readonly Dictionary<Tuple<Definitions.Files, Definitions.Ranks>, Square> Squares = new Dictionary<Tuple<Definitions.Files, Definitions.Ranks>, Square>();
 
         public Board() => BuildBoard();
 
@@ -16,7 +16,6 @@ namespace Mate
         /// </summary>
         private void BuildBoard()
         {
-            Squares = new Dictionary<Tuple<Definitions.Files, Definitions.Ranks>, Square>();
 
             bool Color = false;
 
