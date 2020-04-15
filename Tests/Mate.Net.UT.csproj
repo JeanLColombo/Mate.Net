@@ -2,7 +2,7 @@
 <PropertyGroup>  
 <TargetFramework>netcoreapp2.1</TargetFramework>  
 <IsPackable>false</IsPackable>  
-<RootNamespace>Mate.Net.UT</RootNamespace>  
+<RootNamespace>Mate.UT</RootNamespace>  
 </PropertyGroup>  
 <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">  
 <OutputPath>./../bin</OutputPath>  
