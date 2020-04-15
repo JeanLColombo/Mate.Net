@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ilUvongilE5l0chT3fDZmVleXCxoXoFO4uMEB/B3eSiXYWnpPBbmXCNsO9oZd112v/Rl4V9prRVK1xn7fsVRpw==",
+  "dgSpecHash": "Wfhaz/Bp0qjCtEGxcChm4w0h09IsfW0RWz4KVTMphIUfqIY+OGZ5LKoT+fwAioyH44cwf1/gDBjRTd1zSo+Wzg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\USER\\Source\\Repos\\Mate.Net\\Source\\Source.csproj",
+  "projectFilePath": "c:\\Users\\USER\\Source\\Repos\\Mate.Net\\Source\\Mate.Net.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
