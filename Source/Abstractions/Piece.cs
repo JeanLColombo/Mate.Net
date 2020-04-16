@@ -11,7 +11,7 @@ namespace Mate.Abstractions
 
         public Square Square { get; set; }
 
-        public Piece(bool color, Square square = null, Board board = null) 
+        public Piece(bool color, Square square = null) 
         {
             Color = color;
             Square = square;
@@ -20,6 +20,8 @@ namespace Mate.Abstractions
         public abstract bool MoveTo(Tuple<Definitions.Files, Definitions.Ranks> tuple);
 
         public abstract List<Tuple<Definitions.Files, Definitions.Ranks>> AttackedSquares();
+
+        public bool PieceOnTheBoard() => !(this.Square == null);
 
         //TODO: Create Method bool UnderAttack().
         //TODO: Create Method List<> AttackedBy().

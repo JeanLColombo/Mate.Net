@@ -33,6 +33,8 @@ namespace Mate.Abstractions
             Piece = piece;
         }
 
+
+
         // TODO: Create method bool IsAttacked().
         // TODO: Create method List<> IsAttackedBy().
 

@@ -29,5 +29,18 @@ namespace Mate.Abstractions
             seventh = 6,
             eighth = 7
         }
+
+        public enum Outcome
+        {
+            Game = 0,
+            AgreedDraw = 1,
+            Threefold = 2,
+            Fiftyfold = 3,
+            Stalemate = 4,
+            ResignBlack = 5,
+            ResignWhite = 6,
+            MateWhite = 7,
+            MateBlack = 8
+        }
     }
 }
