@@ -19,27 +19,37 @@ namespace Mate.Extensions
 
 
         /// <summary>
-        /// Move along the files from a certain square position.
+        /// Move along the <see cref="Definitions.Files"/> or <see cref="Definitions.Ranks"/> from a certain square position.
         /// </summary>
-        /// <param name="square">Actual square</param>
-        /// <param name="numberOfSquares">Number of squares. Can be positive or negative.</param>
-        /// <returns>The key for board dictionary.</returns>
-        public static Tuple<Definitions.Files, Definitions.Ranks> MoveThroughFiles(this Square square, int numberOfSquares)
+        /// <typeparam name="T"><see cref="Definitions.Files"/> or <see cref="Definitions.Ranks"/>.</typeparam>
+        /// <param name="square">Actual Square.</param>
+        /// <param name="numberOfSquares">Number of squares moved.</param>
+        /// <returns>A tuple of <see cref="Definitions.Files"/> and <see cref="Definitions.Ranks"/>.</returns>
+        public static Tuple<Definitions.Files, Definitions.Ranks> MoveThrough<T>(this Square square, int numberOfSquares)
         {
+
             if (numberOfSquares==0)
                 return square.Position();
 
-            var actualFile = (int)square.File;
-            var newFile = actualFile + numberOfSquares;
+            var newFile = (int)square.File;
+            var newRank = (int)square.Rank;
 
-            //newFile += numberOfSquares;
 
-            var newFileName = Enum.GetName(typeof(Definitions.Files), newFile);
+            if (typeof(T) == typeof(Definitions.Files))
+                newFile += numberOfSquares;
+            else if (typeof(T) == typeof(Definitions.Ranks))
+                newRank += numberOfSquares;
+            else
+                throw new ApplicationException("Must Move Through Definition.Ranks or Definition.Files!");
 
-            return null;
 
-            //TODO: Finish this method.
-            //TODO: Check if template method or not.
+            if (!Enum.IsDefined(typeof(T), newFile) || !Enum.IsDefined(typeof(T),newRank))
+                return null;
+
+
+            return Tuple.Create<Definitions.Files, Definitions.Ranks>(
+                (Definitions.Files)newFile,
+                (Definitions.Ranks)newRank);
         }
         
 

@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mate.Net", "Source\Mate.Net.csproj", "{B1B8D5B1-03E1-4C33-8CF6-802ACA5047C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mate.Net", "Source\Mate.Net.csproj", "{B1B8D5B1-03E1-4C33-8CF6-802ACA5047C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mate.Net.UT", "Tests\Mate.Net.UT.csproj", "{153DD58A-6E9C-4BC6-97A3-DE2FBAB76436}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mate.Net.UT", "Tests\Mate.Net.UT.csproj", "{153DD58A-6E9C-4BC6-97A3-DE2FBAB76436}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notes", "Notes", "{EF8990F1-DD39-4A49-B7E8-A000E633F2BF}"
+	ProjectSection(SolutionItems) = preProject
+		FileFromValueExample.txt = FileFromValueExample.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +20,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B1B8D5B1-03E1-4C33-8CF6-802ACA5047C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -44,5 +46,11 @@ Global
 		{153DD58A-6E9C-4BC6-97A3-DE2FBAB76436}.Release|x64.Build.0 = Release|Any CPU
 		{153DD58A-6E9C-4BC6-97A3-DE2FBAB76436}.Release|x86.ActiveCfg = Release|Any CPU
 		{153DD58A-6E9C-4BC6-97A3-DE2FBAB76436}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6552096A-7A71-4E20-878C-AC9102845EDE}
 	EndGlobalSection
 EndGlobal
