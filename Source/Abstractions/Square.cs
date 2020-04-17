@@ -4,11 +4,12 @@ using System.Text;
 
 namespace Mate.Abstractions
 {
+
     public class Square
     {
-        public readonly Definitions.Files File;
+        public readonly Files File;
 
-        public readonly Definitions.Ranks Rank;
+        public readonly Ranks Rank;
 
         /// <summary>
         /// Color of the square. If <see cref="Color"/> equals <see cref="true"/>, then it is a white square.
@@ -22,8 +23,8 @@ namespace Mate.Abstractions
 
 
         public Square(
-            Definitions.Files file,
-            Definitions.Ranks rank,
+            Files file,
+            Ranks rank,
             bool color,
             Piece piece = null) 
         {
@@ -34,7 +35,7 @@ namespace Mate.Abstractions
         }
 
         public Square(
-            Tuple<Definitions.Files, Definitions.Ranks> position, 
+            Tuple<Files, Ranks> position, 
             bool color, Piece piece = null) 
             : this(position.Item1, position.Item2, color, piece)
         { }

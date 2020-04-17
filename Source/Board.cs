@@ -7,7 +7,7 @@ namespace Mate
 {
     public class Board  
     {
-        public readonly Dictionary<Tuple<Definitions.Files, Definitions.Ranks>, Square> Squares = new Dictionary<Tuple<Definitions.Files, Definitions.Ranks>, Square>();
+        public readonly Dictionary<Tuple<Files, Ranks>, Square> Squares = new Dictionary<Tuple<Files, Ranks>, Square>();
 
         public Board() => BuildBoard();
 
@@ -19,9 +19,9 @@ namespace Mate
 
             bool Color = false;
 
-            foreach (Definitions.Files file in Enum.GetValues(typeof(Definitions.Files)))
+            foreach (Files file in Enum.GetValues(typeof(Files)))
             {
-                foreach (Definitions.Ranks rank in Enum.GetValues(typeof(Definitions.Ranks)))
+                foreach (Ranks rank in Enum.GetValues(typeof(Ranks)))
                 {
                     Squares.Add(
                         Tuple.Create(file, rank),

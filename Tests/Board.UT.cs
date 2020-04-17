@@ -17,11 +17,11 @@ namespace Mate.UT
         }
 
         [Theory]
-        [InlineData(Definitions.Files.a, Definitions.Ranks.first, false)]
-        [InlineData(Definitions.Files.h, Definitions.Ranks.eighth, false)]
-        [InlineData(Definitions.Files.d, Definitions.Ranks.fifth, true)]
-        [InlineData(Definitions.Files.e, Definitions.Ranks.forth, true)]
-        public void SearchSquares(Definitions.Files f, Definitions.Ranks r, bool color)
+        [InlineData(Files.a, Ranks.first, false)]
+        [InlineData(Files.h, Ranks.eighth, false)]
+        [InlineData(Files.d, Ranks.fifth, true)]
+        [InlineData(Files.e, Ranks.forth, true)]
+        public void SearchSquares(Files f, Ranks r, bool color)
         {
             var board = new Board();
             var squares = board.Squares;

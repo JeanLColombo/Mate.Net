@@ -1,4 +1,5 @@
 ﻿using Mate.Abstractions;
+using Mate.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,9 +12,9 @@ namespace Mate.Pieces
         {
         }
 
-        public override List<Tuple<Definitions.Files, Definitions.Ranks>> AttackedSquares()
+        public override List<Tuple<Files, Ranks>> AttackedSquares()
         {
-            var attacked = new List<Tuple<Definitions.Files, Definitions.Ranks>>();
+            var attacked = new List<Tuple<Files, Ranks>>();
 
             if (this.PieceOnTheBoard())
             {
@@ -24,7 +25,7 @@ namespace Mate.Pieces
             return attacked;
         }
 
-        public override bool MoveTo(Tuple<Definitions.Files, Definitions.Ranks> tuple)
+        public override bool MoveTo(Tuple<Files, Ranks> tuple)
         {
             throw new NotImplementedException();
         }

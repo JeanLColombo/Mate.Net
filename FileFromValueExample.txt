@@ -25,12 +25,12 @@ class Program
         
         int value = 10;
         
-        Definitions.Files fileFromValue;
+        Files fileFromValue;
         
-        if (Enum.IsDefined(typeof(Definitions.Files), value))
-            fileFromValue = (Definitions.Files)value;
+        if (Enum.IsDefined(typeof(Files), value))
+            fileFromValue = (Files)value;
         else
-            fileFromValue = Definitions.Files.a;
+            fileFromValue = Files.a;
         
         Console.WriteLine(fileFromValue);
     }
