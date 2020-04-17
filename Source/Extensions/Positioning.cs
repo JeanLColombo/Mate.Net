@@ -19,7 +19,7 @@ namespace Mate.Extensions
 
 
         /// <summary>
-        /// Move along the <see cref="Definitions.Files"/> or <see cref="Definitions.Ranks"/> from a certain square position.
+        /// Move along the <see cref="Definitions.Files"/> or <see cref="Definitions.Ranks"/> from a certain <paramref name="square"/> position.
         /// </summary>
         /// <typeparam name="T"><see cref="Definitions.Files"/> or <see cref="Definitions.Ranks"/>.</typeparam>
         /// <param name="square">Actual Square.</param>
@@ -52,16 +52,26 @@ namespace Mate.Extensions
                 (Definitions.Ranks)newRank);
         }
         
-        public static Tuple<Definitions.Files, Definitions.Ranks> Move(this Square square, int numberOfFiles, int numberOrRanks)
+        /// <summary>
+        /// From <paramref name="square"/>, move a certain <paramref name="numberOfFiles"/> and <paramref name="numberOrRanks"/>.
+        /// </summary>
+        /// <param name="square">Actual <see cref="Square"/></param>
+        /// <param name="numberOfFiles">Number of <see cref="Definitions.Files"/> moved.</param>
+        /// <param name="numberOrRanks">Number of <see cref="Definitions.Ranks"/> moved.</param>
+        /// <returns>Returns <see cref="null"/> if invalid square.</returns>
+        public static Tuple<Definitions.Files, Definitions.Ranks> MovePlus(this Square square, int numberOfFiles, int numberOrRanks)
         {
             //TODO: Implement Move Method.
 
-            var newSquare = square.MoveThrough<Definitions.Files>(numberOfFiles);
+            var newSquareFile = square.MoveThrough<Definitions.Files>(numberOfFiles);
+            var newSquareRank = square.MoveThrough<Definitions.Ranks>(numberOrRanks);
 
-            if (newSquare == null)
-                return newSquare;
+            if (newSquareFile == null || newSquareRank == null)
+                return null;
 
-            return newSquare;
+            return Tuple.Create<Definitions.Files, Definitions.Ranks>(
+                newSquareFile.Item1, 
+                newSquareRank.Item2);
         }
 
     }

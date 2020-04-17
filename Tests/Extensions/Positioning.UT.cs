@@ -2,6 +2,7 @@
 using Mate.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 using Xunit;
 using Xunit.Sdk;
@@ -51,6 +52,45 @@ namespace Mate.UT.Extensions
             var newSquarePosition = square.MoveThrough<Definitions.Files>(numberOfSquares);
 
             Assert.Null(newSquarePosition);
+        }
+
+        [Theory]
+        [InlineData(Definitions.Files.e, Definitions.Ranks.fifth, 1, 1, Definitions.Files.f, Definitions.Ranks.sixth)]
+        [InlineData(Definitions.Files.e, Definitions.Ranks.forth, 3, -3, Definitions.Files.h, Definitions.Ranks.first)]
+        [InlineData(Definitions.Files.e, Definitions.Ranks.forth, -3, 3, Definitions.Files.b, Definitions.Ranks.seventh)]
+        [InlineData(Definitions.Files.e, Definitions.Ranks.forth, -2, -1, Definitions.Files.c, Definitions.Ranks.third)]
+        [InlineData(Definitions.Files.a, Definitions.Ranks.first, 1, 0, Definitions.Files.b, Definitions.Ranks.first)]
+        [InlineData(Definitions.Files.a, Definitions.Ranks.first, 0, 1, Definitions.Files.a, Definitions.Ranks.second)]
+        public void MoveToAnyValidSquares(
+            Definitions.Files firstFile,
+            Definitions.Ranks firstRank,
+            int numberOfFiles,
+            int numberOfRanks,
+            Definitions.Files newFile,
+            Definitions.Ranks newRank)
+        {
+            var square = new Square(firstFile, firstRank, false);
+
+            var newSquare = square.MovePlus(numberOfFiles, numberOfRanks);
+
+            Assert.Equal(newFile, newSquare.Item1);
+            Assert.Equal(newRank, newSquare.Item2);
+        }
+
+        [Theory]
+        [InlineData(Definitions.Files.a, Definitions.Ranks.first, -1, 0)]
+        [InlineData(Definitions.Files.a, Definitions.Ranks.first, 0, -1)]
+        public void MoveToInvalidSquares(
+            Definitions.Files firstFile,
+            Definitions.Ranks firstRank,
+            int numberOfFiles,
+            int numberOfRanks)
+        {
+            var square = new Square(firstFile, firstRank, false);
+
+            var newSquare = square.MovePlus(numberOfFiles, numberOfRanks);
+
+            Assert.Null(newSquare);
         }
     }
 }
