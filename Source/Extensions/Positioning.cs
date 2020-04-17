@@ -26,11 +26,7 @@ namespace Mate.Extensions
         /// <param name="numberOfSquares">Number of squares moved.</param>
         /// <returns>A tuple of <see cref="Definitions.Files"/> and <see cref="Definitions.Ranks"/>.</returns>
         public static Tuple<Definitions.Files, Definitions.Ranks> MoveThrough<T>(this Square square, int numberOfSquares)
-        {
-
-            if (numberOfSquares==0)
-                return square.Position();
-
+        { 
             var newFile = (int)square.File;
             var newRank = (int)square.Rank;
 
@@ -41,6 +37,10 @@ namespace Mate.Extensions
                 newRank += numberOfSquares;
             else
                 throw new ApplicationException("Must Move Through Definition.Ranks or Definition.Files!");
+
+
+            if (numberOfSquares == 0)
+                return square.Position();
 
 
             if (!Enum.IsDefined(typeof(T), newFile) || !Enum.IsDefined(typeof(T),newRank))
