@@ -17,10 +17,10 @@ namespace Mate.UT
         }
 
         [Theory]
-        [InlineData(Files.a, Ranks.first, false)]
-        [InlineData(Files.h, Ranks.eighth, false)]
-        [InlineData(Files.d, Ranks.fifth, true)]
-        [InlineData(Files.e, Ranks.forth, true)]
+        [InlineData(Files.a, Ranks.one, false)]
+        [InlineData(Files.h, Ranks.eigth, false)]
+        [InlineData(Files.d, Ranks.five, true)]
+        [InlineData(Files.e, Ranks.four, true)]
         public void SearchSquares(Files f, Ranks r, bool color)
         {
             var board = new Board();
@@ -28,7 +28,7 @@ namespace Mate.UT
 
             Square s;
 
-            Assert.True(squares.TryGetValue(Tuple.Create(f, r), out s));
+            Assert.True(squares.TryGetValue(new Position(f, r), out s));
             Assert.Equal(color, s.Color);
             Assert.Equal(f, s.File);
             Assert.Equal(r, s.Rank);

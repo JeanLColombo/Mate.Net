@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace Mate.Abstractions
 {
     public enum Files
@@ -18,14 +19,14 @@ namespace Mate.Abstractions
 
     public enum Ranks
     {
-        first = 0,
-        second = 1,
-        third = 2,
-        forth = 3,
-        fifth = 4,
-        sixth = 5,
-        seventh = 6,
-        eighth = 7
+        one = 0,
+        two = 1,
+        three = 2,
+        four = 3,
+        five = 4,
+        six = 5,
+        seven = 6,
+        eigth = 7
     }
 
     public enum Outcome
@@ -41,4 +42,10 @@ namespace Mate.Abstractions
         MateBlack = 8
     }
 
+    public class Position : Tuple<Files, Ranks>
+    {
+        public Position(Files file, Ranks rank) : base(file, rank)
+        {
+        }
+    }
 }

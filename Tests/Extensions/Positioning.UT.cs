@@ -14,18 +14,18 @@ namespace Mate.UT.Extensions
         [Fact]
         public void MoveThroughTypeCheck()
         {
-            var square = new Square(Files.e, Ranks.fifth, false);
+            var square = new Square(Files.e, Ranks.five, false);
 
             Assert.Throws<ApplicationException>(() => square.MoveThrough<int>(0));
             Assert.Throws<ApplicationException>(() => square.MoveThrough<Outcome>(0));
         }
 
         [Theory]
-        [InlineData(Ranks.first, Ranks.second, 1)]
-        [InlineData(Ranks.forth, Ranks.sixth, 2)]
-        [InlineData(Ranks.forth, Ranks.forth, 0)]
-        [InlineData(Ranks.eighth, Ranks.seventh, -1)]
-        [InlineData(Ranks.seventh, Ranks.first, -6)]
+        [InlineData(Ranks.one, Ranks.two, 1)]
+        [InlineData(Ranks.four, Ranks.six, 2)]
+        [InlineData(Ranks.four, Ranks.four, 0)]
+        [InlineData(Ranks.eigth, Ranks.seven, -1)]
+        [InlineData(Ranks.seven, Ranks.one, -6)]
         public void MoveThroughValidSquares(
             Ranks firstRank, 
             Ranks newRank, 
@@ -47,7 +47,7 @@ namespace Mate.UT.Extensions
             Files firstFile, 
             int numberOfSquares)
         {
-            var square = new Square(firstFile, Ranks.seventh, false);
+            var square = new Square(firstFile, Ranks.seven, false);
 
             var newSquarePosition = square.MoveThrough<Files>(numberOfSquares);
 
@@ -55,12 +55,12 @@ namespace Mate.UT.Extensions
         }
 
         [Theory]
-        [InlineData(Files.e, Ranks.fifth, 1, 1, Files.f, Ranks.sixth)]
-        [InlineData(Files.e, Ranks.forth, 3, -3, Files.h, Ranks.first)]
-        [InlineData(Files.e, Ranks.forth, -3, 3, Files.b, Ranks.seventh)]
-        [InlineData(Files.e, Ranks.forth, -2, -1, Files.c, Ranks.third)]
-        [InlineData(Files.a, Ranks.first, 1, 0, Files.b, Ranks.first)]
-        [InlineData(Files.a, Ranks.first, 0, 1, Files.a, Ranks.second)]
+        [InlineData(Files.e, Ranks.five, 1, 1, Files.f, Ranks.six)]
+        [InlineData(Files.e, Ranks.four, 3, -3, Files.h, Ranks.one)]
+        [InlineData(Files.e, Ranks.four, -3, 3, Files.b, Ranks.seven)]
+        [InlineData(Files.e, Ranks.four, -2, -1, Files.c, Ranks.three)]
+        [InlineData(Files.a, Ranks.one, 1, 0, Files.b, Ranks.one)]
+        [InlineData(Files.a, Ranks.one, 0, 1, Files.a, Ranks.two)]
         public void MoveToAnyValidSquares(
             Files firstFile,
             Ranks firstRank,
@@ -78,8 +78,8 @@ namespace Mate.UT.Extensions
         }
 
         [Theory]
-        [InlineData(Files.a, Ranks.first, -1, 0)]
-        [InlineData(Files.a, Ranks.first, 0, -1)]
+        [InlineData(Files.a, Ranks.one, -1, 0)]
+        [InlineData(Files.a, Ranks.one, 0, -1)]
         public void MoveToInvalidSquares(
             Files firstFile,
             Ranks firstRank,
@@ -96,7 +96,7 @@ namespace Mate.UT.Extensions
         [Fact]
         public void TryGetPieceColorOnEmptySquare()
         {
-            var square = new Square(Files.a, Ranks.first, false);
+            var square = new Square(Files.a, Ranks.one, false);
 
             Assert.Throws<ApplicationException>(() => square.PieceColor());
 

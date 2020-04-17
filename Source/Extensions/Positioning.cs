@@ -16,8 +16,8 @@ namespace Mate.Extensions
         /// </summary>
         /// <param name="square"></param>
         /// <returns></returns>
-        public static Tuple<Files, Ranks> Position(this Square square) => 
-            Tuple.Create<Files, Ranks>(square.File, square.Rank);
+        public static Position Position(this Square square) => 
+            new Position(square.File, square.Rank);
 
 
         /// <summary>
@@ -26,8 +26,8 @@ namespace Mate.Extensions
         /// <typeparam name="T"><see cref="Files"/> or <see cref="Ranks"/>.</typeparam>
         /// <param name="square">Actual Square.</param>
         /// <param name="numberOfSquares">Number of squares moved.</param>
-        /// <returns>A tuple of <see cref="Files"/> and <see cref="Ranks"/>.</returns>
-        public static Tuple<Files, Ranks> MoveThrough<T>(this Square square, int numberOfSquares)
+        /// <returns></returns>
+        public static Position MoveThrough<T>(this Square square, int numberOfSquares)
         { 
             var newFile = (int)square.File;
             var newRank = (int)square.Rank;
@@ -49,7 +49,7 @@ namespace Mate.Extensions
                 return null;
 
 
-            return Tuple.Create<Files, Ranks>(
+            return new Position(
                 (Files)newFile,
                 (Ranks)newRank);
         }
@@ -61,7 +61,7 @@ namespace Mate.Extensions
         /// <param name="numberOfFiles">Number of <see cref="Files"/> moved.</param>
         /// <param name="numberOrRanks">Number of <see cref="Ranks"/> moved.</param>
         /// <returns>Returns <see cref="null"/> if invalid square.</returns>
-        public static Tuple<Files, Ranks> MovePlus(this Square square, int numberOfFiles, int numberOrRanks)
+        public static Position MovePlus(this Square square, int numberOfFiles, int numberOrRanks)
         {
             //TODO: Implement Move Method.
 
@@ -71,7 +71,7 @@ namespace Mate.Extensions
             if (newSquareFile == null || newSquareRank == null)
                 return null;
 
-            return Tuple.Create<Files, Ranks>(
+            return new Position(
                 newSquareFile.Item1, 
                 newSquareRank.Item2);
         }

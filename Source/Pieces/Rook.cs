@@ -12,9 +12,9 @@ namespace Mate.Pieces
         {
         }
 
-        public override List<Tuple<Files, Ranks>> AttackedSquares()
+        public override List<Position> AttackedSquares()
         {
-            var attacked = new List<Tuple<Files, Ranks>>();
+            var attacked = new List<Position>();
 
             if (this.PieceOnTheBoard())
             {
@@ -25,7 +25,7 @@ namespace Mate.Pieces
             return attacked;
         }
 
-        public override bool MoveTo(Tuple<Files, Ranks> tuple)
+        public override bool MoveTo(Position position)
         {
             throw new NotImplementedException();
         }

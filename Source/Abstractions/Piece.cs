@@ -17,9 +17,9 @@ namespace Mate.Abstractions
             Square = square;
         }
 
-        public abstract bool MoveTo(Tuple<Files, Ranks> tuple);
+        public abstract bool MoveTo(Position position);
 
-        public abstract List<Tuple<Files, Ranks>> AttackedSquares();
+        public abstract List<Position> AttackedSquares();
 
         public bool PieceOnTheBoard() => !(this.Square == null);
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 
 namespace Mate.Abstractions
@@ -35,10 +36,15 @@ namespace Mate.Abstractions
         }
 
         public Square(
-            Tuple<Files, Ranks> position, 
+            Position position, 
             bool color, Piece piece = null) 
-            : this(position.Item1, position.Item2, color, piece)
-        { }
+            : this(
+                  position.Item1, 
+                  position.Item2, 
+                  color, 
+                  piece)
+        {
+        }
 
         // TODO: Create method bool IsAttacked().
         // TODO: Create method List<> IsAttackedBy().
