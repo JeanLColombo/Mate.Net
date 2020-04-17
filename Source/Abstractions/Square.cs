@@ -33,7 +33,11 @@ namespace Mate.Abstractions
             Piece = piece;
         }
 
-
+        public Square(
+            Tuple<Definitions.Files, Definitions.Ranks> position, 
+            bool color, Piece piece = null) 
+            : this(position.Item1, position.Item2, color, piece)
+        { }
 
         // TODO: Create method bool IsAttacked().
         // TODO: Create method List<> IsAttackedBy().

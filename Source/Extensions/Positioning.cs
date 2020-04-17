@@ -52,6 +52,17 @@ namespace Mate.Extensions
                 (Definitions.Ranks)newRank);
         }
         
+        public static Tuple<Definitions.Files, Definitions.Ranks> Move(this Square square, int numberOfFiles, int numberOrRanks)
+        {
+            //TODO: Implement Move Method.
+
+            var newSquare = square.MoveThrough<Definitions.Files>(numberOfFiles);
+
+            if (newSquare == null)
+                return newSquare;
+
+            return newSquare;
+        }
 
     }
 }
