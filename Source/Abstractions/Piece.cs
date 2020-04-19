@@ -19,9 +19,9 @@ namespace Mate.Abstractions
 
         public abstract bool MoveTo(Position position);
 
-        public abstract List<Position> AttackedSquares();
+        public abstract List<Position> Attacks();
 
-        public bool PieceOnTheBoard() => !(this.Square == null);
+        public bool IsOnBoard() => !(this.Square == null);
 
         //TODO: Create Method bool UnderAttack().
         //TODO: Create Method List<> AttackedBy().

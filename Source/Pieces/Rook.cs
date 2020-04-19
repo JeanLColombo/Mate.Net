@@ -12,11 +12,11 @@ namespace Mate.Pieces
         {
         }
 
-        public override List<Position> AttackedSquares()
+        public override List<Position> Attacks()
         {
             var attacked = new List<Position>();
 
-            if (this.PieceOnTheBoard())
+            if (this.IsOnBoard())
             {
                 //TODO implement rook maneuverability
             }
