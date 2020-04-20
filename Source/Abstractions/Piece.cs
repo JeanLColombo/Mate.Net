@@ -11,20 +11,34 @@ namespace Mate.Abstractions
 
         public Square Square { get; set; }
 
+        internal HashSet<Piece> UnderAttack { get; set; }
+
+        internal HashSet<Piece> AttackedPieces { get; set; }
+
+        public readonly Player Player = null;
+
         public Piece(bool color, Square square = null) 
         {
             Color = color;
             Square = square;
+
         }
 
-        public abstract bool MoveTo(Position position);
+        public Piece(Player player, Square square = null) : this(player.Color,square) => Player = player;
 
-        public abstract List<Position> Attacks();
+        public IReadOnlyCollection<Piece> AttackedBy() => UnderAttack;
+
+        public IReadOnlyCollection<Piece> Attacks() => AttackedPieces;
 
         public bool IsOnBoard() => !(this.Square == null);
 
-        //TODO: Create Method bool UnderAttack().
-        //TODO: Create Method List<> AttackedBy().
+        public abstract bool MoveTo(Position position);
+
+        public abstract HashSet<Position> AttackedSquares();
+
+        //TODO: Check witch method belongs to extensions
+        //TODO: Check if HashSet private is best option.
+
 
     }
 }

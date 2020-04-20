@@ -12,9 +12,9 @@ namespace Mate.Pieces
         {
         }
 
-        public override List<Position> Attacks()
+        public override HashSet<Position> AttackedSquares()
         {
-            var attacked = new List<Position>();
+            var attacked = new HashSet<Position>();
 
             if (this.IsOnBoard())
             {

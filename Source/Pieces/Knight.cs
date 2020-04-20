@@ -1,6 +1,9 @@
 ﻿using Mate.Abstractions;
+using Mate.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Mate.Pieces
@@ -14,9 +17,9 @@ namespace Mate.Pieces
         {
         }
 
-        public override List<Position> Attacks()
+        public override HashSet<Position> AttackedSquares()
         {
-            List<Position> positions = new List<Position>();
+            HashSet<Position> positions = new HashSet<Position>();
 
             if (!this.IsOnBoard())
                 return positions;
@@ -25,9 +28,12 @@ namespace Mate.Pieces
             {
                 foreach (int two in twos)
                 {
-                        //TODO: Implemento horse maneuverability.
+                    positions.AddNullPosition(this.UpdateAttackersFrom(this.Square.MovePlus(one, two)));
+                    positions.AddNullPosition(this.UpdateAttackersFrom(this.Square.MovePlus(two, one)));
                 }
             }
+
+            //TODO: Unit test everything.
 
             return positions;
         }

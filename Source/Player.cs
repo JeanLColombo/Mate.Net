@@ -17,9 +17,13 @@ namespace Mate
 
         public readonly bool Color;
 
-        public Player(bool color)
+        public readonly Board Board;
+
+        public Player(bool color, Board board)
         {
             Color = color;
+            Board = board;
+
             Pieces = new List<Piece>();
             Captured = new List<Piece>();
         }

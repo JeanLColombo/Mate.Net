@@ -91,5 +91,33 @@ namespace Mate.Extensions
             return square.Piece.Color;
         }
 
+        /// <summary>
+        /// Updates <see cref="Piece.UnderAttack"/> and <see cref="Piece.AttackedPieces"/> from an attacked position.
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <param name="position">A new position based on <see cref="Piece"/> maneuverability.</param>
+        /// <returns></returns>
+        internal static Position UpdateAttackersFrom(this Piece piece, Position position)
+        {
+            if (position == null)
+                return position;
+
+            piece.Player.Board.Squares.TryGetValue(position, out Square square);
+
+            if (square.Empty())
+                return position;
+            else
+            {
+                if (square.PieceColor() != piece.Color)
+                {
+                    piece.AttackedPieces.Add(square.Piece);
+                    square.Piece.UnderAttack.Add(piece);
+                    return position;
+                }
+            }
+
+            return null;
+        }
+            
     }
 }
