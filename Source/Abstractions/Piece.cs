@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Mate.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using System.Linq;
 
 namespace Mate.Abstractions
 {
@@ -26,6 +28,17 @@ namespace Mate.Abstractions
 
         public Piece(Player player, Square square = null) : this(player.Color,square) => Player = player;
 
+        public Piece(Player player, Position position) : this(player)
+        {
+            Player.Board.Squares.TryGetValue(position, out Square square);
+
+            if (square.Occupied())
+                throw new ArgumentOutOfRangeException("Cannot create a piece over an occupied position.", nameof(position));
+
+            //TODO: Check if piece must see a Square or a Position.
+
+        }
+
         public IReadOnlyCollection<Piece> AttackedBy() => UnderAttack;
 
         public IReadOnlyCollection<Piece> Attacks() => AttackedPieces;
@@ -36,7 +49,7 @@ namespace Mate.Abstractions
 
         public abstract HashSet<Position> AttackedSquares();
 
-        //TODO: Check witch method belongs to extensions
+        //TODO: Check which method belongs to extensions
         //TODO: Check if HashSet private is best option.
 
 

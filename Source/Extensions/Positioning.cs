@@ -1,4 +1,5 @@
 ﻿using Mate.Abstractions;
+using Mate.Pieces;
 using System;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
@@ -117,6 +118,18 @@ namespace Mate.Extensions
             }
 
             return null;
+        }
+
+        public static Piece AddPieceToSet<TPiece>(this Player player, Square square = null)
+        {
+            if (!Helper.IsSameOrSubclass(typeof(Piece), typeof(TPiece)))
+                throw new ApplicationException("TPiece must inherit from Piece.");
+
+            //TPiece piece = new TPiece(player, square);
+
+            //return piece;
+
+            return new Knight(player);
         }
             
     }

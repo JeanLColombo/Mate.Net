@@ -17,6 +17,10 @@ namespace Mate.Pieces
         {
         }
 
+        public Knight(Player player, Square square = null) : base(player, square)
+        {
+        }
+
         public override HashSet<Position> AttackedSquares()
         {
             HashSet<Position> positions = new HashSet<Position>();
@@ -37,8 +41,6 @@ namespace Mate.Pieces
 
             return positions;
         }
-
-        //TODO: How to acess the board from the piece?
 
         public override bool MoveTo(Position position)
         {

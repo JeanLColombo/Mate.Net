@@ -22,5 +22,17 @@ namespace Mate.Extensions
 
             return true;
         }
+
+        /// <summary>
+        /// Checks if <paramref name="potentialDescendant"/> Inherits <paramref name="potentialBase"/>. For reference, check <see href="https://stackoverflow.com/questions/2742276/how-do-i-check-if-a-type-is-a-subtype-or-the-type-of-an-object">Stackoverflow</see>.
+        /// </summary>
+        /// <param name="potentialBase"></param>
+        /// <param name="potentialDescendant"></param>
+        /// <returns></returns>
+        public static bool IsSameOrSubclass(Type potentialBase, Type potentialDescendant)
+        {
+            return potentialDescendant.IsSubclassOf(potentialBase) ||
+                potentialDescendant == potentialBase;
+        }
     }
 }
