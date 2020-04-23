@@ -11,7 +11,7 @@ namespace Mate.Abstractions
     {
         public readonly bool Color;
 
-        public Square Square { get; set; }
+        public Position Position { get; set; }
 
         internal HashSet<Piece> UnderAttack { get; set; }
 
@@ -19,31 +19,37 @@ namespace Mate.Abstractions
 
         public readonly Player Player = null;
 
-        public Piece(bool color, Square square = null) 
+
+        public Piece(bool color, Position position = null)
         {
             Color = color;
-            Square = square;
-
+            Position = position;
         }
 
-        public Piece(Player player, Square square = null) : this(player.Color,square) => Player = player;
+        public Piece(bool color, Square square) 
+            : this(color, square.Position()) { }
 
-        public Piece(Player player, Position position) : this(player)
+
+        public Piece(Player player, Position position = null) : this(player.Color, position)
         {
-            Player.Board.Squares.TryGetValue(position, out Square square);
+            Player = player;
+            
 
-            if (square.Occupied())
-                throw new ArgumentOutOfRangeException("Cannot create a piece over an occupied position.", nameof(position));
+            if (position!=null)
+            {
+                Player.Board.Squares.TryGetValue(position, out Square square);
 
-            //TODO: Check if piece must see a Square or a Position.
-
+                if (!Player.Board.PositionIsEmpty(position))
+                    throw new ArgumentOutOfRangeException("Cannot create a piece over an occupied position.", nameof(position));
+            }
+            
         }
 
         public IReadOnlyCollection<Piece> AttackedBy() => UnderAttack;
 
         public IReadOnlyCollection<Piece> Attacks() => AttackedPieces;
 
-        public bool IsOnBoard() => !(this.Square == null);
+        public bool IsOnBoard() => !(this.Position == null);
 
         public abstract bool MoveTo(Position position);
 

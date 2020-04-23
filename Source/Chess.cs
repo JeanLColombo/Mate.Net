@@ -17,7 +17,7 @@ namespace Mate
         public Chess() 
         {
             WhitePieces = new Player(true, Board);
-            WhitePieces = new Player(false, Board);
+            BlackPieces = new Player(false, Board);
         }
     }
 }

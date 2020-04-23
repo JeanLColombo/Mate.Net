@@ -17,9 +17,8 @@ namespace Mate.Extensions
         /// </summary>
         /// <param name="square"></param>
         /// <returns></returns>
-        public static Position Position(this Square square) => 
-            new Position(square.File, square.Rank);
-
+        public static Position Position(this Square square) => new Position(square.File, square.Rank);
+        
 
         /// <summary>
         /// Move along the <see cref="Files"/> or <see cref="Ranks"/> from a certain <paramref name="square"/> position.
@@ -84,6 +83,13 @@ namespace Mate.Extensions
 
         public static bool Occupied(this Square square) => !square.Empty();
 
+        public static bool PositionIsEmpty(this Board board, Position position)
+        {
+            board.Squares.TryGetValue(position, out Square square);
+            return square.Empty();
+
+        }
+            
         public static bool PieceColor(this Square square)
         {
             if (square.Empty())
@@ -120,16 +126,21 @@ namespace Mate.Extensions
             return null;
         }
 
-        public static Piece AddPieceToSet<TPiece>(this Player player, Square square = null)
+        /// <summary>
+        /// Get <see cref="Square"/> based on <see cref="Piece.Position"/>. 
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
+        public static Square GetSquare(this Piece piece)
         {
-            if (!Helper.IsSameOrSubclass(typeof(Piece), typeof(TPiece)))
-                throw new ApplicationException("TPiece must inherit from Piece.");
+            if (!piece.IsOnBoard() || piece.Player == null)
+                return null;
 
-            //TPiece piece = new TPiece(player, square);
+            //TODO: Check if null return is optimal. Maybe exception?
 
-            //return piece;
+            piece.Player.Board.Squares.TryGetValue(piece.Position, out Square square);
 
-            return new Knight(player);
+            return square;
         }
             
     }

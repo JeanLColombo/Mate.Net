@@ -13,13 +13,9 @@ namespace Mate.Pieces
         private int[] ones = { 1, -1 };
         private int[] twos = { 2, -2 };
 
-        public Knight(bool color, Square square = null) : base(color, square)
-        {
-        }
+        public Knight(bool color, Position position = null) : base(color, position) { }
 
-        public Knight(Player player, Square square = null) : base(player, square)
-        {
-        }
+        public Knight(Player player, Position position = null) : base(player, position) { }
 
         public override HashSet<Position> AttackedSquares()
         {
@@ -32,8 +28,8 @@ namespace Mate.Pieces
             {
                 foreach (int two in twos)
                 {
-                    positions.AddNullPosition(this.UpdateAttackersFrom(this.Square.MovePlus(one, two)));
-                    positions.AddNullPosition(this.UpdateAttackersFrom(this.Square.MovePlus(two, one)));
+                    positions.AddNullPosition(this.UpdateAttackersFrom(this.GetSquare().MovePlus(one, two)));
+                    positions.AddNullPosition(this.UpdateAttackersFrom(this.GetSquare().MovePlus(two, one)));
                 }
             }
 
