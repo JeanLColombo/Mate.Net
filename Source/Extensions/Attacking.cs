@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Mate.Pieces;
 using Mate.Abstractions;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Mate.Net.UT")]
 
 namespace Mate.Extensions
 {
@@ -53,20 +56,22 @@ namespace Mate.Extensions
 
             switch (direction)
             {
-                case Direction.File:
+                case Direction.Files:
                     if (positions.AddPosition(piece.UpdateAttackersFrom(piece.GetSquare().MoveThrough<Files>(numberOfSquares))) &&
                         (attackerCount == piece.AttackedPieces.Count) &&
                         notKing)
                     {
-                        positions.UnionWith(piece.AttackThrough(direction, numberOfSquares + 1));
+                        numberOfSquares += Math.Sign(numberOfSquares);
+                        positions.UnionWith(piece.AttackThrough(direction, numberOfSquares));
                     }
                     break;
-                case Direction.Rank:
+                case Direction.Ranks:
                     if (positions.AddPosition(piece.UpdateAttackersFrom(piece.GetSquare().MoveThrough<Ranks>(numberOfSquares))) &&
                         (attackerCount == piece.AttackedPieces.Count) &&
                         notKing)
                     {
-                        positions.UnionWith(piece.AttackThrough(direction, numberOfSquares + 1));
+                        numberOfSquares += Math.Sign(numberOfSquares);
+                        positions.UnionWith(piece.AttackThrough(direction, numberOfSquares));
                     }
                     break;
                 case Direction.MainDiagonal:
@@ -74,7 +79,8 @@ namespace Mate.Extensions
                         (attackerCount == piece.AttackedPieces.Count) &&
                         notKing)
                     {
-                        positions.UnionWith(piece.AttackThrough(direction, numberOfSquares + 1));
+                        numberOfSquares += Math.Sign(numberOfSquares);
+                        positions.UnionWith(piece.AttackThrough(direction, numberOfSquares));
                     }
                     break;
                 case Direction.OppositeDiagonal:
@@ -82,7 +88,8 @@ namespace Mate.Extensions
                         (attackerCount == piece.AttackedPieces.Count) &&
                         notKing)
                     {
-                        positions.UnionWith(piece.AttackThrough(direction, numberOfSquares + 1));
+                        numberOfSquares += Math.Sign(numberOfSquares);
+                        positions.UnionWith(piece.AttackThrough(direction, numberOfSquares));
                     }
                     break;
                 default:

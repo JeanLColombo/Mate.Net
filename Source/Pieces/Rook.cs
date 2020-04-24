@@ -19,10 +19,10 @@ namespace Mate.Pieces
             if (this.IsOnBoard())
                 return positions;
 
-            positions.UnionWith(this.AttackThrough(Direction.File, 1));
-            positions.UnionWith(this.AttackThrough(Direction.File, -1));
-            positions.UnionWith(this.AttackThrough(Direction.Rank, 1));
-            positions.UnionWith(this.AttackThrough(Direction.Rank, -1));
+            positions.UnionWith(this.AttackThrough(Direction.Files, 1));
+            positions.UnionWith(this.AttackThrough(Direction.Files, -1));
+            positions.UnionWith(this.AttackThrough(Direction.Ranks, 1));
+            positions.UnionWith(this.AttackThrough(Direction.Ranks, -1));
 
             return positions;
         }

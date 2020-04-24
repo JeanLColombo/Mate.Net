@@ -44,8 +44,8 @@ namespace Mate.Abstractions
 
     public enum Direction
     {
-        File = 0,
-        Rank = 1,
+        Files = 0,
+        Ranks = 1,
         MainDiagonal = 2,
         OppositeDiagonal = 3
     }
