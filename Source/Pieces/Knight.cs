@@ -33,11 +33,11 @@ namespace Mate.Pieces
                 }
             }
 
-            //TODO: Unit test everything.
-
             return positions;
         }
 
+
+        //TODO: Implement MoveTo
         public override bool MoveTo(Position position)
         {
             throw new NotImplementedException();

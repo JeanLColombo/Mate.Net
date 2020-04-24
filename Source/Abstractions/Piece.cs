@@ -13,9 +13,9 @@ namespace Mate.Abstractions
 
         public Position Position { get; set; }
 
-        internal HashSet<Piece> UnderAttack { get; set; }
+        internal HashSet<Piece> UnderAttack { get; set; } = new HashSet<Piece>();
 
-        internal HashSet<Piece> AttackedPieces { get; set; }
+        internal HashSet<Piece> AttackedPieces { get; set; } = new HashSet<Piece>();
 
         public readonly Player Player = null;
 

@@ -10,7 +10,10 @@ namespace Mate.Extensions
     public static class PieceSetup
     {
         /// <summary>
-        /// Add a new <typeparamref name="TPiece"/> : <see cref="Piece"/> to a <see cref="Player"/> set. Snippet of code acquired from <see href="https://stackoverflow.com/questions/731452/create-instance-of-generic-type-whose-constructor-requires-a-parameter">StackOverlfow</see>.
+        /// Add a new <typeparamref name="TPiece"/> : <see cref="Piece"/> to a <see cref="Player"/> set. 
+        /// Snippet of code acquired from 
+        /// <see href="https://stackoverflow.com/questions/731452/create-instance-of-generic-type-whose-constructor-requires-a-parameter">
+        /// StackOverlfow</see>.
         /// </summary>
         /// <typeparam name="TPiece">Type of the <see cref="Piece"/> created.</typeparam>
         /// <param name="player"><see cref="Piece.Color"/> will be the same as <see cref="Player.Color"/>.</param>

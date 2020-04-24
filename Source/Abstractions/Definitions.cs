@@ -44,8 +44,11 @@ namespace Mate.Abstractions
 
     public class Position : Tuple<Files, Ranks>
     {
-        public Position(Files file, Ranks rank) : base(file, rank)
-        {
-        }
+        public Position(Files file, Ranks rank) : base(file, rank) { }
+
+        public bool SamePosition(Position position)
+          => (this.Item1 == position.Item1 && this.Item2 == position.Item2);
+
+
     }
 }
