@@ -27,7 +27,7 @@ namespace Mate.Abstractions
         }
 
         public Piece(bool color, Square square) 
-            : this(color, square.Position()) { }
+            : this(color, square.GetPosition()) { }
 
 
         public Piece(Player player, Position position = null) : this(player.Color, position)

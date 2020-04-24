@@ -17,7 +17,7 @@ namespace Mate.Extensions
         /// </summary>
         /// <param name="square"></param>
         /// <returns></returns>
-        public static Position Position(this Square square) => new Position(square.File, square.Rank);
+        public static Position GetPosition(this Square square) => new Position(square.File, square.Rank);
         
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Mate.Extensions
 
 
             if (numberOfSquares == 0)
-                return square.Position();
+                return square.GetPosition();
 
 
             if (!Enum.IsDefined(typeof(T), newFile) || !Enum.IsDefined(typeof(T),newRank))
@@ -99,34 +99,6 @@ namespace Mate.Extensions
         }
 
         /// <summary>
-        /// Updates <see cref="Piece.UnderAttack"/> and <see cref="Piece.AttackedPieces"/> from an attacked position.
-        /// </summary>
-        /// <param name="piece"></param>
-        /// <param name="position">A new position based on <see cref="Piece"/> maneuverability.</param>
-        /// <returns></returns>
-        internal static Position UpdateAttackersFrom(this Piece piece, Position position)
-        {
-            if (position == null)
-                return position;
-
-            piece.Player.Board.Squares.TryGetValue(position, out Square square);
-
-            if (square.Empty())
-                return position;
-            else
-            {
-                if (square.PieceColor() != piece.Color)
-                {
-                    piece.AttackedPieces.Add(square.Piece);
-                    square.Piece.UnderAttack.Add(piece);
-                    return position;
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// Get <see cref="Square"/> based on <see cref="Piece.Position"/>. 
         /// </summary>
         /// <param name="piece"></param>
@@ -142,6 +114,6 @@ namespace Mate.Extensions
 
             return square;
         }
-            
+
     }
 }

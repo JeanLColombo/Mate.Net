@@ -13,7 +13,7 @@ namespace Mate.Extensions
         /// <param name="positions"></param>
         /// <param name="position"></param>
         /// <returns></returns>
-        public static bool AddNullPosition(this HashSet<Position> positions, Position position)
+        public static bool AddPosition(this HashSet<Position> positions, Position position)
         {
             if (position == null)
                 return false;

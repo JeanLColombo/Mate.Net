@@ -42,6 +42,14 @@ namespace Mate.Abstractions
         MateBlack = 8
     }
 
+    public enum Direction
+    {
+        File = 0,
+        Rank = 1,
+        MainDiagonal = 2,
+        OppositeDiagonal = 3
+    }
+
     public class Position : Tuple<Files, Ranks>
     {
         public Position(Files file, Ranks rank) : base(file, rank) { }

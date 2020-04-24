@@ -28,8 +28,8 @@ namespace Mate.Pieces
             {
                 foreach (int two in twos)
                 {
-                    positions.AddNullPosition(this.UpdateAttackersFrom(this.GetSquare().MovePlus(one, two)));
-                    positions.AddNullPosition(this.UpdateAttackersFrom(this.GetSquare().MovePlus(two, one)));
+                    positions.AddPosition(this.UpdateAttackersFrom(this.GetSquare().MovePlus(one, two)));
+                    positions.AddPosition(this.UpdateAttackersFrom(this.GetSquare().MovePlus(two, one)));
                 }
             }
 

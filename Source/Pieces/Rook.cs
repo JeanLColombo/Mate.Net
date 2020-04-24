@@ -19,9 +19,10 @@ namespace Mate.Pieces
             if (this.IsOnBoard())
                 return positions;
 
-
-            positions.AddNullPosition(this.UpdateAttackersFrom(this.GetSquare().MoveThrough<Files>(1)));
-
+            positions.UnionWith(this.AttackThrough(Direction.File, 1));
+            positions.UnionWith(this.AttackThrough(Direction.File, -1));
+            positions.UnionWith(this.AttackThrough(Direction.Rank, 1));
+            positions.UnionWith(this.AttackThrough(Direction.Rank, -1));
 
             return positions;
         }
@@ -31,25 +32,6 @@ namespace Mate.Pieces
             throw new NotImplementedException();
         }
 
-        private HashSet<Position> MoveUp(int numberOfSquares = 1)
-        {
-            var positions = new HashSet<Position>();
-
-            //TODO: Not so simple. If is occupied by opposing piece, it has to stop!
-            if (
-                positions.AddNullPosition(this.UpdateAttackersFrom(this.GetSquare().MoveThrough<Files>(numberOfSquares)))       || 
-                positions.AddNullPosition(this.UpdateAttackersFrom(this.GetSquare().MoveThrough<Files>(-numberOfSquares)))      ||
-                positions.AddNullPosition(this.UpdateAttackersFrom(this.GetSquare().MoveThrough<Ranks>(numberOfSquares)))       ||
-                positions.AddNullPosition(this.UpdateAttackersFrom(this.GetSquare().MoveThrough<Ranks>(-numberOfSquares))) 
-                )
-            {
-                positions.UnionWith(MoveUp(++numberOfSquares));
-            }
-
-
-
-            return positions;
-
-        }
+        
     }
 }
