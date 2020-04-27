@@ -16,13 +16,13 @@ namespace Mate.Pieces
         {
             var positions = new HashSet<Position>();
 
-            if (this.IsOnBoard())
+            if (!this.IsOnBoard())
                 return positions;
 
-            positions.UnionWith(this.AttackThrough(Direction.Files, 1));
-            positions.UnionWith(this.AttackThrough(Direction.Files, -1));
-            positions.UnionWith(this.AttackThrough(Direction.Ranks, 1));
-            positions.UnionWith(this.AttackThrough(Direction.Ranks, -1));
+            positions.UnionWith(this.AttackThrough(Direction.Files, true));
+            positions.UnionWith(this.AttackThrough(Direction.Files, false));
+            positions.UnionWith(this.AttackThrough(Direction.Ranks, true));
+            positions.UnionWith(this.AttackThrough(Direction.Ranks, false));
 
             return positions;
         }

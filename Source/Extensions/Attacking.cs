@@ -42,11 +42,26 @@ namespace Mate.Extensions
         /// <summary>
         /// Get a <see cref="HashSet{T}"/> of <see cref="Position"/> relative to a <see cref="Piece"/> attacking through a certain <see cref="Direction"/>.
         /// </summary>
+        /// <param name="piece">Attacking <see cref="Piece"/></param>
+        /// <param name="direction">Attack <see cref="Direction"/></param>
+        /// <param name="orientation">Attacking orientation (if <see cref="true"/> attack through the positive orientation).</param>
+        /// <returns></returns>
+        internal static HashSet<Position> AttackThrough(this Piece piece, Direction direction, bool orientation)
+        {
+            if (orientation)
+                return piece.AttackThroughInternalLogic(direction, 1);
+            else
+                return piece.AttackThroughInternalLogic(direction, -1);
+        }
+
+        /// <summary>
+        /// Internal logic for <see cref="AttackThrough(Piece, Direction, bool)"/>
+        /// </summary>
         /// <param name="piece">Attacking <see cref="Piece"/>.</param>
         /// <param name="direction">Attack <see cref="Direction"/>.</param>
         /// <param name="numberOfSquares">Number of <see cref="Square"/>'s.</param>
         /// <returns></returns>
-        internal static HashSet<Position> AttackThrough(this Piece piece, Direction direction, int numberOfSquares = 1)
+        private static HashSet<Position> AttackThroughInternalLogic(this Piece piece, Direction direction, int numberOfSquares)
         {
             var positions = new HashSet<Position>();
 
@@ -62,7 +77,7 @@ namespace Mate.Extensions
                         notKing)
                     {
                         numberOfSquares += Math.Sign(numberOfSquares);
-                        positions.UnionWith(piece.AttackThrough(direction, numberOfSquares));
+                        positions.UnionWith(piece.AttackThroughInternalLogic(direction, numberOfSquares));
                     }
                     break;
                 case Direction.Ranks:
@@ -71,7 +86,7 @@ namespace Mate.Extensions
                         notKing)
                     {
                         numberOfSquares += Math.Sign(numberOfSquares);
-                        positions.UnionWith(piece.AttackThrough(direction, numberOfSquares));
+                        positions.UnionWith(piece.AttackThroughInternalLogic(direction, numberOfSquares));
                     }
                     break;
                 case Direction.MainDiagonal:
@@ -80,7 +95,7 @@ namespace Mate.Extensions
                         notKing)
                     {
                         numberOfSquares += Math.Sign(numberOfSquares);
-                        positions.UnionWith(piece.AttackThrough(direction, numberOfSquares));
+                        positions.UnionWith(piece.AttackThroughInternalLogic(direction, numberOfSquares));
                     }
                     break;
                 case Direction.OppositeDiagonal:
@@ -89,17 +104,14 @@ namespace Mate.Extensions
                         notKing)
                     {
                         numberOfSquares += Math.Sign(numberOfSquares);
-                        positions.UnionWith(piece.AttackThrough(direction, numberOfSquares));
+                        positions.UnionWith(piece.AttackThroughInternalLogic(direction, numberOfSquares));
                     }
                     break;
                 default:
                     break;
             }
 
-            //TODO: Unit Test this beauty.
-
             return positions;
-
         }
     }
 }

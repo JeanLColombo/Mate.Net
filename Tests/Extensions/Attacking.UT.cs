@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using System.Linq;
+using Mate.Pieces;
 
 namespace Mate.UT.Extensions
 {
@@ -22,12 +23,12 @@ namespace Mate.UT.Extensions
             var piece0 = (MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(0);
             var piece1 = (MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(1);
 
-            var positions = piece0.GetManeuvers(Direction.Files);
+            var positions = piece0.GetManeuvers(Direction.Files, true);
 
             Assert.Equal(6, positions.Count);
             Assert.Contains<Position>(new Position(Files.b, Ranks.one), positions);
 
-            Assert.Empty(piece1.GetManeuvers(Direction.Files));
+            Assert.Empty(piece1.GetManeuvers(Direction.Files, true));
 
         }
 
@@ -41,7 +42,7 @@ namespace Mate.UT.Extensions
             var whitePiece = (MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(0);
             var blackPiece = (MockedPiece)chess.WhitePieces.Pieces.ElementAt<Piece>(0);
 
-            var positions = whitePiece.GetManeuvers(Direction.Ranks);
+            var positions = whitePiece.GetManeuvers(Direction.Ranks, true);
 
             Assert.Equal(2, positions.Count);
             Assert.Contains<Position>(new Position(Files.a, Ranks.three), positions);
@@ -57,8 +58,8 @@ namespace Mate.UT.Extensions
             var chess = new Chess();
             chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.e, Ranks.five));
 
-            var positions1 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(0)).GetManeuvers(Direction.MainDiagonal);
-            var positions2 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(0)).GetManeuvers(Direction.MainDiagonal, -1);
+            var positions1 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(0)).GetManeuvers(Direction.MainDiagonal, true);
+            var positions2 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(0)).GetManeuvers(Direction.MainDiagonal, false);
 
             Assert.Equal(3, positions1.Count);
             Assert.Contains<Position>(new Position(Files.h, Ranks.eigth), positions1);
@@ -67,6 +68,33 @@ namespace Mate.UT.Extensions
             Assert.Contains<Position>(new Position(Files.a, Ranks.one), positions2);
         }
 
+        [Fact]
+        public void AttackingThroughOppositeDiagonal()
+        {
+            var chess = new Chess();
+            chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.d, Ranks.five));
+
+            var positions1 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(0)).GetManeuvers(Direction.OppositeDiagonal, true);
+            var positions2 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(0)).GetManeuvers(Direction.OppositeDiagonal, false);
+
+            Assert.Equal(3, positions1.Count);
+            Assert.Contains<Position>(new Position(Files.a, Ranks.eigth), positions1);
+
+            Assert.Equal(4, positions2.Count);
+            Assert.Contains<Position>(new Position(Files.h, Ranks.one), positions2);
+        }
+
+        [Fact]
+        public void KingLimitedToOneSquare()
+        {
+            var chess = new Chess();
+            chess.WhitePieces.AddPiece<King>(new Position(Files.a, Ranks.one));
+
+            var positions = ((King)chess.WhitePieces.Pieces.ElementAt<Piece>(0)).AttackThrough(Direction.Files, true);
+
+            Assert.Single(positions);
+            Assert.Contains<Position>(new Position(Files.b, Ranks.one), positions);
+        }
 
 
     }

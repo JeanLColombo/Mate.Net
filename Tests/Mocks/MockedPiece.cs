@@ -13,11 +13,11 @@ namespace Mate.UT.Mocks
         {
         }
 
-        public HashSet<Position> GetManeuvers(Direction direction, int numberOfSquares = 1)
+        public HashSet<Position> GetManeuvers(Direction direction, bool orientation)
         {
             var positions = new HashSet<Position>();
 
-            positions.UnionWith(this.AttackThrough(direction, numberOfSquares));
+            positions.UnionWith(this.AttackThrough(direction, orientation));
             
             return positions;
         }
