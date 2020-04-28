@@ -1,4 +1,5 @@
 ﻿using Mate.Abstractions;
+using Mate.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,13 +8,35 @@ namespace Mate.Pieces
 {
     public class King : Piece
     {
+
+        //TODO: Implement check logic;
+        //TODO: Implement impossible movements;
+
+        public bool Checked { get; internal set; } = false;
+
+
         public King(Player player, Position position = null) : base(player, position)
+        {
+        }
+
+        public King(bool color, Position position = null) : base(color, position)
         {
         }
 
         public override HashSet<Position> AttackedSquares()
         {
-            throw new NotImplementedException();
+            var positions = new HashSet<Position>();
+
+            if (!this.IsOnBoard())
+                return positions;
+
+            foreach (Direction direction in Enum.GetValues(typeof(Direction)))
+            {
+                positions.UnionWith(this.AttackThrough(direction, true));
+                positions.UnionWith(this.AttackThrough(direction, false));
+            }
+
+            return positions;
         }
 
         public override bool MoveTo(Position position)

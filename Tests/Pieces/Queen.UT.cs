@@ -14,21 +14,21 @@ namespace Mate.UT.Pieces
         [Fact]
         public void QueenOffTheBoard()
         {
-            var knight = new Queen(true);
+            var queen = new Queen(true);
 
-            var positions = knight.AttackedSquares();
+            var positions = queen.AttackedSquares();
             Assert.Empty(positions);
         }
 
         [Fact]
-        public void RookAttackedSquares()
+        public void QueenAttackedSquares()
         {
             var chess = new Chess();
             chess.WhitePieces.AddPiece<Queen>(new Position(Files.d, Ranks.one));
 
-            var rook = chess.WhitePieces.Pieces.ElementAt(0);
+            var queen = chess.WhitePieces.Pieces.ElementAt(0);
 
-            var positions = rook.AttackedSquares();
+            var positions = queen.AttackedSquares();
 
             Assert.Equal(21, positions.Count);
             Assert.Contains(new Position(Files.a, Ranks.one), positions);
