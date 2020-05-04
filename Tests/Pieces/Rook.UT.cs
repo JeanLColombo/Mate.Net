@@ -25,15 +25,15 @@ namespace Mate.UT.Pieces
         public void RookAttackedSquares()
         {
             var chess = new Chess();
-            chess.WhitePieces.AddPiece<Rook>(new Position(Files.e, Ranks.four));
+            chess.WhitePieces.AddPiece<Rook>(new Position(Files.d, Ranks.four));
 
-            var rook = chess.WhitePieces.Pieces.ElementAt(0);
+            var rook = chess.WhitePieces.Pieces.ElementAt(1);
 
             var positions = rook.AttackedSquares();
 
             Assert.Equal(14, positions.Count);
-            Assert.Contains(new Position(Files.e, Ranks.one), positions);
-            Assert.Contains(new Position(Files.e, Ranks.eigth), positions);
+            Assert.Contains(new Position(Files.d, Ranks.one), positions);
+            Assert.Contains(new Position(Files.d, Ranks.eigth), positions);
             Assert.Contains(new Position(Files.a, Ranks.four), positions);
             Assert.Contains(new Position(Files.h, Ranks.four), positions);
 

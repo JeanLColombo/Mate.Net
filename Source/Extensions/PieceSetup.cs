@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Mate.Abstractions;
+using Mate.Pieces;
 
 namespace Mate.Extensions
 {
@@ -31,6 +32,38 @@ namespace Mate.Extensions
             square.Piece = piece;
 
             player.Pieces.Add(piece);
+
+            return true;
+        }
+
+        internal static bool StandardSetup(this Player player)
+        {
+            if (player.Pieces.Count > 1)
+            {
+                throw new ApplicationException("Player pieces already initialized!");
+            }
+
+            player.StandardPawnPlacement();
+
+
+            return true;
+            //TODO: Implement this method;
+        }
+
+        /// <summary>
+        /// Properly place pawns in their standard positions.
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        internal static bool StandardPawnPlacement(this Player player)
+        {
+            Ranks rank = player.Color ? Ranks.two : Ranks.seven;
+
+            foreach (Files file in Enum.GetValues(typeof(Files)))
+            {
+                if (!player.AddPiece<Pawn>(new Position(file, rank)))
+                    return false;
+            }
 
             return true;
         }

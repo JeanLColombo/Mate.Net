@@ -17,16 +17,16 @@ namespace Mate.UT.Extensions
         public void AttackingThroughFiles()
         {
             var chess = new Chess();
-            chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.one));
-            chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.h, Ranks.one));
+            chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.two));
+            chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.h, Ranks.two));
 
-            var piece0 = (MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(0);
-            var piece1 = (MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(1);
+            var piece0 = (MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(1);
+            var piece1 = (MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(2);
 
             var positions = piece0.GetManeuvers(Direction.Files, true);
 
             Assert.Equal(6, positions.Count);
-            Assert.Contains<Position>(new Position(Files.b, Ranks.one), positions);
+            Assert.Contains<Position>(new Position(Files.b, Ranks.two), positions);
 
             Assert.Empty(piece1.GetManeuvers(Direction.Files, true));
 
@@ -39,8 +39,8 @@ namespace Mate.UT.Extensions
             chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.one));
             chess.WhitePieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.three));
 
-            var whitePiece = (MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(0);
-            var blackPiece = (MockedPiece)chess.WhitePieces.Pieces.ElementAt<Piece>(0);
+            var whitePiece = (MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(1);
+            var blackPiece = (MockedPiece)chess.WhitePieces.Pieces.ElementAt<Piece>(1);
 
             var positions = whitePiece.GetManeuvers(Direction.Ranks, true);
 
@@ -58,8 +58,8 @@ namespace Mate.UT.Extensions
             var chess = new Chess();
             chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.e, Ranks.five));
 
-            var positions1 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(0)).GetManeuvers(Direction.MainDiagonal, true);
-            var positions2 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(0)).GetManeuvers(Direction.MainDiagonal, false);
+            var positions1 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(1)).GetManeuvers(Direction.MainDiagonal, true);
+            var positions2 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(1)).GetManeuvers(Direction.MainDiagonal, false);
 
             Assert.Equal(3, positions1.Count);
             Assert.Contains<Position>(new Position(Files.h, Ranks.eigth), positions1);
@@ -74,8 +74,8 @@ namespace Mate.UT.Extensions
             var chess = new Chess();
             chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.d, Ranks.five));
 
-            var positions1 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(0)).GetManeuvers(Direction.OppositeDiagonal, true);
-            var positions2 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(0)).GetManeuvers(Direction.OppositeDiagonal, false);
+            var positions1 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(1)).GetManeuvers(Direction.OppositeDiagonal, true);
+            var positions2 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(1)).GetManeuvers(Direction.OppositeDiagonal, false);
 
             Assert.Equal(3, positions1.Count);
             Assert.Contains<Position>(new Position(Files.a, Ranks.eigth), positions1);
@@ -90,7 +90,7 @@ namespace Mate.UT.Extensions
             var chess = new Chess();
             chess.WhitePieces.AddPiece<King>(new Position(Files.a, Ranks.one));
 
-            var positions = ((King)chess.WhitePieces.Pieces.ElementAt<Piece>(0)).AttackThrough(Direction.Files, true);
+            var positions = ((King)chess.WhitePieces.Pieces.ElementAt<Piece>(1)).AttackThrough(Direction.Files, true);
 
             Assert.Single(positions);
             Assert.Contains<Position>(new Position(Files.b, Ranks.one), positions);

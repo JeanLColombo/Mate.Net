@@ -28,25 +28,25 @@ namespace Mate.UT.Pieces
         public void KnightOnTheCenter()
         {
             var chess = new Chess();
-            chess.WhitePieces.AddPiece<Knight>(new Position(Files.f, Ranks.three));
+            chess.WhitePieces.AddPiece<Knight>(new Position(Files.c, Ranks.three));
 
-            var piece = chess.WhitePieces.Pieces.ElementAt<Piece>(0);
+            var piece = chess.WhitePieces.Pieces.ElementAt(1);
             var positions = piece.AttackedSquares();
 
             Assert.NotEmpty(positions);
             Assert.Equal(8, positions.Count);
 
-            Assert.Contains(new Position(Files.d, Ranks.two), positions);
-            Assert.Contains(new Position(Files.d, Ranks.four), positions);
+            Assert.Contains(new Position(Files.a, Ranks.two), positions);
+            Assert.Contains(new Position(Files.a, Ranks.four), positions);
 
-            Assert.Contains(new Position(Files.e, Ranks.one), positions);
-            Assert.Contains(new Position(Files.e, Ranks.five), positions);
+            Assert.Contains(new Position(Files.b, Ranks.one), positions);
+            Assert.Contains(new Position(Files.b, Ranks.five), positions);
 
-            Assert.Contains(new Position(Files.g, Ranks.one), positions);
-            Assert.Contains(new Position(Files.g, Ranks.five), positions);
+            Assert.Contains(new Position(Files.d, Ranks.one), positions);
+            Assert.Contains(new Position(Files.d, Ranks.five), positions);
 
-            Assert.Contains(new Position(Files.h, Ranks.two), positions);
-            Assert.Contains(new Position(Files.h, Ranks.four), positions);
+            Assert.Contains(new Position(Files.e, Ranks.two), positions);
+            Assert.Contains(new Position(Files.e, Ranks.four), positions);
 
             Assert.Empty(piece.AttackedBy());
             Assert.Empty(piece.Attacks());
@@ -59,7 +59,7 @@ namespace Mate.UT.Pieces
             var chess = new Chess();
             chess.WhitePieces.AddPiece<Knight>(new Position(Files.a, Ranks.one));
 
-            var piece = chess.WhitePieces.Pieces.ElementAt<Piece>(0);
+            var piece = chess.WhitePieces.Pieces.ElementAt<Piece>(1);
             var positions = piece.AttackedSquares();
 
             Assert.Equal(2, positions.Count);
@@ -83,11 +83,11 @@ namespace Mate.UT.Pieces
 
             chess.BlackPieces.AddPiece<Knight>(new Position(Files.d, Ranks.three));
             
-            var whiteKnight0 = chess.WhitePieces.Pieces.ElementAt<Piece>(0);
+            var whiteKnight0 = chess.WhitePieces.Pieces.ElementAt<Piece>(1);
 
-            var whiteKnight1 = chess.WhitePieces.Pieces.ElementAt<Piece>(1);
+            var whiteKnight1 = chess.WhitePieces.Pieces.ElementAt<Piece>(2);
 
-            var blackKnight = chess.BlackPieces.Pieces.ElementAt<Piece>(0);
+            var blackKnight = chess.BlackPieces.Pieces.ElementAt<Piece>(1);
 
             Assert.Equal(7, whiteKnight0.AttackedSquares().Count);
             Assert.Equal(7, whiteKnight1.AttackedSquares().Count);

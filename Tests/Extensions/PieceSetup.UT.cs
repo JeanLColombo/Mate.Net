@@ -18,12 +18,11 @@ namespace Mate.UT.Extensions
 
             var whitePieces = chess.WhitePieces.Pieces;
 
-            Assert.Empty(whitePieces);
+            Assert.Single(whitePieces);
 
             Assert.True(chess.WhitePieces.AddPiece<Knight>(new Position(Files.f, Ranks.three)));
 
-            Assert.NotEmpty(whitePieces);
-            Assert.True(1 == whitePieces.Count);
+            Assert.True(2 == whitePieces.Count);
 
         }
 
@@ -41,7 +40,7 @@ namespace Mate.UT.Extensions
             Assert.False(chess.WhitePieces.AddPiece<Knight>(position));
             Assert.False(chess.BlackPieces.AddPiece<Knight>(position));
 
-            Assert.True(1 == whitePieces.Count);
+            Assert.True(2 == whitePieces.Count);
 
 
         }
