@@ -25,6 +25,8 @@ namespace Mate.UT.Pieces
         {
             var chess = new Chess();
 
+            Assert.True(chess.WhitePieces.AddKing());
+
             var positions = chess.WhitePieces.King.AttackedSquares();
 
             Assert.Equal(5, positions.Count);

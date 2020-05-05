@@ -27,7 +27,7 @@ namespace Mate.UT.Pieces
             var chess = new Chess();
             chess.WhitePieces.AddPiece<Rook>(new Position(Files.d, Ranks.four));
 
-            var rook = chess.WhitePieces.Pieces.ElementAt(1);
+            var rook = chess.WhitePieces.Pieces.ElementAt(0);
 
             var positions = rook.AttackedSquares();
 

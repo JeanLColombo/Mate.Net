@@ -22,7 +22,7 @@ namespace Mate
 
         public readonly Board Board;
 
-        public readonly King King;
+        public King King { get; internal set; } = null;
 
         public Player(bool color, Board board, Position kingPosition = null)
         {
@@ -31,30 +31,11 @@ namespace Mate
 
             Pieces = new List<Piece>();
             Captured = new List<Piece>();
-
-            King = AddKing(kingPosition);
-        }
-
-        private King AddKing(Position position)
-        {
-            if (position == null)
-                this.AddPiece<King>(KingPositionByColor());
-            else
-                this.AddPiece<King>(position);
-
-            return (King)Pieces.Last();
-        }
-
-
-        private Position KingPositionByColor()
-        {
-            return Color ? 
-                new Position(Files.e, Ranks.one) : 
-                new Position(Files.e, Ranks.eigth);
         }
 
         public void UpdateAttackers()
         {
+            //TODO: Send to an extension.
             foreach (Piece piece in Pieces)
             {
                 piece.AttackedSquares();

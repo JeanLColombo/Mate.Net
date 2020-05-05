@@ -12,8 +12,6 @@ namespace Mate.Pieces
         //TODO: Implement check logic;
         //TODO: Implement impossible movements;
 
-        public bool Checked { get; internal set; } = false;
-
 
         public King(Player player, Position position = null) : base(player, position)
         {

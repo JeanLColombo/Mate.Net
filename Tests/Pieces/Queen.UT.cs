@@ -26,14 +26,15 @@ namespace Mate.UT.Pieces
             var chess = new Chess();
             chess.WhitePieces.AddPiece<Queen>(new Position(Files.d, Ranks.one));
 
-            var queen = chess.WhitePieces.Pieces.ElementAt(1);
+            var queen = chess.WhitePieces.Pieces.ElementAt(0);
 
             var positions = queen.AttackedSquares();
 
-            Assert.Equal(17, positions.Count);
+            Assert.Equal(21, positions.Count);
             Assert.Contains(new Position(Files.a, Ranks.one), positions);
             Assert.Contains(new Position(Files.a, Ranks.four), positions);
-            Assert.Contains(new Position(Files.d, Ranks.seven), positions);
+            Assert.Contains(new Position(Files.d, Ranks.eigth), positions);
+            Assert.Contains(new Position(Files.h, Ranks.one), positions);
             Assert.Contains(new Position(Files.h, Ranks.five), positions);
 
         }

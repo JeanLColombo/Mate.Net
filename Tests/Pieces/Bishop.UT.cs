@@ -26,7 +26,7 @@ namespace Mate.UT.Pieces
             var chess = new Chess();
             chess.WhitePieces.AddPiece<Bishop>(new Position(Files.e, Ranks.four));
 
-            var bishop = chess.WhitePieces.Pieces.ElementAt(1);
+            var bishop = chess.WhitePieces.Pieces.ElementAt(0);
 
             var positions = bishop.AttackedSquares();
 
