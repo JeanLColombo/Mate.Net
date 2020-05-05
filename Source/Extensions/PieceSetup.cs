@@ -26,11 +26,16 @@ namespace Mate.Extensions
             if (!player.Board.PositionIsEmpty(position))
                 return false;
 
-            // Cannot Add two kings.
-            if (typeof(TPiece) == typeof(King) && player.King != null)
-                return false;
+            Piece piece = (TPiece)Activator.CreateInstance(typeof(TPiece), new object[] { player, position });
 
-            var piece = (TPiece)Activator.CreateInstance(typeof(TPiece), new object[] { player, position });
+            // King instantiation logic
+            if (piece.GetType() == typeof(King))
+            {
+                if (player.King != null)
+                    throw new ApplicationException("King already instantiated");
+                else
+                    player.King = (King)piece;
+            }
 
             player.Board.Squares.TryGetValue(position, out Square square);
 
@@ -56,52 +61,75 @@ namespace Mate.Extensions
         }
 
         /// <summary>
-        /// Properly place pawns in their standard positions.
+        /// Places <see cref="Pawn"/>'s in their standard <see cref="Position"/>'s.
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
-        internal static bool StandardPawnPlacement(this Player player)
+        internal static void StandardPawnPlacement(this Player player)
         {
             Ranks rank = player.Color ? Ranks.two : Ranks.seven;
 
             foreach (Files file in Enum.GetValues(typeof(Files)))
             {
                 if (!player.AddPiece<Pawn>(new Position(file, rank)))
-                    return false;
+                    throw new ApplicationException("Pawn initialization failed. Square(s) Occupied!");
             }
-
-            return true;
         }
 
         /// <summary>
-        /// Default <see cref="King"/> initialization. Can add at a specified <see cref="Position"/>.
+        /// Places <see cref="Rook"/>'s in their standard <see cref="Position"/>'s.
         /// </summary>
         /// <param name="player"></param>
-        /// <param name="position">Specified <see cref="Position"/>. If <see cref="null"/>, instatiate at <see cref="StandardKingPosition(Player)"/>.</param>
-        /// <returns></returns>
-        internal static bool AddKing(this Player player, Position position = null)
-        {            
-            var kingAdded = player.AddPiece<King>(
-                (position == null) ? 
-                player.StandardKingPosition() : 
-                position);
-
-            if (kingAdded)
-                player.King = (King)player.Pieces.Last();
-
-            return kingAdded;
-        }
-
-        /// <summary>
-        /// Returns the standard <see cref="King"/> <see cref="Position"/> for a <paramref name="player"/>, based on <see cref="Player.Color"/>.
-        /// </summary>
-        /// <param name="player"></param>
-        /// <returns></returns>
-        private static Position StandardKingPosition(this Player player)
+        internal static void StandardRookPlacement(this Player player)
         {
-            return player.Color ?
-                new Position(Files.e, Ranks.one) :
-                new Position(Files.e, Ranks.eigth);
+            var rank = player.RankByColor();
+
+            Position[] positions = { new Position(Files.a, rank), new Position(Files.h, rank) };
+
+            foreach (Position position in positions)
+            {
+                if (!player.AddPiece<Rook>(position))
+                {
+                    throw new ApplicationException("Rook initialization failed. Square(s) Occupied!");
+                }
+            }
+        }
+
+        internal static void StandardKnightPlacement(this Player player)
+        {
+            //TODO: Create a Template Method, beacause why not?
+
+            var rank = player.RankByColor();
+
+            Position[] positions = { new Position(Files.b, rank), new Position(Files.g, rank) };
+
+            foreach (Position position in positions)
+            {
+                if (!player.AddPiece<Knight>(position))
+                {
+                    throw new ApplicationException("Knight initialization failed. Square(s) Occupied!");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Places <see cref="King"/> in its standard <see cref="Position"/>.
+        /// </summary>
+        /// <param name="player"></param>
+        internal static void StandardKingPlacement(this Player player)
+        {
+            if (!player.AddPiece<King>(new Position(Files.e, player.RankByColor())))
+                throw new ApplicationException("King initialization failed. Square Occupied!");
+        }
+
+        /// <summary>
+        /// Returns the Standard <see cref="Ranks"/> for <see cref="Piece"/> placement, based on <see cref="Player.Color"/>.
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        internal static Ranks RankByColor(this Player player)
+        {
+            return player.Color ? Ranks.one : Ranks.eigth;
         }
     }
 }
