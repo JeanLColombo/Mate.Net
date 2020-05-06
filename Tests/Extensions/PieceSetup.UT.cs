@@ -25,10 +25,16 @@ namespace Mate.UT.Extensions
 
             Assert.Single(whitePieces);
 
-            chess.BlackPieces.AddPiece<Knight>(new Position(Files.f, Ranks.one));
+            var position = new Position(Files.f, Ranks.one);
+
+            chess.BlackPieces.AddPiece<Knight>(position);
 
             Assert.True(chess.WhitePieces.Pieces.First().Color == chess.WhitePieces.Color);
             Assert.True(chess.BlackPieces.Pieces.First().Color == chess.BlackPieces.Color);
+
+            chess.Board.Squares.TryGetValue(position, out Square square);
+
+            Assert.Equal(square.Piece, chess.BlackPieces.Pieces.First());
         }
 
         [Fact]
