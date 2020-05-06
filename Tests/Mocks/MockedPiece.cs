@@ -13,7 +13,7 @@ namespace Mate.UT.Mocks
         {
         }
 
-        public HashSet<Position> GetManeuvers(Direction direction, bool orientation)
+        public HashSet<Position> GetMockAttack(Direction direction, bool orientation)
         {
             var positions = new HashSet<Position>();
 
@@ -30,6 +30,11 @@ namespace Mate.UT.Mocks
 
 
         public override bool MoveTo(Position position)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override HashSet<Position> AvailableMoves()
         {
             throw new NotImplementedException();
         }

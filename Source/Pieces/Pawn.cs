@@ -52,14 +52,21 @@ namespace Mate.Pieces
 
             Player.Board.Squares.TryGetValue(position, out Square square);
 
-            if (
-                square.Occupied()                         && 
-                (square.PieceColor() != this.Color))
+            if (square.Occupied())
             {
-                this.AttackedPieces.Add(square.Piece);
-                square.Piece.UnderAttack.Add(this);
-                return position;
+                if (square.PieceColor() == Color)
+                {
+                    ProtectedPieces.Add(square.Piece);
+                    square.Piece.ProtectedBy.Add(this);
+                }
+                else
+                {
+                    AttackedPieces.Add(square.Piece);
+                    square.Piece.AttackedBy.Add(this);
+                    return position;
+                }
             }
+
 
             return null;
         }
@@ -83,7 +90,7 @@ namespace Mate.Pieces
                 }
 
                 AttackedPieces.Add(pawn);
-                pawn.UnderAttack.Add(this);
+                pawn.AttackedBy.Add(this);
 
                 Ranks positionRank = Color ? Ranks.six : Ranks.three;
 
@@ -119,6 +126,11 @@ namespace Mate.Pieces
 
             return pawn;
 
+        }
+
+        public override HashSet<Position> AvailableMoves()
+        {
+            throw new NotImplementedException();
         }
     }
 }

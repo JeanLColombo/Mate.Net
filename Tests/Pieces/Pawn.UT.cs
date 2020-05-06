@@ -45,13 +45,16 @@ namespace Mate.UT.Pieces
             chess.BlackPieces.AddPiece<Pawn>(new Position(Files.c, Ranks.three));
 
             var whitePawn = chess.WhitePieces.Pieces.ElementAt(0);
+            var otherPawn = chess.WhitePieces.Pieces.ElementAt(1);
             var blackPawn = chess.BlackPieces.Pieces.ElementAt(0);
 
             var positions = whitePawn.AttackedSquares();
 
             Assert.Single(positions);
-            Assert.Contains(blackPawn, whitePawn.Attacks());
-            Assert.Contains(whitePawn, blackPawn.AttackedBy());
+            Assert.Contains(blackPawn, whitePawn.GetAttackedPieces());
+            Assert.Contains(whitePawn, blackPawn.GetAttackers());
+            Assert.Contains(otherPawn, whitePawn.GetDefendedPieces());
+            Assert.Contains(whitePawn, otherPawn.GetDefenders());
 
         }
 

@@ -17,9 +17,13 @@ namespace Mate.Abstractions
 
         public bool HasMoved { get; internal set; } = false;
 
-        internal HashSet<Piece> UnderAttack { get; set; } = new HashSet<Piece>();
+        internal HashSet<Piece> AttackedBy { get; set; } = new HashSet<Piece>();
 
         internal HashSet<Piece> AttackedPieces { get; set; } = new HashSet<Piece>();
+
+        internal HashSet<Piece> ProtectedBy { get; set; } = new HashSet<Piece>();
+
+        internal HashSet<Piece> ProtectedPieces { get; set; } = new HashSet<Piece>();
 
         public readonly Player Player = null;
 
@@ -49,15 +53,17 @@ namespace Mate.Abstractions
             
         }
 
-        public IReadOnlyCollection<Piece> AttackedBy() => UnderAttack;
+        //public IReadOnlyCollection<Piece> Teste() => AttackedBy;
 
-        public IReadOnlyCollection<Piece> Attacks() => AttackedPieces;
+        //public IReadOnlyCollection<Piece> Foo() => AttackedPieces;
 
         public bool IsOnBoard() => !(this.Position == null);
 
         public abstract bool MoveTo(Position position);
 
         public abstract HashSet<Position> AttackedSquares();
+
+        public abstract HashSet<Position> AvailableMoves();
 
         //TODO: Check which method belongs to extensions
         //TODO: Check if HashSet private is best option.

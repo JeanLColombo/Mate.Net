@@ -48,8 +48,8 @@ namespace Mate.UT.Pieces
             Assert.Contains(new Position(Files.e, Ranks.two), positions);
             Assert.Contains(new Position(Files.e, Ranks.four), positions);
 
-            Assert.Empty(piece.AttackedBy());
-            Assert.Empty(piece.Attacks());
+            Assert.Empty(piece.GetAttackers());
+            Assert.Empty(piece.GetAttackedPieces());
 
         }
 
@@ -93,14 +93,14 @@ namespace Mate.UT.Pieces
             Assert.Equal(7, whiteKnight1.AttackedSquares().Count);
             Assert.Equal(8, blackKnight.AttackedSquares().Count);
 
-            Assert.Empty(whiteKnight1.AttackedBy());
-            Assert.Empty(whiteKnight1.Attacks());
+            Assert.Empty(whiteKnight1.GetAttackers());
+            Assert.Empty(whiteKnight1.GetAttackedPieces());
 
-            Assert.Contains(blackKnight, whiteKnight0.AttackedBy());
-            Assert.Contains(blackKnight, whiteKnight0.Attacks());
+            Assert.Contains(blackKnight, whiteKnight0.GetAttackers());
+            Assert.Contains(blackKnight, whiteKnight0.GetAttackedPieces());
 
-            Assert.Contains(whiteKnight0, blackKnight.AttackedBy());
-            Assert.Contains(whiteKnight0, blackKnight.Attacks());
+            Assert.Contains(whiteKnight0, blackKnight.GetAttackers());
+            Assert.Contains(whiteKnight0, blackKnight.GetAttackedPieces());
         }
     }
 }

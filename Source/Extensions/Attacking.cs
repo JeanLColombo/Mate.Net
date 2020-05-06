@@ -12,7 +12,7 @@ namespace Mate.Extensions
     internal static class Attacking
     {
         /// <summary>
-        /// Updates <see cref="Piece.UnderAttack"/> and <see cref="Piece.AttackedPieces"/> from an attacked position.
+        /// Updates <see cref="Piece.AttackedBy"/> and <see cref="Piece.AttackedPieces"/> from an attacked position.
         /// </summary>
         /// <param name="piece"></param>
         /// <param name="position">A new position based on <see cref="Piece"/> maneuverability.</param>
@@ -28,10 +28,15 @@ namespace Mate.Extensions
                 return position;
             else
             {
+                if (square.PieceColor() == piece.Color)
+                {
+                    piece.ProtectedPieces.Add(square.Piece);
+                    square.Piece.ProtectedBy.Add(piece);
+                }
                 if (square.PieceColor() != piece.Color)
                 {
                     piece.AttackedPieces.Add(square.Piece);
-                    square.Piece.UnderAttack.Add(piece);
+                    square.Piece.AttackedBy.Add(piece);
                     return position;
                 }
             }
@@ -112,6 +117,18 @@ namespace Mate.Extensions
             }
 
             return positions;
+        }
+
+        /// <summary>
+        /// Clears the <see cref="HashSet{T}"/>'s of attacked and protected <see cref="Piece"/>'s.
+        /// </summary>
+        /// <param name="piece"></param>
+        internal static void ClearAttacks(this Piece piece)
+        {
+            piece.AttackedBy.Clear();
+            piece.AttackedPieces.Clear();
+            piece.ProtectedBy.Clear();
+            piece.ProtectedPieces.Clear();
         }
     }
 }
