@@ -29,7 +29,7 @@ namespace Mate.Extensions
             Piece piece = (TPiece)Activator.CreateInstance(typeof(TPiece), new object[] { player, position });
 
             // King instantiation logic
-            if (piece.GetType() == typeof(King))
+            if (piece is King)
             {
                 if (player.King != null)
                     throw new ApplicationException("King already instantiated");
@@ -46,82 +46,127 @@ namespace Mate.Extensions
             return true;
         }
 
-        internal static bool StandardSetup(this Player player)
+        /// <summary>
+        /// Creates a <typeparamref name="TPiece"/> : <see cref="Piece"/> at each individual <see cref="Position"/> in <paramref name="positions"/>.
+        /// </summary>
+        /// <typeparam name="TPiece">Type of the <see cref="Piece"/> created.</typeparam>
+        /// <param name="player"><see cref="Piece.Color"/> will be the same as <see cref="Player.Color"/>.</param>
+        /// <param name="positions"><see cref="HashSet{T}"/> of <see cref="Position"/>'s.</param>
+        internal static void AddPieces<TPiece>(this Player player, HashSet<Position> positions) where TPiece : Piece
         {
-            if (player.Pieces.Count > 1)
+            foreach (var position in from Position position in positions
+                                     where !player.AddPiece<TPiece>(position)
+                                     select position)
+            {
+                throw new ArgumentException("Cannot place piece at a occupied position", nameof(position));
+            }
+        }
+
+        /// <summary>
+        /// Standard Chess Setup based on <see cref="Player.Color"/>.
+        /// </summary>
+        /// <param name="player"></param>
+        internal static void StandardSetup(this Player player)
+        {
+            if (player.Pieces.Count > 0)
             {
                 throw new ApplicationException("Player pieces already initialized!");
             }
 
-            player.StandardPawnPlacement();
-
-
-            return true;
-            //TODO: Implement this method;
+            foreach (ChessPieces pieces in Enum.GetValues(typeof(ChessPieces)))
+            {
+                player.StandardPlacement(pieces);
+            }
         }
 
+
         /// <summary>
-        /// Places <see cref="Pawn"/>'s in their standard <see cref="Position"/>'s.
+        /// Returns the Chess Standard <see cref="Position"/>'s based on <see cref="ChessPieces"/>.
         /// </summary>
-        /// <param name="player"></param>
+        /// <param name="player">Standard <see cref="Position"/>'s are <see cref="Player.Color"/> dependant.</param>
+        /// <param name="chessPieces"><see cref="Enum"/> for Standard Chess <see cref="Piece"/>'s.</param>
         /// <returns></returns>
-        internal static void StandardPawnPlacement(this Player player)
+        internal static HashSet<Position> StandardPositions(this Player player, ChessPieces chessPieces)
         {
-            Ranks rank = player.Color ? Ranks.two : Ranks.seven;
+            var positions = new HashSet<Position>();
 
-            foreach (Files file in Enum.GetValues(typeof(Files)))
+            Ranks rank = player.RankByColor();
+
+            switch (chessPieces)
             {
-                if (!player.AddPiece<Pawn>(new Position(file, rank)))
-                    throw new ApplicationException("Pawn initialization failed. Square(s) Occupied!");
+                case ChessPieces.Pawns:
+                    rank = player.Color ? Ranks.two : Ranks.seven;
+                    foreach (Files file in Enum.GetValues(typeof(Files)))
+                    {
+                        positions.AddPosition(new Position(file, rank));
+                    }
+                    break;
+
+                case ChessPieces.Rooks:
+                    positions.AddPosition(new Position(Files.a, rank)); ;
+                    positions.AddPosition(new Position(Files.h, rank));
+                    break;
+
+                case ChessPieces.Knights:
+                    positions.AddPosition(new Position(Files.b, rank));
+                    positions.AddPosition(new Position(Files.g, rank));
+                    break;
+
+                case ChessPieces.Bishops:
+                    positions.AddPosition(new Position(Files.c, rank));
+                    positions.AddPosition(new Position(Files.f, rank));
+                    break;
+
+                case ChessPieces.Queen:
+                    positions.AddPosition(new Position(Files.d, rank));
+                    break;
+
+                case ChessPieces.King:
+                    positions.AddPosition(new Position(Files.e, rank));
+                    break;
+
+                default:
+                    break;
             }
+
+            return positions;
         }
 
         /// <summary>
-        /// Places <see cref="Rook"/>'s in their standard <see cref="Position"/>'s.
+        /// Creates <paramref name="chessPieces"/> based on their <see cref="StandardPositions(Player, ChessPieces)"/>.
         /// </summary>
-        /// <param name="player"></param>
-        internal static void StandardRookPlacement(this Player player)
+        /// <param name="player">Creates <see cref="Piece"/>'s at <see cref="Player.Pieces"/>.</param>
+        /// <param name="chessPieces"></param>
+        public static void StandardPlacement(this Player player, ChessPieces chessPieces)
         {
-            var rank = player.RankByColor();
+            var positions = player.StandardPositions(chessPieces);
 
-            Position[] positions = { new Position(Files.a, rank), new Position(Files.h, rank) };
-
-            foreach (Position position in positions)
+            switch (chessPieces)
             {
-                if (!player.AddPiece<Rook>(position))
-                {
-                    throw new ApplicationException("Rook initialization failed. Square(s) Occupied!");
-                }
+                case ChessPieces.Pawns:
+                    player.AddPieces<Pawn>(positions);
+                    break;
+                case ChessPieces.Rooks:
+                    player.AddPieces<Rook>(positions);
+                    break;
+                case ChessPieces.Knights:
+                    player.AddPieces<Knight>(positions);
+                    break;
+                case ChessPieces.Bishops:
+                    player.AddPieces<Bishop>(positions);
+                    break;
+                case ChessPieces.Queen:
+                    player.AddPieces<Queen>(positions);
+                    break;
+                case ChessPieces.King:
+                    player.AddPieces<King>(positions);
+                    break;
+                default:
+                    break;
             }
         }
 
-        internal static void StandardKnightPlacement(this Player player)
-        {
-            //TODO: Create a Template Method, beacause why not?
-
-            var rank = player.RankByColor();
-
-            Position[] positions = { new Position(Files.b, rank), new Position(Files.g, rank) };
-
-            foreach (Position position in positions)
-            {
-                if (!player.AddPiece<Knight>(position))
-                {
-                    throw new ApplicationException("Knight initialization failed. Square(s) Occupied!");
-                }
-            }
-        }
-
-        /// <summary>
-        /// Places <see cref="King"/> in its standard <see cref="Position"/>.
-        /// </summary>
-        /// <param name="player"></param>
-        internal static void StandardKingPlacement(this Player player)
-        {
-            if (!player.AddPiece<King>(new Position(Files.e, player.RankByColor())))
-                throw new ApplicationException("King initialization failed. Square Occupied!");
-        }
-
+   
         /// <summary>
         /// Returns the Standard <see cref="Ranks"/> for <see cref="Piece"/> placement, based on <see cref="Player.Color"/>.
         /// </summary>

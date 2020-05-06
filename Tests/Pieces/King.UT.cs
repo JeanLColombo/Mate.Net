@@ -25,7 +25,7 @@ namespace Mate.UT.Pieces
         {
             var chess = new Chess();
 
-            chess.WhitePieces.StandardKingPlacement();
+            chess.WhitePieces.AddPiece<King>(new Position(Files.e, Ranks.one));
 
             var positions = chess.WhitePieces.King.AttackedSquares();
 

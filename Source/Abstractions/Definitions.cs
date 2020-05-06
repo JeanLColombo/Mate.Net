@@ -50,6 +50,16 @@ namespace Mate.Abstractions
         OppositeDiagonal = 3
     }
 
+    public enum ChessPieces
+    {
+        Pawns,
+        Rooks,
+        Knights,
+        Bishops,
+        Queen,
+        King
+    }
+
     public class Position : Tuple<Files, Ranks>
     {
         public Position(Files file, Ranks rank) : base(file, rank) { }
