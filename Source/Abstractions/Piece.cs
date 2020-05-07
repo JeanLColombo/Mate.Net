@@ -11,19 +11,19 @@ namespace Mate.Abstractions
     {
         public readonly bool Color;
 
-        public Position Position { get; set; }
+        public Position Position { get; internal set; }
 
         public readonly Position LastPosition = null;
 
         public bool HasMoved { get; internal set; } = false;
 
-        internal HashSet<Piece> AttackedBy { get; set; } = new HashSet<Piece>();
+        internal HashSet<Piece> AttackedBy { get; private set; } = new HashSet<Piece>();
 
-        internal HashSet<Piece> AttackedPieces { get; set; } = new HashSet<Piece>();
+        internal HashSet<Piece> AttackedPieces { get; private set; } = new HashSet<Piece>();
 
-        internal HashSet<Piece> ProtectedBy { get; set; } = new HashSet<Piece>();
+        internal HashSet<Piece> ProtectedBy { get; private set; } = new HashSet<Piece>();
 
-        internal HashSet<Piece> ProtectedPieces { get; set; } = new HashSet<Piece>();
+        internal HashSet<Piece> ProtectedPieces { get; private set; } = new HashSet<Piece>();
 
         public readonly Player Player = null;
 

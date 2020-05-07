@@ -12,8 +12,6 @@ namespace Mate
     public class Player
     {
 
-        //TODO: Check if private set is ok.
-
         public List<Piece> Pieces { get; private set; }
 
         public  List<Piece> Captured { get; private set; }
@@ -31,17 +29,6 @@ namespace Mate
 
             Pieces = new List<Piece>();
             Captured = new List<Piece>();
-        }
-
-        public void UpdateAttackers()
-        {
-            //TODO: Send to an extension.
-            foreach (Piece piece in Pieces)
-            {
-                piece.AttackedSquares();
-            }
-
-        
         }
 
 

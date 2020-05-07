@@ -132,12 +132,69 @@ namespace Mate.UT.Extensions
 
             chess.WhitePieces.Pieces.Last().ClearAttacks();
 
-            Assert.Empty(chess.WhitePieces.Pieces.First().GetDefenders());
+            Assert.Empty(chess.WhitePieces.Pieces.Last().GetDefenders());
             Assert.Empty(chess.WhitePieces.Pieces.Last().GetAttackedPieces());
             Assert.Empty(chess.WhitePieces.Pieces.Last().GetDefendedPieces());
-            Assert.Empty(chess.BlackPieces.Pieces.Last().GetAttackers());
+            Assert.Empty(chess.WhitePieces.Pieces.Last().GetAttackers());
         }
 
+        [Fact]
+        public void ClearPlayerAttackersAndDefenders()
+        {
+            var chess = new Chess();
+            chess.WhitePieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.one));
+            chess.WhitePieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.two));
+            chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.three));
+
+            var p1 = ((MockedPiece)chess.WhitePieces.Pieces.First());
+            var p2 = ((MockedPiece)chess.WhitePieces.Pieces.Last());
+
+            p1.GetMockAttack(Direction.Ranks, true);
+            p2.GetMockAttack(Direction.Ranks, true);
+            ((MockedPiece)chess.WhitePieces.Pieces.Last()).GetMockAttack(Direction.Ranks, false);
+
+
+            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.Single(p.GetDefenders()));
+            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.Single(p.GetDefendedPieces()));
+
+            chess.WhitePieces.ClearAttacks();
+
+            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.Empty(p.GetDefenders()));
+            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.Empty(p.GetDefendedPieces()));
+        }
+
+        [Fact]
+        public void ClearAllAttackers()
+        {
+            var chess = new Chess();
+
+            chess.WhitePieces.StandardSetup();
+
+            var positions = new HashSet<Position>();
+
+            foreach (Files file in Enum.GetValues(typeof(Files)))
+            {
+                positions.Add(new Position(file, Ranks.three));
+            }
+
+            chess.BlackPieces.AddPieces<Pawn>(positions);
+
+            chess.WhitePieces.UpdateAttackers();
+            chess.BlackPieces.UpdateAttackers();
+
+            Assert.All(chess.BlackPieces.Pieces, (p) => Assert.NotEmpty(p.GetAttackers()));
+            Assert.All(chess.BlackPieces.Pieces, (p) => Assert.NotEmpty(p.GetAttackedPieces()));
+
+            chess.ClearAttacks();
+
+            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.Empty(p.GetDefenders()));
+            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.Empty(p.GetAttackers()));
+            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.Empty(p.GetDefendedPieces()));
+            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.Empty(p.GetAttackedPieces()));
+
+            Assert.All(chess.BlackPieces.Pieces, (p) => Assert.Empty(p.GetAttackers()));
+            Assert.All(chess.BlackPieces.Pieces, (p) => Assert.Empty(p.GetAttackedPieces()));
+        }
 
     }
 }

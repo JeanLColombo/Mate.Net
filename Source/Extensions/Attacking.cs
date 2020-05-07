@@ -120,7 +120,29 @@ namespace Mate.Extensions
         }
 
         /// <summary>
-        /// Clears the <see cref="HashSet{T}"/>'s of attacked and protected <see cref="Piece"/>'s.
+        /// Updates all attackers from each <see cref="Player.Pieces"/>.
+        /// </summary>
+        /// <param name="player"></param>
+        internal static void UpdateAttackers(this Player player)
+        {
+            foreach (Piece piece in player.Pieces)
+            {
+                piece.AttackedSquares();
+            }
+        }
+
+        /// <summary>
+        /// Updates all attackers on each <see cref="Player"/> in <paramref name="chess"/>.
+        /// </summary>
+        /// <param name="chess"></param>
+        internal static void UpdateAttackers(this Chess chess)
+        {
+            chess.WhitePieces.UpdateAttackers();
+            chess.BlackPieces.UpdateAttackers();
+        }
+
+        /// <summary>
+        /// Clears the <see cref="HashSet{T}"/>'s of attacked and protected <see cref="Piece"/>'s from <paramref name="piece"/>.
         /// </summary>
         /// <param name="piece"></param>
         internal static void ClearAttacks(this Piece piece)
@@ -129,6 +151,28 @@ namespace Mate.Extensions
             piece.AttackedPieces.Clear();
             piece.ProtectedBy.Clear();
             piece.ProtectedPieces.Clear();
+        }
+
+        /// <summary>
+        /// Clears the <see cref="HashSet{T}"/>'s of attacked and protected <see cref="Piece"/>'s from a <paramref name="player"/>.
+        /// </summary>
+        /// <param name="player"></param>
+        internal static void ClearAttacks(this Player player)
+        {
+            foreach (Piece piece in player.Pieces)
+            {
+                piece.ClearAttacks();
+            }
+        }
+
+        /// <summary>
+        /// Clears the <see cref="HashSet{T}"/>'s of attacked and protected <see cref="Piece"/>'s from a <paramref name="chess"/>.
+        /// </summary>
+        /// <param name="chess"></param>
+        internal static void ClearAttacks(this Chess chess)
+        {
+            chess.WhitePieces.ClearAttacks();
+            chess.BlackPieces.ClearAttacks();
         }
     }
 }
