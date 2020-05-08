@@ -13,6 +13,8 @@ namespace Mate
 
         public int CurrentMove { get; private set; } = 1;
 
+        public bool PlayerTurn { get; private set; } = true;
+
         public IReadOnlyCollection<Piece> WhitePieces { get => chess.White.Pieces; }
 
         public IReadOnlyCollection<Piece> BlackPieces { get => chess.Black.Pieces; }
@@ -33,6 +35,9 @@ namespace Mate
         public Game(CustomPieceInput customPieces) =>
             customInitialization(customPieces);
         
+
+        //TODO: Create a move processing extension.
+
 
         private void customInitialization(CustomPieceInput customPieces)
         {

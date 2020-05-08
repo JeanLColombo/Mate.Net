@@ -81,6 +81,9 @@ namespace Mate.Abstractions
 
     }
 
+    /// <summary>
+    /// Move data for a <see cref="Piece"/>. Contains the new <see cref="Position"/>, and <see cref="SpecialMoves"/> information.
+    /// </summary>
     public class Move : Tuple<Piece, Position, SpecialMoves>
     {
         public Move(Piece piece, Position position, SpecialMoves specialPiece = SpecialMoves.None) 
