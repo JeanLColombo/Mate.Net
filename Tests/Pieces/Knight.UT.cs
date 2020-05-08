@@ -28,9 +28,9 @@ namespace Mate.UT.Pieces
         public void KnightOnTheCenter()
         {
             var chess = new Chess();
-            chess.WhitePieces.AddPiece<Knight>(new Position(Files.c, Ranks.three));
+            chess.White.AddPiece<Knight>(new Position(Files.c, Ranks.three));
 
-            var piece = chess.WhitePieces.Pieces.ElementAt(0);
+            var piece = chess.White.Pieces.ElementAt(0);
             var positions = piece.AttackedSquares();
 
             Assert.NotEmpty(positions);
@@ -57,9 +57,9 @@ namespace Mate.UT.Pieces
         public void KnightOnTheCorner()
         {
             var chess = new Chess();
-            chess.WhitePieces.AddPiece<Knight>(new Position(Files.a, Ranks.one));
+            chess.White.AddPiece<Knight>(new Position(Files.a, Ranks.one));
 
-            var piece = chess.WhitePieces.Pieces.ElementAt<Piece>(0);
+            var piece = chess.White.Pieces.ElementAt<Piece>(0);
             var positions = piece.AttackedSquares();
 
             Assert.Equal(2, positions.Count);
@@ -78,16 +78,16 @@ namespace Mate.UT.Pieces
         {
             var chess = new Chess();
 
-            chess.WhitePieces.AddPiece<Knight>(new Position(Files.e, Ranks.five));
-            chess.WhitePieces.AddPiece<Knight>(new Position(Files.c, Ranks.four));
+            chess.White.AddPiece<Knight>(new Position(Files.e, Ranks.five));
+            chess.White.AddPiece<Knight>(new Position(Files.c, Ranks.four));
 
-            chess.BlackPieces.AddPiece<Knight>(new Position(Files.d, Ranks.three));
+            chess.Black.AddPiece<Knight>(new Position(Files.d, Ranks.three));
             
-            var whiteKnight0 = chess.WhitePieces.Pieces.ElementAt(0);
+            var whiteKnight0 = chess.White.Pieces.ElementAt(0);
 
-            var whiteKnight1 = chess.WhitePieces.Pieces.ElementAt(1);
+            var whiteKnight1 = chess.White.Pieces.ElementAt(1);
 
-            var blackKnight = chess.BlackPieces.Pieces.ElementAt(0);
+            var blackKnight = chess.Black.Pieces.ElementAt(0);
 
             Assert.Equal(7, whiteKnight0.AttackedSquares().Count);
             Assert.Equal(7, whiteKnight1.AttackedSquares().Count);

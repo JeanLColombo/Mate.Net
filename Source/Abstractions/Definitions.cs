@@ -60,6 +60,18 @@ namespace Mate.Abstractions
         King
     }
 
+    public enum SpecialMoves
+    {
+        None,
+        KingSideCastle,
+        QueenSideCaste,
+        Passant,
+        PromoteToBishop,
+        PromoteToKnight,
+        PromoteToRook,
+        PromoteToQueen
+    }
+
     public class Position : Tuple<Files, Ranks>
     {
         public Position(Files file, Ranks rank) : base(file, rank) { }
@@ -67,6 +79,11 @@ namespace Mate.Abstractions
         public bool SamePosition(Position position)
           => (this.Item1 == position.Item1 && this.Item2 == position.Item2);
 
+    }
 
+    public class Move : Tuple<Piece, Position, SpecialMoves>
+    {
+        public Move(Piece piece, Position position, SpecialMoves specialPiece = SpecialMoves.None) 
+            : base(piece, position, specialPiece) { }
     }
 }

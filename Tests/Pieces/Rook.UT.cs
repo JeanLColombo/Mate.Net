@@ -25,9 +25,9 @@ namespace Mate.UT.Pieces
         public void RookAttackedSquares()
         {
             var chess = new Chess();
-            chess.WhitePieces.AddPiece<Rook>(new Position(Files.d, Ranks.four));
+            chess.White.AddPiece<Rook>(new Position(Files.d, Ranks.four));
 
-            var rook = chess.WhitePieces.Pieces.ElementAt(0);
+            var rook = chess.White.Pieces.ElementAt(0);
 
             var positions = rook.AttackedSquares();
 

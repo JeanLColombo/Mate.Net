@@ -36,10 +36,5 @@ namespace Mate.Pieces
         {
             throw new NotImplementedException();
         }
-
-        public override bool MoveTo(Position position)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

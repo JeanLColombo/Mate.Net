@@ -30,6 +30,46 @@ namespace Mate.Extensions
 
         public static IReadOnlyCollection<Piece> GetDefendedPieces(this Piece piece) => piece.ProtectedPieces;
 
+        /// <summary>
+        /// Returns a <see cref="HashSet{T}"/> of <see cref="Move"/>'s available for a <see cref="Player"/>, based on <paramref name="color"/>.
+        /// </summary>
+        /// <param name="chess">A game of <see cref="Chess"/>.</param>
+        /// <param name="color"><see cref="Player.Color"/>.</param>
+        /// <returns></returns>
+        public static HashSet<Move> LegalMoves(this Chess chess, bool color)
+        {
+            var moves = new HashSet<Move>();
+
+            Player player = color ? chess.White : chess.Black;
+
+            foreach (Piece piece in player.Pieces)
+            {
+                moves.Union(piece.SpecialMoves);
+
+                foreach (Position position in piece.AttackedSquares())
+                {
+                    chess.ClearAttacks();
+
+                    var captured = piece.MoveTo(position);
+
+                    chess.UpdateAttackers();
+
+                    if (!player.IsChecked())
+                    {
+                        moves.Add(new Move(piece, position));
+                    }
+
+                    piece.MoveTo(piece.LastPosition);
+
+                    if (captured != null)
+                    {
+                        captured.MoveTo(position);
+                    }
+                }
+            }
+
+            return moves;
+        }
 
     }
 }

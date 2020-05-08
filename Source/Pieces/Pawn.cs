@@ -40,11 +40,6 @@ namespace Mate.Pieces
 
         }
 
-        public override bool MoveTo(Position position)
-        {
-            throw new NotImplementedException();
-        }
-
         private Position PawnAttackUpdate(Position position)
         {
             if (position == null)

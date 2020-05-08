@@ -25,9 +25,9 @@ namespace Mate.UT.Pieces
         public void PawnIsolatedAttackedSquares()
         {
             var chess = new Chess();
-            chess.WhitePieces.AddPiece<Pawn>(new Position(Files.a, Ranks.two));
+            chess.White.AddPiece<Pawn>(new Position(Files.a, Ranks.two));
 
-            var pawn = chess.WhitePieces.Pieces.ElementAt(0);
+            var pawn = chess.White.Pieces.ElementAt(0);
 
             var positions = pawn.AttackedSquares();
 
@@ -39,14 +39,14 @@ namespace Mate.UT.Pieces
         public void PawndAttackedSquares()
         {
             var chess = new Chess();
-            chess.WhitePieces.AddPiece<Pawn>(new Position(Files.b, Ranks.two));
-            chess.WhitePieces.AddPiece<Pawn>(new Position(Files.a, Ranks.three));
+            chess.White.AddPiece<Pawn>(new Position(Files.b, Ranks.two));
+            chess.White.AddPiece<Pawn>(new Position(Files.a, Ranks.three));
 
-            chess.BlackPieces.AddPiece<Pawn>(new Position(Files.c, Ranks.three));
+            chess.Black.AddPiece<Pawn>(new Position(Files.c, Ranks.three));
 
-            var whitePawn = chess.WhitePieces.Pieces.ElementAt(0);
-            var otherPawn = chess.WhitePieces.Pieces.ElementAt(1);
-            var blackPawn = chess.BlackPieces.Pieces.ElementAt(0);
+            var whitePawn = chess.White.Pieces.ElementAt(0);
+            var otherPawn = chess.White.Pieces.ElementAt(1);
+            var blackPawn = chess.Black.Pieces.ElementAt(0);
 
             var positions = whitePawn.AttackedSquares();
 

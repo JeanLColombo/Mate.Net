@@ -17,24 +17,24 @@ namespace Mate.UT.Extensions
         {
             var chess = new Chess();
 
-            var whitePieces = chess.WhitePieces.Pieces;
+            var whitePieces = chess.White.Pieces;
 
             Assert.Empty(whitePieces);
 
-            Assert.True(chess.WhitePieces.AddPiece<Knight>(new Position(Files.f, Ranks.three)));
+            Assert.True(chess.White.AddPiece<Knight>(new Position(Files.f, Ranks.three)));
 
             Assert.Single(whitePieces);
 
             var position = new Position(Files.f, Ranks.one);
 
-            chess.BlackPieces.AddPiece<Knight>(position);
+            chess.Black.AddPiece<Knight>(position);
 
-            Assert.True(chess.WhitePieces.Pieces.First().Color == chess.WhitePieces.Color);
-            Assert.True(chess.BlackPieces.Pieces.First().Color == chess.BlackPieces.Color);
+            Assert.True(chess.White.Pieces.First().Color == chess.White.Color);
+            Assert.True(chess.Black.Pieces.First().Color == chess.Black.Color);
 
             chess.Board.Squares.TryGetValue(position, out Square square);
 
-            Assert.Equal(square.Piece, chess.BlackPieces.Pieces.First());
+            Assert.Equal(square.Piece, chess.Black.Pieces.First());
         }
 
         [Fact]
@@ -42,14 +42,14 @@ namespace Mate.UT.Extensions
         {
             var chess = new Chess();
 
-            var whitePieces = chess.WhitePieces.Pieces;
+            var whitePieces = chess.White.Pieces;
 
             var position = new Position(Files.f, Ranks.three);
 
-            chess.WhitePieces.AddPiece<Knight>(position);
+            chess.White.AddPiece<Knight>(position);
 
-            Assert.False(chess.WhitePieces.AddPiece<Knight>(position));
-            Assert.False(chess.BlackPieces.AddPiece<Knight>(position));
+            Assert.False(chess.White.AddPiece<Knight>(position));
+            Assert.False(chess.Black.AddPiece<Knight>(position));
 
             Assert.Single(whitePieces);
 
@@ -60,10 +60,10 @@ namespace Mate.UT.Extensions
         {
             var chess = new Chess();
 
-            chess.WhitePieces.AddPiece<King>(new Position(Files.a, Ranks.one));
+            chess.White.AddPiece<King>(new Position(Files.a, Ranks.one));
 
             Assert.Throws<ApplicationException>(() =>
-            chess.WhitePieces.AddPiece<King>(new Position(Files.a, Ranks.three)));
+            chess.White.AddPiece<King>(new Position(Files.a, Ranks.three)));
         }
 
 
@@ -78,8 +78,8 @@ namespace Mate.UT.Extensions
             positions.AddPosition(new Position(Files.a, Ranks.one));
             positions.AddPosition(new Position(Files.a, Ranks.three));
 
-            chess.WhitePieces.AddPieces<MockedPiece>(positions);
-            Assert.Equal(2, chess.WhitePieces.Pieces.Count);
+            chess.White.AddPieces<MockedPiece>(positions);
+            Assert.Equal(2, chess.White.Pieces.Count);
         }
 
         [Fact]
@@ -87,7 +87,7 @@ namespace Mate.UT.Extensions
         {
             var chess = new Chess();
 
-            chess.WhitePieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.one));
+            chess.White.AddPiece<MockedPiece>(new Position(Files.a, Ranks.one));
 
             var positions = new HashSet<Position>();
 
@@ -95,7 +95,7 @@ namespace Mate.UT.Extensions
             positions.AddPosition(new Position(Files.a, Ranks.three));
 
             Assert.Throws<ArgumentException>(
-                () => chess.WhitePieces.AddPieces<MockedPiece>(positions));
+                () => chess.White.AddPieces<MockedPiece>(positions));
         }
 
 
@@ -104,12 +104,12 @@ namespace Mate.UT.Extensions
         {
             var chess = new Chess();
 
-            chess.WhitePieces.StandardPlacement(ChessPieces.King);
+            chess.White.StandardPlacement(ChessPieces.King);
 
-            Assert.Equal(new Position(Files.e, Ranks.one), chess.WhitePieces.King.Position);
+            Assert.Equal(new Position(Files.e, Ranks.one), chess.White.King.Position);
 
-            Assert.Single(chess.WhitePieces.Pieces);
-            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.IsType<King>(p));
+            Assert.Single(chess.White.Pieces);
+            Assert.All(chess.White.Pieces, (p) => Assert.IsType<King>(p));
         }
 
 
@@ -118,19 +118,19 @@ namespace Mate.UT.Extensions
         {
             var chess = new Chess();
 
-            chess.WhitePieces.StandardPlacement(ChessPieces.Pawns);
-            chess.BlackPieces.StandardPlacement(ChessPieces.Pawns);
+            chess.White.StandardPlacement(ChessPieces.Pawns);
+            chess.Black.StandardPlacement(ChessPieces.Pawns);
 
-            Assert.Equal(8, chess.WhitePieces.Pieces.Count);
-            Assert.Equal(8, chess.BlackPieces.Pieces.Count);
+            Assert.Equal(8, chess.White.Pieces.Count);
+            Assert.Equal(8, chess.Black.Pieces.Count);
 
-            Assert.Equal(new Position(Files.a, Ranks.two), chess.WhitePieces.Pieces.First().Position);
-            Assert.Equal(new Position(Files.h, Ranks.two), chess.WhitePieces.Pieces.Last().Position);
+            Assert.Equal(new Position(Files.a, Ranks.two), chess.White.Pieces.First().Position);
+            Assert.Equal(new Position(Files.h, Ranks.two), chess.White.Pieces.Last().Position);
 
-            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.IsType<Pawn>(p));
+            Assert.All(chess.White.Pieces, (p) => Assert.IsType<Pawn>(p));
 
-            Assert.Equal(new Position(Files.a, Ranks.seven), chess.BlackPieces.Pieces.First().Position);
-            Assert.Equal(new Position(Files.h, Ranks.seven), chess.BlackPieces.Pieces.Last().Position);
+            Assert.Equal(new Position(Files.a, Ranks.seven), chess.Black.Pieces.First().Position);
+            Assert.Equal(new Position(Files.h, Ranks.seven), chess.Black.Pieces.Last().Position);
         }
 
 
@@ -139,13 +139,13 @@ namespace Mate.UT.Extensions
         {
             var chess = new Chess();
 
-            chess.WhitePieces.StandardPlacement(ChessPieces.Rooks);
+            chess.White.StandardPlacement(ChessPieces.Rooks);
 
-            Assert.Equal(2, chess.WhitePieces.Pieces.Count);
-            Assert.Equal(new Position(Files.a, Ranks.one), chess.WhitePieces.Pieces.First().Position);
-            Assert.Equal(new Position(Files.h, Ranks.one), chess.WhitePieces.Pieces.Last().Position);
+            Assert.Equal(2, chess.White.Pieces.Count);
+            Assert.Equal(new Position(Files.a, Ranks.one), chess.White.Pieces.First().Position);
+            Assert.Equal(new Position(Files.h, Ranks.one), chess.White.Pieces.Last().Position);
 
-            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.IsType<Rook>(p));
+            Assert.All(chess.White.Pieces, (p) => Assert.IsType<Rook>(p));
         }
 
         [Fact]
@@ -153,13 +153,13 @@ namespace Mate.UT.Extensions
         {
             var chess = new Chess();
 
-            chess.BlackPieces.StandardPlacement(ChessPieces.Knights);
+            chess.Black.StandardPlacement(ChessPieces.Knights);
 
-            Assert.Equal(2, chess.BlackPieces.Pieces.Count);
-            Assert.Equal(new Position(Files.b, Ranks.eigth), chess.BlackPieces.Pieces.First().Position);
-            Assert.Equal(new Position(Files.g, Ranks.eigth), chess.BlackPieces.Pieces.Last().Position);
+            Assert.Equal(2, chess.Black.Pieces.Count);
+            Assert.Equal(new Position(Files.b, Ranks.eigth), chess.Black.Pieces.First().Position);
+            Assert.Equal(new Position(Files.g, Ranks.eigth), chess.Black.Pieces.Last().Position);
 
-            Assert.All(chess.BlackPieces.Pieces, (p) => Assert.IsType<Knight>(p));
+            Assert.All(chess.Black.Pieces, (p) => Assert.IsType<Knight>(p));
         }
 
         [Fact]
@@ -167,13 +167,13 @@ namespace Mate.UT.Extensions
         {
             var chess = new Chess();
 
-            chess.BlackPieces.StandardPlacement(ChessPieces.Bishops);
+            chess.Black.StandardPlacement(ChessPieces.Bishops);
 
-            Assert.Equal(2, chess.BlackPieces.Pieces.Count);
-            Assert.Equal(new Position(Files.c, Ranks.eigth), chess.BlackPieces.Pieces.First().Position);
-            Assert.Equal(new Position(Files.f, Ranks.eigth), chess.BlackPieces.Pieces.Last().Position);
+            Assert.Equal(2, chess.Black.Pieces.Count);
+            Assert.Equal(new Position(Files.c, Ranks.eigth), chess.Black.Pieces.First().Position);
+            Assert.Equal(new Position(Files.f, Ranks.eigth), chess.Black.Pieces.Last().Position);
 
-            Assert.All(chess.BlackPieces.Pieces, (p) => Assert.IsType<Bishop>(p));
+            Assert.All(chess.Black.Pieces, (p) => Assert.IsType<Bishop>(p));
         }
 
         [Fact]
@@ -181,40 +181,40 @@ namespace Mate.UT.Extensions
         {
             var chess = new Chess();
 
-            chess.BlackPieces.StandardPlacement(ChessPieces.Queen);
+            chess.Black.StandardPlacement(ChessPieces.Queen);
 
-            Assert.Single(chess.BlackPieces.Pieces);
-            Assert.Equal(new Position(Files.d, Ranks.eigth), chess.BlackPieces.Pieces.First().Position);
+            Assert.Single(chess.Black.Pieces);
+            Assert.Equal(new Position(Files.d, Ranks.eigth), chess.Black.Pieces.First().Position);
 
-            Assert.All(chess.BlackPieces.Pieces, (p) => Assert.IsType<Queen>(p));
+            Assert.All(chess.Black.Pieces, (p) => Assert.IsType<Queen>(p));
         }
 
         [Fact]
         public void RankBasedOnPlayerColor()
         {
             var chess = new Chess();
-            Assert.Equal(Ranks.one, chess.WhitePieces.RankByColor());
-            Assert.Equal(Ranks.eigth, chess.BlackPieces.RankByColor());
+            Assert.Equal(Ranks.one, chess.White.RankByColor());
+            Assert.Equal(Ranks.eigth, chess.Black.RankByColor());
         }
 
         [Fact]
         public void PieceStandardSetup()
         {
             var chess = new Chess();
-            chess.WhitePieces.StandardSetup();
-            chess.BlackPieces.StandardSetup();
+            chess.White.StandardSetup();
+            chess.Black.StandardSetup();
 
-            Assert.Equal(16, chess.WhitePieces.Pieces.Count);
-            Assert.Equal(16, chess.BlackPieces.Pieces.Count);
+            Assert.Equal(16, chess.White.Pieces.Count);
+            Assert.Equal(16, chess.Black.Pieces.Count);
         }
 
         [Fact]
         public void SetupPiecesAtInitializedSet()
         {
             var chess = new Chess();
-            chess.WhitePieces.AddPiece<MockedPiece>(new Position(Files.e, Ranks.four));
+            chess.White.AddPiece<MockedPiece>(new Position(Files.e, Ranks.four));
 
-            Assert.Throws<ApplicationException>(() => chess.WhitePieces.StandardSetup());
+            Assert.Throws<ApplicationException>(() => chess.White.StandardSetup());
         }
     }
 }

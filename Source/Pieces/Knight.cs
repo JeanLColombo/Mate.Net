@@ -41,11 +41,5 @@ namespace Mate.Pieces
             throw new NotImplementedException();
         }
 
-
-        //TODO: Implement MoveTo
-        public override bool MoveTo(Position position)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

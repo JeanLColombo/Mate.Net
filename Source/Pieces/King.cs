@@ -9,7 +9,6 @@ namespace Mate.Pieces
     public class King : Piece
     {
 
-        //TODO: Implement check logic;
         //TODO: Implement impossible movements;
 
 
@@ -42,9 +41,5 @@ namespace Mate.Pieces
             throw new NotImplementedException();
         }
 
-        public override bool MoveTo(Position position)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

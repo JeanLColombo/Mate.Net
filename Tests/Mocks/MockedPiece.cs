@@ -22,17 +22,11 @@ namespace Mate.UT.Mocks
             return positions;
         }
 
-
         public override HashSet<Position> AttackedSquares()
         {
             throw new NotImplementedException();
         }
 
-
-        public override bool MoveTo(Position position)
-        {
-            throw new NotImplementedException();
-        }
 
         public override HashSet<Position> AvailableMoves()
         {

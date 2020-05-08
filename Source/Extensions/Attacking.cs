@@ -137,8 +137,8 @@ namespace Mate.Extensions
         /// <param name="chess"></param>
         internal static void UpdateAttackers(this Chess chess)
         {
-            chess.WhitePieces.UpdateAttackers();
-            chess.BlackPieces.UpdateAttackers();
+            chess.White.UpdateAttackers();
+            chess.Black.UpdateAttackers();
         }
 
         /// <summary>
@@ -171,8 +171,9 @@ namespace Mate.Extensions
         /// <param name="chess"></param>
         internal static void ClearAttacks(this Chess chess)
         {
-            chess.WhitePieces.ClearAttacks();
-            chess.BlackPieces.ClearAttacks();
+            chess.White.ClearAttacks();
+            chess.Black.ClearAttacks();
         }
+
     }
 }

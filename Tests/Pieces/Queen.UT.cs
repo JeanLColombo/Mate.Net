@@ -24,9 +24,9 @@ namespace Mate.UT.Pieces
         public void QueenAttackedSquares()
         {
             var chess = new Chess();
-            chess.WhitePieces.AddPiece<Queen>(new Position(Files.d, Ranks.one));
+            chess.White.AddPiece<Queen>(new Position(Files.d, Ranks.one));
 
-            var queen = chess.WhitePieces.Pieces.ElementAt(0);
+            var queen = chess.White.Pieces.ElementAt(0);
 
             var positions = queen.AttackedSquares();
 

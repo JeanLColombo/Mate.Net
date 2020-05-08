@@ -8,16 +8,16 @@ namespace Mate
     {
         //TODO: Check if readonly is ok. Can I access and alter its properties?
 
-        public readonly Player WhitePieces;
+        public readonly Player White;
 
-        public readonly Player BlackPieces;
+        public readonly Player Black;
 
         public readonly Board Board = new Board();
 
         public Chess() 
         {
-            WhitePieces = new Player(true, Board);
-            BlackPieces = new Player(false, Board);
+            White = new Player(true, Board);
+            Black = new Player(false, Board);
         }
     }
 }

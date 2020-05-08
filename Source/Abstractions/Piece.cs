@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Mate.Abstractions
 {
@@ -13,7 +14,7 @@ namespace Mate.Abstractions
 
         public Position Position { get; internal set; }
 
-        public readonly Position LastPosition = null;
+        public Position LastPosition { get; private set; } = null;
 
         public bool HasMoved { get; internal set; } = false;
 
@@ -53,20 +54,64 @@ namespace Mate.Abstractions
             
         }
 
-        //public IReadOnlyCollection<Piece> Teste() => AttackedBy;
-
-        //public IReadOnlyCollection<Piece> Foo() => AttackedPieces;
-
         public bool IsOnBoard() => !(this.Position == null);
 
-        public abstract bool MoveTo(Position position);
+        /// <summary>
+        /// Moves <see cref="Piece"/> to a <paramref name="newPosition"/>, if it is possible. Returns the <see cref="Piece"/> that previously occupied the position.
+        /// </summary>
+        /// <param name="newPosition"></param>
+        /// <returns></returns>
+        internal Piece MoveTo(Position newPosition)
+        {
+            if (newPosition == Position)
+                return null;
+
+            if (!Player.Board.Squares.TryGetValue(newPosition, out Square newSquare))
+                return null;
+
+            Piece piece = null;
+
+            if (!Player.Board.PositionIsEmpty(newPosition))
+            {
+                if (newSquare.PieceColor() == Color)
+                    return piece;
+
+                piece = newSquare.Piece;
+                piece.ChangePosition();
+            }
+
+            ChangePosition(newPosition);
+
+            return piece;
+        }
+
+        /// <summary>
+        /// Changes the plamecment of <see cref="this"/> <see cref="Piece"/> to <paramref name="newPosition"/>.
+        /// </summary>
+        /// <param name="newPosition"></param>
+        private void ChangePosition(Position newPosition = null)
+        {
+            LastPosition = Position;
+            Position = newPosition;
+
+            if (Position !=null)
+            {
+                Player.Board.Squares.TryGetValue(newPosition, out Square newSquare);
+                newSquare.Piece = this;
+            }
+
+            if (LastPosition != null)
+            {
+                Player.Board.Squares.TryGetValue(LastPosition, out Square lastSquare);
+                lastSquare.Piece = null;
+            }
+        }
+
+        public HashSet<Move> SpecialMoves { get; protected set; } = new HashSet<Move>();
 
         public abstract HashSet<Position> AttackedSquares();
 
         public abstract HashSet<Position> AvailableMoves();
-
-        //TODO: Check which method belongs to extensions
-        //TODO: Check if HashSet private is best option.
 
 
     }

@@ -17,11 +17,11 @@ namespace Mate.UT.Extensions
         public void AttackingThroughFiles()
         {
             var chess = new Chess();
-            chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.two));
-            chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.h, Ranks.two));
+            chess.Black.AddPiece<MockedPiece>(new Position(Files.a, Ranks.two));
+            chess.Black.AddPiece<MockedPiece>(new Position(Files.h, Ranks.two));
 
-            var piece0 = (MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(0);
-            var piece1 = (MockedPiece)chess.BlackPieces.Pieces.ElementAt<Piece>(1);
+            var piece0 = (MockedPiece)chess.Black.Pieces.ElementAt<Piece>(0);
+            var piece1 = (MockedPiece)chess.Black.Pieces.ElementAt<Piece>(1);
 
             var positions = piece0.GetMockAttack(Direction.Files, true);
 
@@ -36,11 +36,11 @@ namespace Mate.UT.Extensions
         public void AttackingThroughRanks()
         {
             var chess = new Chess();
-            chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.one));
-            chess.WhitePieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.three));
+            chess.Black.AddPiece<MockedPiece>(new Position(Files.a, Ranks.one));
+            chess.White.AddPiece<MockedPiece>(new Position(Files.a, Ranks.three));
 
-            var whitePiece = (MockedPiece)chess.BlackPieces.Pieces.ElementAt(0);
-            var blackPiece = (MockedPiece)chess.WhitePieces.Pieces.ElementAt(0);
+            var whitePiece = (MockedPiece)chess.Black.Pieces.ElementAt(0);
+            var blackPiece = (MockedPiece)chess.White.Pieces.ElementAt(0);
 
             var positions = whitePiece.GetMockAttack(Direction.Ranks, true);
 
@@ -56,10 +56,10 @@ namespace Mate.UT.Extensions
         public void AttackingThroughMainDiagonal()
         {
             var chess = new Chess();
-            chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.e, Ranks.five));
+            chess.Black.AddPiece<MockedPiece>(new Position(Files.e, Ranks.five));
 
-            var positions1 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt(0)).GetMockAttack(Direction.MainDiagonal, true);
-            var positions2 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt(0)).GetMockAttack(Direction.MainDiagonal, false);
+            var positions1 = ((MockedPiece)chess.Black.Pieces.ElementAt(0)).GetMockAttack(Direction.MainDiagonal, true);
+            var positions2 = ((MockedPiece)chess.Black.Pieces.ElementAt(0)).GetMockAttack(Direction.MainDiagonal, false);
 
             Assert.Equal(3, positions1.Count);
             Assert.Contains(new Position(Files.h, Ranks.eigth), positions1);
@@ -72,10 +72,10 @@ namespace Mate.UT.Extensions
         public void AttackingThroughOppositeDiagonal()
         {
             var chess = new Chess();
-            chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.d, Ranks.five));
+            chess.Black.AddPiece<MockedPiece>(new Position(Files.d, Ranks.five));
 
-            var positions1 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt(0)).GetMockAttack(Direction.OppositeDiagonal, true);
-            var positions2 = ((MockedPiece)chess.BlackPieces.Pieces.ElementAt(0)).GetMockAttack(Direction.OppositeDiagonal, false);
+            var positions1 = ((MockedPiece)chess.Black.Pieces.ElementAt(0)).GetMockAttack(Direction.OppositeDiagonal, true);
+            var positions2 = ((MockedPiece)chess.Black.Pieces.ElementAt(0)).GetMockAttack(Direction.OppositeDiagonal, false);
 
             Assert.Equal(3, positions1.Count);
             Assert.Contains(new Position(Files.a, Ranks.eigth), positions1);
@@ -88,9 +88,9 @@ namespace Mate.UT.Extensions
         public void KingLimitedToOneSquare()
         {
             var chess = new Chess();
-            chess.WhitePieces.AddPiece<King>(new Position(Files.a, Ranks.one));
+            chess.White.AddPiece<King>(new Position(Files.a, Ranks.one));
 
-            var positions = chess.WhitePieces.Pieces.ElementAt(0).AttackThrough(Direction.Files, true);
+            var positions = chess.White.Pieces.ElementAt(0).AttackThrough(Direction.Files, true);
 
             Assert.Single(positions);
             Assert.Contains(new Position(Files.b, Ranks.one), positions);
@@ -100,67 +100,67 @@ namespace Mate.UT.Extensions
         public void UpdateAttackersAndDefenders()
         {
             var chess = new Chess();
-            chess.WhitePieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.one));
-            chess.WhitePieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.two));
-            chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.three));
+            chess.White.AddPiece<MockedPiece>(new Position(Files.a, Ranks.one));
+            chess.White.AddPiece<MockedPiece>(new Position(Files.a, Ranks.two));
+            chess.Black.AddPiece<MockedPiece>(new Position(Files.a, Ranks.three));
 
-            ((MockedPiece)chess.WhitePieces.Pieces.Last()).GetMockAttack(Direction.Ranks, true);
-            ((MockedPiece)chess.WhitePieces.Pieces.Last()).GetMockAttack(Direction.Ranks, false);
+            ((MockedPiece)chess.White.Pieces.Last()).GetMockAttack(Direction.Ranks, true);
+            ((MockedPiece)chess.White.Pieces.Last()).GetMockAttack(Direction.Ranks, false);
 
-            Assert.Contains(chess.WhitePieces.Pieces.Last(), chess.WhitePieces.Pieces.First().GetDefenders());
-            Assert.Contains(chess.WhitePieces.Pieces.First(), chess.WhitePieces.Pieces.Last().GetDefendedPieces());
+            Assert.Contains(chess.White.Pieces.Last(), chess.White.Pieces.First().GetDefenders());
+            Assert.Contains(chess.White.Pieces.First(), chess.White.Pieces.Last().GetDefendedPieces());
 
-            Assert.Contains(chess.BlackPieces.Pieces.Last(), chess.WhitePieces.Pieces.Last().GetAttackedPieces());
-            Assert.Contains(chess.WhitePieces.Pieces.Last(), chess.BlackPieces.Pieces.First().GetAttackers());
+            Assert.Contains(chess.Black.Pieces.Last(), chess.White.Pieces.Last().GetAttackedPieces());
+            Assert.Contains(chess.White.Pieces.Last(), chess.Black.Pieces.First().GetAttackers());
         }
 
         [Fact]
         public void ClearPieceAttackersAndDefenders()
         {
             var chess = new Chess();
-            chess.WhitePieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.one));
-            chess.WhitePieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.two));
-            chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.three));
+            chess.White.AddPiece<MockedPiece>(new Position(Files.a, Ranks.one));
+            chess.White.AddPiece<MockedPiece>(new Position(Files.a, Ranks.two));
+            chess.Black.AddPiece<MockedPiece>(new Position(Files.a, Ranks.three));
 
-            ((MockedPiece)chess.WhitePieces.Pieces.Last()).GetMockAttack(Direction.Ranks, true);
-            ((MockedPiece)chess.WhitePieces.Pieces.Last()).GetMockAttack(Direction.Ranks, false);
+            ((MockedPiece)chess.White.Pieces.Last()).GetMockAttack(Direction.Ranks, true);
+            ((MockedPiece)chess.White.Pieces.Last()).GetMockAttack(Direction.Ranks, false);
 
-            Assert.Single(chess.WhitePieces.Pieces.First().GetDefenders());
-            Assert.Single(chess.WhitePieces.Pieces.Last().GetAttackedPieces());
-            Assert.Single(chess.WhitePieces.Pieces.Last().GetDefendedPieces());
-            Assert.Single(chess.BlackPieces.Pieces.Last().GetAttackers());
+            Assert.Single(chess.White.Pieces.First().GetDefenders());
+            Assert.Single(chess.White.Pieces.Last().GetAttackedPieces());
+            Assert.Single(chess.White.Pieces.Last().GetDefendedPieces());
+            Assert.Single(chess.Black.Pieces.Last().GetAttackers());
 
-            chess.WhitePieces.Pieces.Last().ClearAttacks();
+            chess.White.Pieces.Last().ClearAttacks();
 
-            Assert.Empty(chess.WhitePieces.Pieces.Last().GetDefenders());
-            Assert.Empty(chess.WhitePieces.Pieces.Last().GetAttackedPieces());
-            Assert.Empty(chess.WhitePieces.Pieces.Last().GetDefendedPieces());
-            Assert.Empty(chess.WhitePieces.Pieces.Last().GetAttackers());
+            Assert.Empty(chess.White.Pieces.Last().GetDefenders());
+            Assert.Empty(chess.White.Pieces.Last().GetAttackedPieces());
+            Assert.Empty(chess.White.Pieces.Last().GetDefendedPieces());
+            Assert.Empty(chess.White.Pieces.Last().GetAttackers());
         }
 
         [Fact]
         public void ClearPlayerAttackersAndDefenders()
         {
             var chess = new Chess();
-            chess.WhitePieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.one));
-            chess.WhitePieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.two));
-            chess.BlackPieces.AddPiece<MockedPiece>(new Position(Files.a, Ranks.three));
+            chess.White.AddPiece<MockedPiece>(new Position(Files.a, Ranks.one));
+            chess.White.AddPiece<MockedPiece>(new Position(Files.a, Ranks.two));
+            chess.Black.AddPiece<MockedPiece>(new Position(Files.a, Ranks.three));
 
-            var p1 = ((MockedPiece)chess.WhitePieces.Pieces.First());
-            var p2 = ((MockedPiece)chess.WhitePieces.Pieces.Last());
+            var p1 = ((MockedPiece)chess.White.Pieces.First());
+            var p2 = ((MockedPiece)chess.White.Pieces.Last());
 
             p1.GetMockAttack(Direction.Ranks, true);
             p2.GetMockAttack(Direction.Ranks, true);
-            ((MockedPiece)chess.WhitePieces.Pieces.Last()).GetMockAttack(Direction.Ranks, false);
+            ((MockedPiece)chess.White.Pieces.Last()).GetMockAttack(Direction.Ranks, false);
 
 
-            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.Single(p.GetDefenders()));
-            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.Single(p.GetDefendedPieces()));
+            Assert.All(chess.White.Pieces, (p) => Assert.Single(p.GetDefenders()));
+            Assert.All(chess.White.Pieces, (p) => Assert.Single(p.GetDefendedPieces()));
 
-            chess.WhitePieces.ClearAttacks();
+            chess.White.ClearAttacks();
 
-            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.Empty(p.GetDefenders()));
-            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.Empty(p.GetDefendedPieces()));
+            Assert.All(chess.White.Pieces, (p) => Assert.Empty(p.GetDefenders()));
+            Assert.All(chess.White.Pieces, (p) => Assert.Empty(p.GetDefendedPieces()));
         }
 
         [Fact]
@@ -168,7 +168,7 @@ namespace Mate.UT.Extensions
         {
             var chess = new Chess();
 
-            chess.WhitePieces.StandardSetup();
+            chess.White.StandardSetup();
 
             var positions = new HashSet<Position>();
 
@@ -177,23 +177,23 @@ namespace Mate.UT.Extensions
                 positions.Add(new Position(file, Ranks.three));
             }
 
-            chess.BlackPieces.AddPieces<Pawn>(positions);
+            chess.Black.AddPieces<Pawn>(positions);
 
-            chess.WhitePieces.UpdateAttackers();
-            chess.BlackPieces.UpdateAttackers();
+            chess.White.UpdateAttackers();
+            chess.Black.UpdateAttackers();
 
-            Assert.All(chess.BlackPieces.Pieces, (p) => Assert.NotEmpty(p.GetAttackers()));
-            Assert.All(chess.BlackPieces.Pieces, (p) => Assert.NotEmpty(p.GetAttackedPieces()));
+            Assert.All(chess.Black.Pieces, (p) => Assert.NotEmpty(p.GetAttackers()));
+            Assert.All(chess.Black.Pieces, (p) => Assert.NotEmpty(p.GetAttackedPieces()));
 
             chess.ClearAttacks();
 
-            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.Empty(p.GetDefenders()));
-            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.Empty(p.GetAttackers()));
-            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.Empty(p.GetDefendedPieces()));
-            Assert.All(chess.WhitePieces.Pieces, (p) => Assert.Empty(p.GetAttackedPieces()));
+            Assert.All(chess.White.Pieces, (p) => Assert.Empty(p.GetDefenders()));
+            Assert.All(chess.White.Pieces, (p) => Assert.Empty(p.GetAttackers()));
+            Assert.All(chess.White.Pieces, (p) => Assert.Empty(p.GetDefendedPieces()));
+            Assert.All(chess.White.Pieces, (p) => Assert.Empty(p.GetAttackedPieces()));
 
-            Assert.All(chess.BlackPieces.Pieces, (p) => Assert.Empty(p.GetAttackers()));
-            Assert.All(chess.BlackPieces.Pieces, (p) => Assert.Empty(p.GetAttackedPieces()));
+            Assert.All(chess.Black.Pieces, (p) => Assert.Empty(p.GetAttackers()));
+            Assert.All(chess.Black.Pieces, (p) => Assert.Empty(p.GetAttackedPieces()));
         }
 
     }
