@@ -86,4 +86,27 @@ namespace Mate.Abstractions
         public Move(Piece piece, Position position, SpecialMoves specialPiece = SpecialMoves.None) 
             : base(piece, position, specialPiece) { }
     }
+    
+    /// <summary>
+    /// Piece data for <see cref="CustomPieceInput"/>.
+    /// </summary>
+    public class PieceInput : Tuple<bool,ChessPieces,Files,Ranks>
+    {
+        /// <summary>
+        /// <see cref="Tuple"/> with <paramref name="pieceColor"/> and <paramref name="pieceType"/>, to be positioned at specified <paramref name="file"/> and <paramref name="rank"/>.
+        /// </summary>
+        /// <param name="pieceColor"><see cref="true"/>=<see cref="Chess.White"/>, <see cref="false"/>=<see cref="Chess.Black"/>.</param>
+        /// <param name="pieceType"><see cref="Enum"/> for <see cref="Piece"/> <see cref="Type"/>.</param>
+        /// <param name="file"><see cref="Files"/>.</param>
+        /// <param name="rank"><see cref="Ranks"/>.</param>
+        public PieceInput(bool pieceColor, ChessPieces pieceType, Files file, Ranks rank)
+            : base(pieceColor, pieceType, file, rank) { }
+    }
+
+    /// <summary>
+    /// <see cref="HashSet{T}"/> of <see cref="PieceInput"/>.
+    /// </summary>
+    public class CustomPieceInput : HashSet<PieceInput>
+    {
+    }
 }
