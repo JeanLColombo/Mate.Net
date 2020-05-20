@@ -32,14 +32,9 @@ namespace Mate.Abstractions
     public enum Outcome
     {
         Game = 0,
-        AgreedDraw = 1,
-        Threefold = 2,
-        Fiftyfold = 3,
-        Stalemate = 4,
-        ResignBlack = 5,
-        ResignWhite = 6,
-        MateWhite = 7,
-        MateBlack = 8
+        Stalemate = 1,
+        CheckmateWhite = 2,
+        CheckmateBlack = 3
     }
 
     public enum Direction

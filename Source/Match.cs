@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Mate
 {
-    class Game
+    class Match
     {
         private readonly Chess chess = new Chess();
 
@@ -21,22 +21,30 @@ namespace Mate
 
         public IReadOnlyCollection<Piece> BlackPieces { get => chess.Black.Pieces; }
 
+        public IReadOnlyCollection<Piece> WhiteCapturedPieces { get => chess.White.Captured; }
+
+        public IReadOnlyCollection<Piece> BlackCapturedPieces { get => chess.Black.Captured; }
+
+        public IReadOnlyCollection<Move> AvailableMoves { get => chess.LegalMoves(PlayerTurn); }
+
+        public bool CurrentPlayerIsChecked { get => PlayerTurn ? chess.White.IsChecked() : chess.Black.IsChecked(); }
+
         public Outcome Outcome { get; private set; } = Outcome.Game;
 
         /// <summary>
-        /// Initializes a <see cref="Game"/> of <see cref="Chess"/> with a Standard <see cref="Piece"/> setup.
+        /// Initializes a <see cref="Match"/> of <see cref="Chess"/> with a Standard <see cref="Piece"/> setup.
         /// </summary>
-        public Game()
+        public Match()
         {
             chess.White.StandardSetup();
             chess.Black.StandardSetup();
         }
 
         /// <summary>
-        /// Initializes a <see cref="Game"/> of <see cref="Chess"/> with a personalized <see cref="CustomPieceInput"/>.
+        /// Initializes a <see cref="Match"/> of <see cref="Chess"/> with a personalized <see cref="CustomPieceInput"/>.
         /// </summary>
         /// <param name="customPieces">Customizable <see cref="PieceInput"/>.</param>
-        public Game(CustomPieceInput customPieces) =>
+        public Match(CustomPieceInput customPieces) =>
             CustomInitialization(customPieces);
         
         /// <summary>
@@ -95,7 +103,7 @@ namespace Mate
         }
 
         /// <summary>
-        /// Toggles <see cref="Game.PlayerTurn"/>. If it is <see cref="WhitePieces"/> turn, also increases <see cref="Game.CurrentMove"/> by one.
+        /// Toggles <see cref="Match.PlayerTurn"/>. If it is <see cref="WhitePieces"/> turn, also increases <see cref="Match.CurrentMove"/> by one.
         /// </summary>
         private void UpdatePlayerTurn()
         {
@@ -105,24 +113,33 @@ namespace Mate
         }
 
         /// <summary>
-        /// Checks for <see cref="Outcome.Stalemate"/>, <see cref="Outcome.MateWhite"/> or <see cref="Outcome.MateBlack"/>, while also calling <see cref="UpdatePlayerTurn"/>.
+        /// Checks for <see cref="Outcome.Stalemate"/>, <see cref="Outcome.CheckmateWhite"/> or <see cref="Outcome.CheckmateBlack"/>, while also calling <see cref="UpdatePlayerTurn"/>.
         /// </summary>
         /// <returns></returns>
         private Outcome UpdateOutcome()
         {
-            UpdatePlayerTurn();
+            bool NextPlayer = PlayerTurn ? false : true;
 
-            if (chess.LegalMoves(PlayerTurn).Count == 0)
+            if (chess.LegalMoves(NextPlayer).Count == 0)
             {
-                if (PlayerTurn ? chess.White.IsChecked() : chess.Black.IsChecked())
-                    Outcome = PlayerTurn ? Outcome.MateWhite : Outcome.MateBlack;
+                if (NextPlayer ? chess.White.IsChecked() : chess.Black.IsChecked())
+                    Outcome = NextPlayer ? Outcome.CheckmateBlack : Outcome.CheckmateWhite;
                 else
                     Outcome = Outcome.Stalemate;
+
+                return Outcome;
             }
+
+            UpdatePlayerTurn();
 
             return Outcome;
         }
 
+
+        /// <summary>
+        /// Process the move, based on <see cref="Move"/> tuple structure.
+        /// </summary>
+        /// <param name="move"></param>
         private void ProcessMove(Move move)
         {
 
@@ -161,5 +178,7 @@ namespace Mate
                 plaerTwo.Pieces.Remove(captured);
             }
         }
+
+        
     }
 }
