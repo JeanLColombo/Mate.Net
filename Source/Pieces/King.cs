@@ -9,9 +9,6 @@ namespace Mate.Pieces
     public class King : Piece
     {
 
-        //TODO: Implement impossible movements;
-
-
         public King(Player player, Position position = null) : base(player, position)
         {
         }
@@ -35,11 +32,5 @@ namespace Mate.Pieces
 
             return positions;
         }
-
-        public override HashSet<Position> AvailableMoves()
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

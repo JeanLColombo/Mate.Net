@@ -50,5 +50,21 @@ namespace Mate.UT.Mocks
             return customInput;
         }
 
+        /// <summary>
+        /// <see cref="Pawn"/> vs. <see cref="Pawn"/>.
+        /// </summary>
+        /// <returns></returns>
+        public static CustomPieceInput CustomInputC()
+        {
+            var customInput = new CustomPieceInput();
+
+            customInput.Add(new PieceInput(true, ChessPieces.King, Files.a, Ranks.one));
+            customInput.Add(new PieceInput(true, ChessPieces.Pawns, Files.a, Ranks.two));
+
+            customInput.Add(new PieceInput(false, ChessPieces.King, Files.h, Ranks.eigth));
+            customInput.Add(new PieceInput(false, ChessPieces.Pawns, Files.h, Ranks.seven));
+
+            return customInput;
+        }
     }
 }

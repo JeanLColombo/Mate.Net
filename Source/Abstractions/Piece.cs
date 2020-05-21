@@ -99,7 +99,7 @@ namespace Mate.Abstractions
                 Player.Board.Squares.TryGetValue(newPosition, out Square newSquare);
                 newSquare.Piece = this;
             }
-
+            
             if (LastPosition != null)
             {
                 Player.Board.Squares.TryGetValue(LastPosition, out Square lastSquare);
@@ -107,12 +107,10 @@ namespace Mate.Abstractions
             }
         }
 
-        public HashSet<Move> SpecialMoves { get; protected set; } = new HashSet<Move>();
+        public virtual HashSet<Move> SpecialMoves { get => new HashSet<Move>(); }
 
         public abstract HashSet<Position> AttackedSquares();
 
-        public abstract HashSet<Position> AvailableMoves();
-
-
+  
     }
 }

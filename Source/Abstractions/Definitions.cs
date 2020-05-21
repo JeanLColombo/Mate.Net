@@ -55,9 +55,9 @@ namespace Mate.Abstractions
         King
     }
 
-    public enum SpecialMoves
+    public enum MoveType
     {
-        None,
+        Normal,
         KingSideCastle,
         QueenSideCaste,
         Passant,
@@ -77,11 +77,11 @@ namespace Mate.Abstractions
     }
 
     /// <summary>
-    /// Move data for a <see cref="Piece"/>. Contains the new <see cref="Position"/>, and <see cref="SpecialMoves"/> information.
+    /// Move data for a <see cref="Piece"/>. Contains the new <see cref="Position"/>, and <see cref="MoveType"/> information.
     /// </summary>
-    public class Move : Tuple<Piece, Position, SpecialMoves>
+    public class Move : Tuple<Piece, Position, MoveType>
     {
-        public Move(Piece piece, Position position, SpecialMoves specialPiece = SpecialMoves.None) 
+        public Move(Piece piece, Position position, MoveType specialPiece = MoveType.Normal) 
             : base(piece, position, specialPiece) { }
     }
     

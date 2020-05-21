@@ -27,7 +27,16 @@ namespace Mate
 
         public IReadOnlyCollection<Move> AvailableMoves { get => chess.LegalMoves(PlayerTurn); }
 
-        public bool CurrentPlayerIsChecked { get => PlayerTurn ? chess.White.IsChecked() : chess.Black.IsChecked(); }
+        public bool CurrentPlayerIsChecked 
+        {
+            get
+            {
+                chess.ClearAttacks();
+                chess.UpdateAttackers();
+
+                return PlayerTurn ? chess.White.IsChecked() : chess.Black.IsChecked();
+            }
+        }
 
         public Outcome Outcome { get; private set; } = Outcome.Game;
 
@@ -147,27 +156,29 @@ namespace Mate
 
             switch (move.Item3) 
             {
-                case SpecialMoves.None:
+                case MoveType.Normal:
                     captured = move.Item1.MoveTo(move.Item2);
                     break;
-                case SpecialMoves.KingSideCastle:
+                case MoveType.KingSideCastle:
                     //TODO: Implement SpecialMoves
                     break;
-                case SpecialMoves.QueenSideCaste:
+                case MoveType.QueenSideCaste:
                     break;
-                case SpecialMoves.Passant:
+                case MoveType.Passant:
                     break;
-                case SpecialMoves.PromoteToBishop:
+                case MoveType.PromoteToBishop:
                     break;
-                case SpecialMoves.PromoteToKnight:
+                case MoveType.PromoteToKnight:
                     break;
-                case SpecialMoves.PromoteToRook:
+                case MoveType.PromoteToRook:
                     break;
-                case SpecialMoves.PromoteToQueen:
+                case MoveType.PromoteToQueen:
                     break;
                 default:
                     break;
             }
+
+            move.Item1.HasMoved = true;
 
             if (captured != null)
             {

@@ -27,12 +27,6 @@ namespace Mate.Pieces
             return positions;
         }
 
-        public override HashSet<Position> AvailableMoves()
-        {
-            throw new NotImplementedException();
-        }
-
-
         
     }
 }

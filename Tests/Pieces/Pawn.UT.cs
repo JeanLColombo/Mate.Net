@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using System.Linq;
-
+using Mate.UT.Mocks;
 
 namespace Mate.UT.Pieces
 {
@@ -57,6 +57,43 @@ namespace Mate.UT.Pieces
             Assert.Contains(whitePawn, otherPawn.GetDefenders());
 
         }
+
+        [Fact]
+        public void PawnMoveFoward()
+        {
+            var match = new Match(MockedCustomInitializers.CustomInputC());
+
+            Assert.Equal(4, match.AvailableMoves.Count);
+
+            match.ProcessMove(2);           // 1.a3
+            match.ProcessMove(2);           // 1..h6
+
+            Assert.Equal(4, match.AvailableMoves.Count);
+        }
+
+        [Fact]
+        public void PawnAttack()
+        {
+            var match = new Match(MockedCustomInitializers.CustomInputC());
+
+            match.ProcessMove(3);           // 1.a4
+            match.ProcessMove(1);           // 1..Kg7
+            match.ProcessMove(3);           // 2.a5
+            match.ProcessMove(0);           // 2..Kf7
+            match.ProcessMove(0);           // 3.Kb1
+            match.ProcessMove(1);           // 3..Ke7
+            match.ProcessMove(1);           // 4.Ka1
+            match.ProcessMove(1);           // 4..Kd7
+            match.ProcessMove(0);           // 5.Kb1
+            match.ProcessMove(1);           // 5..Kc7
+            match.ProcessMove(1);           // 6.Ka1
+            match.ProcessMove(1);           // 6..Kb7
+            match.ProcessMove(3);           // 7.a6+
+
+            Assert.True(match.CurrentPlayerIsChecked);
+            Assert.Equal(8, match.AvailableMoves.Count);
+        }
+
 
     }
 }

@@ -44,7 +44,7 @@ namespace Mate.Extensions
 
             foreach (Piece piece in player.Pieces)
             {
-                moves.Union(piece.SpecialMoves);
+                moves.UnionWith(piece.SpecialMoves);
 
                 foreach (Position position in piece.AttackedSquares())
                 {

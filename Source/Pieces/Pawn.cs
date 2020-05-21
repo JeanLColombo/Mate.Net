@@ -22,8 +22,6 @@ namespace Mate.Pieces
 
         public override HashSet<Position> AttackedSquares()
         {
-            //TODO: Unit test this strange AttackedSquares.
-
             var positions = new HashSet<Position>();
 
             if (!this.IsOnBoard())
@@ -34,7 +32,7 @@ namespace Mate.Pieces
             positions.AddPosition(PawnAttackUpdate(this.GetSquare().MovePlus(1, rankByColor)));
             positions.AddPosition(PawnAttackUpdate(this.GetSquare().MovePlus(-1, rankByColor)));
 
-            positions.AddPosition(CheckForPassant());
+            //positions.AddPosition(CheckForPassant());
 
             return positions;
 
@@ -123,9 +121,65 @@ namespace Mate.Pieces
 
         }
 
-        public override HashSet<Position> AvailableMoves()
+        public override HashSet<Move> SpecialMoves { get => SpecializedMoves(); }
+
+        /// <summary>
+        /// Pawn can only move foward when new <see cref="Position"/> is empty. If <see cref="Pawn"/> has not moved, it can move two <see cref="Position"/>'s.
+        /// </summary>
+        /// <returns></returns>
+        private HashSet<Position> MoveFoward()
         {
-            throw new NotImplementedException();
+            var positions = new HashSet<Position>();
+            
+            if (!this.IsOnBoard())
+                return positions;
+
+            var fowardPosition = this.GetSquare().MoveThrough<Ranks>(Color ? 1 : -1);
+
+            if (this.Player.Board.PositionIsEmpty(fowardPosition))
+            {
+                positions.Add(fowardPosition);
+
+                if (!HasMoved)
+                {
+                    var rushPosition = this.GetSquare().MoveThrough<Ranks>(Color ? 2 : -2);
+
+                    if (this.Player.Board.PositionIsEmpty(fowardPosition))
+                    {
+                        positions.Add(rushPosition);
+                    }
+                }
+            }
+            
+            return positions;
+        }
+
+        /// <summary>
+        /// Organizes <see cref="Pawn.SpecialMoves"/>.
+        /// </summary>
+        /// <returns></returns>
+        private HashSet<Move> SpecializedMoves()
+        {
+            var moves = new HashSet<Move>();
+
+            foreach (var position in MoveFoward())
+            {
+                if (position.Item2 == (Color ? Ranks.eigth : Ranks.one))
+                {
+                    moves.Add(new Move(this, position, MoveType.PromoteToKnight));
+                    moves.Add(new Move(this, position, MoveType.PromoteToBishop));
+                    moves.Add(new Move(this, position, MoveType.PromoteToRook));
+                    moves.Add(new Move(this, position, MoveType.PromoteToQueen));
+                }
+                else
+                {
+                    moves.Add(new Move(this, position));
+                }
+            }
+
+            // Add passant?
+
+            return moves;
         }
     }
 }

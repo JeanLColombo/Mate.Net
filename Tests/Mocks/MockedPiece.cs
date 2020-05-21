@@ -27,10 +27,5 @@ namespace Mate.UT.Mocks
             throw new NotImplementedException();
         }
 
-
-        public override HashSet<Position> AvailableMoves()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

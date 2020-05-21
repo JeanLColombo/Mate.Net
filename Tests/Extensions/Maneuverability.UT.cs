@@ -66,7 +66,7 @@ namespace Mate.UT.Extensions
             {
                 Assert.Equal(knight, move.Item1);
                 Assert.Contains(move.Item2, knight.AttackedSquares());
-                Assert.Equal(SpecialMoves.None, move.Item3);
+                Assert.Equal(MoveType.Normal, move.Item3);
             }
 
             Assert.Empty(chess.LegalMoves(false));
