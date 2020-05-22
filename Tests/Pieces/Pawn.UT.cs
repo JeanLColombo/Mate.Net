@@ -141,6 +141,9 @@ namespace Mate.UT.Pieces
             match.ProcessMove(3);           // 4.a7
             match.ProcessMove(3);           // 4..h2
             match.ProcessMove(5);           // 5.a8R+
+
+            Assert.True(match.CurrentPlayerIsChecked);
+
             match.ProcessMove(0);           // 5..Kh7
 
             Assert.Equal(16, match.AvailableMoves.Count);
@@ -150,8 +153,7 @@ namespace Mate.UT.Pieces
 
             match.ProcessMove(0);
             
-
-            Assert.Equal(23, match.AvailableMoves.Count);
+            Assert.Equal(22, match.AvailableMoves.Count);
 
             Assert.IsType<Rook>(match.WhitePieces.Last());
             Assert.IsType<Queen>(match.BlackPieces.Last());

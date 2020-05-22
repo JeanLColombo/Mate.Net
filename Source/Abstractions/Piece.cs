@@ -89,7 +89,7 @@ namespace Mate.Abstractions
         /// Changes the plamecment of <see cref="this"/> <see cref="Piece"/> to <paramref name="newPosition"/>.
         /// </summary>
         /// <param name="newPosition"></param>
-        private void ChangePosition(Position newPosition = null)
+        internal void ChangePosition(Position newPosition = null)
         {
             LastPosition = Position;
             Position = newPosition;

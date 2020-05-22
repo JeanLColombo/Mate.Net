@@ -152,6 +152,8 @@ namespace Mate
         private void ProcessMove(Move move)
         {
 
+            chess.ClearAttacks();
+
             Piece captured = null;
 
             var playerOne = PlayerTurn ? chess.White : chess.Black;
@@ -170,18 +172,22 @@ namespace Mate
                 case MoveType.Passant:
                     break;
                 case MoveType.PromoteToKnight:
+                    move.Item1.ChangePosition();
                     playerOne.Pieces.Remove(move.Item1);
                     playerOne.AddPiece<Knight>(move.Item2);
                     break;
                 case MoveType.PromoteToBishop:
+                    move.Item1.ChangePosition();
                     playerOne.Pieces.Remove(move.Item1);
                     playerOne.AddPiece<Bishop>(move.Item2);
                     break;
                 case MoveType.PromoteToRook:
+                    move.Item1.ChangePosition();
                     playerOne.Pieces.Remove(move.Item1);
                     playerOne.AddPiece<Rook>(move.Item2);
                     break;
                 case MoveType.PromoteToQueen:
+                    move.Item1.ChangePosition();
                     playerOne.Pieces.Remove(move.Item1);
                     playerOne.AddPiece<Queen>(move.Item2);
                     break;
@@ -196,6 +202,9 @@ namespace Mate
                 playerOne.Captured.Add(captured);
                 playerTwo.Pieces.Remove(captured);
             }
+
+
+            chess.ClearAttacks();
         }
 
         
