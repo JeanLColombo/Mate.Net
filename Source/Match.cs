@@ -154,6 +154,9 @@ namespace Mate
 
             Piece captured = null;
 
+            var playerOne = PlayerTurn ? chess.White : chess.Black;
+            var playerTwo = PlayerTurn ? chess.Black : chess.White;
+
             switch (move.Item3) 
             {
                 case MoveType.Normal:
@@ -166,13 +169,21 @@ namespace Mate
                     break;
                 case MoveType.Passant:
                     break;
-                case MoveType.PromoteToBishop:
-                    break;
                 case MoveType.PromoteToKnight:
+                    playerOne.Pieces.Remove(move.Item1);
+                    playerOne.AddPiece<Knight>(move.Item2);
+                    break;
+                case MoveType.PromoteToBishop:
+                    playerOne.Pieces.Remove(move.Item1);
+                    playerOne.AddPiece<Bishop>(move.Item2);
                     break;
                 case MoveType.PromoteToRook:
+                    playerOne.Pieces.Remove(move.Item1);
+                    playerOne.AddPiece<Rook>(move.Item2);
                     break;
                 case MoveType.PromoteToQueen:
+                    playerOne.Pieces.Remove(move.Item1);
+                    playerOne.AddPiece<Queen>(move.Item2);
                     break;
                 default:
                     break;
@@ -182,11 +193,8 @@ namespace Mate
 
             if (captured != null)
             {
-                var playerOne = PlayerTurn ? chess.White : chess.Black;
-                var plaerTwo = PlayerTurn ? chess.Black : chess.White;
-
                 playerOne.Captured.Add(captured);
-                plaerTwo.Pieces.Remove(captured);
+                playerTwo.Pieces.Remove(captured);
             }
         }
 

@@ -44,31 +44,62 @@ namespace Mate.Extensions
 
             foreach (Piece piece in player.Pieces)
             {
-                moves.UnionWith(piece.SpecialMoves);
+                var pieceMoves = piece.SpecialMoves;
 
                 foreach (Position position in piece.AttackedSquares())
                 {
-                    chess.ClearAttacks();
-
-                    var captured = piece.MoveTo(position);
-
-                    chess.UpdateAttackers();
-
-                    if (!player.IsChecked())
-                    {
-                        moves.Add(new Move(piece, position));
-                    }
-
-                    piece.MoveTo(piece.LastPosition);
-
-                    if (captured != null)
-                    {
-                        captured.MoveTo(position);
-                    }
+                    pieceMoves.Add(new Move(piece, position));
                 }
+
+                moves.UnionWith(chess.CheckLegalityOf(pieceMoves));
+
             }
 
             return moves;
+        }
+
+        /// <summary>
+        /// Checks all the <see cref="Move"/>'s in a <see cref="HashSet{T}"/>, and return only those that are legal. 
+        /// </summary>
+        /// <param name="chess"></param>
+        /// <param name="moves"></param>
+        /// <returns></returns>
+        private static HashSet<Move> CheckLegalityOf(this Chess chess, HashSet<Move> moves)
+        {
+            var legalMoves = new HashSet<Move>();
+
+            foreach (var move in moves)
+            {
+                chess.ClearAttacks();
+
+                var player = move.Item1.Color ? chess.White : chess.Black;
+
+                switch (move.Item3)
+                {
+                    case MoveType.KingSideCastle:
+                        break;
+                    case MoveType.QueenSideCaste:
+                        break;
+                    case MoveType.Passant:
+                        break;
+                    default:
+                        var captured = move.Item1.MoveTo(move.Item2);
+                        chess.UpdateAttackers();
+                        if (!player.IsChecked())
+                        {
+                            legalMoves.Add(new Move(move.Item1, move.Item2, move.Item3));
+                        }
+                        move.Item1.MoveTo(move.Item1.LastPosition);
+                        if (captured != null)
+                        {
+                            captured.MoveTo(move.Item2);
+                        }
+                        break;
+                }
+            }
+
+
+            return legalMoves;
         }
 
     }

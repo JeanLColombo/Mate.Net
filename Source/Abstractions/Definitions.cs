@@ -61,8 +61,8 @@ namespace Mate.Abstractions
         KingSideCastle,
         QueenSideCaste,
         Passant,
-        PromoteToBishop,
         PromoteToKnight,
+        PromoteToBishop,
         PromoteToRook,
         PromoteToQueen
     }

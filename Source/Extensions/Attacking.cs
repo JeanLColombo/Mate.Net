@@ -51,13 +51,12 @@ namespace Mate.Extensions
         /// <param name="direction">Attack <see cref="Direction"/></param>
         /// <param name="orientation">Attacking orientation (if <see cref="true"/> attack through the positive orientation).</param>
         /// <returns></returns>
-        internal static HashSet<Position> AttackThrough(this Piece piece, Direction direction, bool orientation)
-        {
-            if (orientation)
-                return piece.AttackThroughInternalLogic(direction, 1);
-            else
-                return piece.AttackThroughInternalLogic(direction, -1);
-        }
+        internal static HashSet<Position> AttackThrough(
+            this Piece piece, 
+            Direction direction, 
+            bool orientation) 
+            => piece.AttackThroughInternalLogic(direction, orientation ? 1 : -1);
+         
 
         /// <summary>
         /// Internal logic for <see cref="AttackThrough(Piece, Direction, bool)"/>
@@ -72,14 +71,14 @@ namespace Mate.Extensions
 
             var attackerCount = piece.AttackedPieces.Count;
 
-            bool notKing = (piece.GetType() != typeof(King));
+            bool isKing = piece is King;
 
             switch (direction)
             {
                 case Direction.Files:
                     if (positions.AddPosition(piece.UpdateAttackersFrom(piece.GetSquare().MoveThrough<Files>(numberOfSquares))) &&
                         (attackerCount == piece.AttackedPieces.Count) &&
-                        notKing)
+                        !isKing)
                     {
                         numberOfSquares += Math.Sign(numberOfSquares);
                         positions.UnionWith(piece.AttackThroughInternalLogic(direction, numberOfSquares));
@@ -88,7 +87,7 @@ namespace Mate.Extensions
                 case Direction.Ranks:
                     if (positions.AddPosition(piece.UpdateAttackersFrom(piece.GetSquare().MoveThrough<Ranks>(numberOfSquares))) &&
                         (attackerCount == piece.AttackedPieces.Count) &&
-                        notKing)
+                        !isKing)
                     {
                         numberOfSquares += Math.Sign(numberOfSquares);
                         positions.UnionWith(piece.AttackThroughInternalLogic(direction, numberOfSquares));
@@ -97,7 +96,7 @@ namespace Mate.Extensions
                 case Direction.MainDiagonal:
                     if (positions.AddPosition(piece.UpdateAttackersFrom(piece.GetSquare().MovePlus(numberOfSquares, numberOfSquares))) &&
                         (attackerCount == piece.AttackedPieces.Count) &&
-                        notKing)
+                        !isKing)
                     {
                         numberOfSquares += Math.Sign(numberOfSquares);
                         positions.UnionWith(piece.AttackThroughInternalLogic(direction, numberOfSquares));
@@ -106,7 +105,7 @@ namespace Mate.Extensions
                 case Direction.OppositeDiagonal:
                     if (positions.AddPosition(piece.UpdateAttackersFrom(piece.GetSquare().MovePlus(-numberOfSquares, numberOfSquares))) &&
                         (attackerCount == piece.AttackedPieces.Count) &&
-                        notKing)
+                        !isKing)
                     {
                         numberOfSquares += Math.Sign(numberOfSquares);
                         positions.UnionWith(piece.AttackThroughInternalLogic(direction, numberOfSquares));

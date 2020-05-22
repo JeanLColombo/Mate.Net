@@ -107,7 +107,6 @@ namespace Mate.UT
             Assert.Equal(7, match.CurrentMove);
             Assert.False(match.PlayerTurn);
 
-            Assert.True(match.CurrentPlayerIsChecked);
             Assert.Equal(Outcome.CheckmateBlack, match.ProcessMove(0));
 
             Assert.Equal(Outcome.CheckmateBlack, match.Outcome);

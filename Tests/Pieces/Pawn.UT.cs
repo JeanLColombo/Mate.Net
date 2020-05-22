@@ -94,6 +94,73 @@ namespace Mate.UT.Pieces
             Assert.Equal(8, match.AvailableMoves.Count);
         }
 
+        [Fact]
+        public void PawnPromotionToBishopAndKnight()
+        {
+            var match = new Match(MockedCustomInitializers.CustomInputC());
+
+            match.ProcessMove(3);           // 1.a4
+            match.ProcessMove(3);           // 1..h5
+            match.ProcessMove(3);           // 2.a5
+            match.ProcessMove(3);           // 2..h4
+            match.ProcessMove(3);           // 3.a6
+            match.ProcessMove(3);           // 3..h3
+            match.ProcessMove(3);           // 4.a7
+            match.ProcessMove(3);           // 4..h2
+            match.ProcessMove(3);           // 5.a8N
+            match.ProcessMove(4);           // 5..h1B
+
+            Assert.Equal(5, match.AvailableMoves.Count);
+
+            match.ProcessMove(0);
+
+            Assert.Equal(10, match.AvailableMoves.Count);
+
+            Assert.Equal(2, match.WhitePieces.Count);
+            Assert.Equal(2, match.BlackPieces.Count);
+
+            Assert.Empty(match.WhiteCapturedPieces);
+            Assert.Empty(match.BlackCapturedPieces);
+
+            Assert.IsType<Knight>(match.WhitePieces.Last());
+            Assert.IsType<Bishop>(match.BlackPieces.Last());
+
+        }
+
+        [Fact]
+        public void PawnPromotionToRookAndQueen()
+        {
+            var match = new Match(MockedCustomInitializers.CustomInputC());
+
+            match.ProcessMove(3);           // 1.a4
+            match.ProcessMove(3);           // 1..h5
+            match.ProcessMove(3);           // 2.a5
+            match.ProcessMove(3);           // 2..h4
+            match.ProcessMove(3);           // 3.a6
+            match.ProcessMove(3);           // 3..h3
+            match.ProcessMove(3);           // 4.a7
+            match.ProcessMove(3);           // 4..h2
+            match.ProcessMove(5);           // 5.a8R+
+            match.ProcessMove(0);           // 5..Kh7
+
+            Assert.Equal(16, match.AvailableMoves.Count);
+
+            match.ProcessMove(0);           // 6.Kb1
+            match.ProcessMove(6);           // 6..h1Q+
+
+            match.ProcessMove(0);
+            
+
+            Assert.Equal(23, match.AvailableMoves.Count);
+
+            Assert.IsType<Rook>(match.WhitePieces.Last());
+            Assert.IsType<Queen>(match.BlackPieces.Last());
+
+            Assert.Equal(new Position(Files.a, Ranks.eigth), match.WhitePieces.Last().Position);
+            Assert.Equal(new Position(Files.h, Ranks.one), match.BlackPieces.Last().Position);
+
+        }
+
 
     }
 }
