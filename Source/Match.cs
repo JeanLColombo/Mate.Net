@@ -203,7 +203,6 @@ namespace Mate
                 playerTwo.Pieces.Remove(captured);
             }
 
-
             chess.ClearAttacks();
         }
 

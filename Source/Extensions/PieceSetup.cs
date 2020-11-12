@@ -165,7 +165,6 @@ namespace Mate.Extensions
                     break;
             }
         }
-
    
         /// <summary>
         /// Returns the Standard <see cref="Ranks"/> for <see cref="Piece"/> placement, based on <see cref="Player.Color"/>.

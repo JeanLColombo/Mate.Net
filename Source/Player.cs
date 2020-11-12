@@ -20,6 +20,8 @@ namespace Mate
 
         public readonly Board Board;
 
+        internal History Moves { get; set; }
+
         public King King { get; internal set; } = null;
 
         public Player(bool color, Board board, Position kingPosition = null)

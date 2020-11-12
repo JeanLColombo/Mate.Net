@@ -76,9 +76,6 @@ namespace Mate.Extensions
                 newSquareRank.Item2);
         }
 
-
-        //TODO: Check if both Empty and Occupied are needed.
-
         public static bool Empty(this Square square) => (square.Piece == null);
 
         public static bool Occupied(this Square square) => !square.Empty();

@@ -32,8 +32,6 @@ namespace Mate.Pieces
             positions.AddPosition(PawnAttackUpdate(this.GetSquare().MovePlus(1, rankByColor)));
             positions.AddPosition(PawnAttackUpdate(this.GetSquare().MovePlus(-1, rankByColor)));
 
-            //positions.AddPosition(CheckForPassant());
-
             return positions;
 
         }
