@@ -159,6 +159,9 @@ namespace Mate
             var playerOne = PlayerTurn ? chess.White : chess.Black;
             var playerTwo = PlayerTurn ? chess.Black : chess.White;
 
+            //TODO: This line has issues. Check them out.
+            //playerOne.Moves.Add(this.GetMoveEntry(move));
+
             switch (move.Item3) 
             {
                 case MoveType.Normal:
@@ -206,6 +209,9 @@ namespace Mate
             chess.ClearAttacks();
         }
 
+        //TODO: Test player history.
+        private MoveEntry GetMoveEntry(Move move) => new MoveEntry(CurrentMove, move.Item1, move.Item1.Position, move.Item2);
         
+
     }
 }

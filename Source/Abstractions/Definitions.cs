@@ -109,7 +109,7 @@ namespace Mate.Abstractions
     }
     
     /// <summary>
-    /// A tupple containing <see cref="Move"/> entries for a <see cref="Math"/>.
+    /// A tupple containing <see cref="Move"/> entries for a <see cref="Match"/>.
     /// </summary>
     public class MoveEntry : Tuple<int,Piece,Position, Position>
     {
@@ -124,8 +124,12 @@ namespace Mate.Abstractions
             : base(move, piece, origin, destination) { }
     }
 
+    /// <summary>
+    /// Stores the history of <see cref="MoveEntry"/>.
+    /// </summary> 
     public class History : HashSet<MoveEntry>
     {
-        //TODO: Implement Move History - Players and match.
+        //TODO: Implement Move History - for Match.
+        //TODO: Check behaviour of MOve History
     }
 }
