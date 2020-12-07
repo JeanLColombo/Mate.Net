@@ -116,5 +116,37 @@ namespace Mate.UT
         }
 
 
+        [Fact]
+        public void CheckMoveHistory()
+        {
+            var match = new Match(MockedCustomInitializers.CustomInputB());
+
+            Assert.Empty(match.MoveEntries);
+
+            match.ProcessMove(8);                       // 1.Rb2
+
+            Assert.Equal(1, match.MoveEntries.Last().Item1);
+            Assert.Equal(MoveType.Normal, match.MoveEntries.Last().Item2);
+            Assert.Equal(new Position(Files.h,Ranks.two), match.MoveEntries.Last().Item3);
+            Assert.Equal(new Position(Files.b,Ranks.two), match.MoveEntries.Last().Item4);
+
+            match.ProcessMove(4);                       // 1..Ka8
+
+            Assert.Equal(1, match.MoveEntries.Last().Item1);
+            Assert.Equal(MoveType.Normal, match.MoveEntries.Last().Item2);
+            Assert.Equal(new Position(Files.b,Ranks.seven), match.MoveEntries.Last().Item3);
+            Assert.Equal(new Position(Files.a,Ranks.eigth), match.MoveEntries.Last().Item4);
+            
+            match.ProcessMove(14);                      // 2.Rb8
+            match.ProcessMove(2);                       // 2..Rxb8
+
+            Assert.Equal(2, match.MoveEntries.Last().Item1);
+            Assert.Equal(MoveType.Normal, match.MoveEntries.Last().Item2);
+            Assert.Equal(new Position(Files.g,Ranks.eigth), match.MoveEntries.Last().Item3);
+            Assert.Equal(new Position(Files.b,Ranks.eigth), match.MoveEntries.Last().Item4);
+
+            Assert.Equal(4, match.MoveEntries.Count);
+        }
+
     }
 }

@@ -6,7 +6,6 @@ namespace Mate
 {
     public class Chess
     {
-        //TODO: Check if readonly is ok. Can I access and alter its properties?
         public readonly Player White;
 
         public readonly Player Black;
@@ -18,5 +17,6 @@ namespace Mate
             White = new Player(true, Board);
             Black = new Player(false, Board);
         }
+
     }
 }

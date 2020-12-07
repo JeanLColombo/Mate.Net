@@ -27,6 +27,10 @@ namespace Mate
 
         public IReadOnlyCollection<Move> AvailableMoves { get => chess.LegalMoves(PlayerTurn); }
 
+        public IReadOnlyCollection<MoveEntry> MoveEntries { get => MatchHistory.ToList<MoveEntry>(); }
+
+        private History MatchHistory { get; set; } = new History();
+
         public bool CurrentPlayerIsChecked 
         {
             get
@@ -159,8 +163,7 @@ namespace Mate
             var playerOne = PlayerTurn ? chess.White : chess.Black;
             var playerTwo = PlayerTurn ? chess.Black : chess.White;
 
-            //TODO: This line has issues. Check them out.
-            //playerOne.Moves.Add(this.GetMoveEntry(move));
+            MatchHistory.Add(this.GetMoveEntry(move));
 
             switch (move.Item3) 
             {
@@ -209,9 +212,7 @@ namespace Mate
             chess.ClearAttacks();
         }
 
-        //TODO: Test player history.
-        private MoveEntry GetMoveEntry(Move move) => new MoveEntry(CurrentMove, move.Item1, move.Item1.Position, move.Item2);
-        
+        private MoveEntry GetMoveEntry(Move move) => new MoveEntry(CurrentMove, move.Item3, move.Item1.Position, move.Item2);
 
     }
 }

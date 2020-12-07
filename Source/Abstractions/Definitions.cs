@@ -108,20 +108,21 @@ namespace Mate.Abstractions
     {
     }
     
+
     /// <summary>
     /// A tupple containing <see cref="Move"/> entries for a <see cref="Match"/>.
     /// </summary>
-    public class MoveEntry : Tuple<int,Piece,Position, Position>
+    public class MoveEntry : Tuple<int,MoveType, Position, Position>
     {
         /// <summary>
         /// Documents the <paramref name="origin"/>-th <see cref="Move"/>, of <see cref="Piece"/> <paramref name="piece"/>, from <paramref name="origin"/> to <paramref name="destination"/> <see cref="Position"/>.
         /// </summary>
         /// <param name="move"><see cref="Move"/> number. </param>
-        /// <param name="piece"><see cref="Piece"/> moved.</param>
+        /// <param name="moveType"><see cref="MoveType"/> moved.</param>
         /// <param name="origin"><paramref name="piece"/>'s original <see cref="Position"/>.</param>
         /// <param name="destination"><paramref name="piece"/>'s original <see cref="Position"/>.</param>
-        public MoveEntry(int move, Piece piece, Position origin, Position destination)
-            : base(move, piece, origin, destination) { }
+        public MoveEntry(int move, MoveType moveType, Position origin, Position destination)
+            : base(move, moveType, origin, destination) { }
     }
 
     /// <summary>
@@ -129,7 +130,5 @@ namespace Mate.Abstractions
     /// </summary> 
     public class History : HashSet<MoveEntry>
     {
-        //TODO: Implement Move History - for Match.
-        //TODO: Check behaviour of MOve History
     }
 }
