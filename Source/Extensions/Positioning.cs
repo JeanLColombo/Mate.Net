@@ -105,8 +105,6 @@ namespace Mate.Extensions
             if (!piece.IsOnBoard() || piece.Player == null)
                 return null;
 
-            //TODO: Check if null return is optimal. Maybe exception?
-
             piece.Player.Board.Squares.TryGetValue(piece.Position, out Square square);
 
             return square;

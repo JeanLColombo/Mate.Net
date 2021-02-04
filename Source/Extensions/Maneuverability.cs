@@ -74,6 +74,8 @@ namespace Mate.Extensions
 
                 var player = move.Item1.Color ? chess.White : chess.Black;
 
+                // TODO: Implement legality of Moves
+
                 switch (move.Item3)
                 {
                     case MoveType.KingSideCastle:

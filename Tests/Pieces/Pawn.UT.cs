@@ -15,9 +15,9 @@ namespace Mate.UT.Pieces
         [Fact]
         public void PawnOffTheBoard()
         {
-            var knight = new Pawn(true);
+            var pawn = new Pawn(true);
 
-            var positions = knight.AttackedSquares();
+            var positions = pawn.AttackedSquares();
             Assert.Empty(positions);
         }
 
