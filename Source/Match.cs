@@ -27,6 +27,7 @@ namespace Mate
 
         public IReadOnlyCollection<Move> AvailableMoves { get => chess.LegalMoves(PlayerTurn); }
 
+        // TODO: Refatory MatchHistory to belong to chess class?
         public IReadOnlyCollection<MoveEntry> MoveEntries { get => MatchHistory.ToList<MoveEntry>(); }
 
         private History MatchHistory { get; set; } = new History();
