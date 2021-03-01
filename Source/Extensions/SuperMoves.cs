@@ -33,5 +33,30 @@ namespace Mate.Extensions
 
         }
 
+        private static HashSet<Move> GetPassant(this Chess chess, Pawn pawn)
+        {
+            var moves = new HashSet<Move>();
+
+            if (chess.History.Count == 0)
+                return moves;    
+
+            Ranks rank = pawn.Color ? Ranks.five : Ranks.four;
+
+            if (pawn.Position.Item2 != rank)
+                return moves;
+
+            var lastMove = chess.History.Last();
+
+            var lastPiece = chess.Board.GetSquare(lastMove.Item4).Piece;
+
+            if (!(lastPiece is Pawn))
+                return moves; 
+
+            //TODO: We've checked if this is not the first move, if this pawn is in the right rank and if last piece is a pawn.
+            //TODO: Now we need to check if last piece is in position, and if it was a double move.
+
+            return moves;
+        }
+
     }
 }

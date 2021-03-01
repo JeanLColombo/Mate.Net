@@ -110,5 +110,8 @@ namespace Mate.Extensions
             return square;
         }
 
+        
+        public static Square GetSquare(this Board board, Position position) => board.Squares[position];
+
     }
 }
