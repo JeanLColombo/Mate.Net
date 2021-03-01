@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Mate.Abstractions;
 
 namespace Mate
 {
@@ -11,6 +12,8 @@ namespace Mate
         public readonly Player Black;
 
         public readonly Board Board = new Board();
+
+        internal History History { get; set; } = new History();
 
         public Chess() 
         {

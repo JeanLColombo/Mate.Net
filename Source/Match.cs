@@ -27,10 +27,7 @@ namespace Mate
 
         public IReadOnlyCollection<Move> AvailableMoves { get => chess.LegalMoves(PlayerTurn); }
 
-        // TODO: Refatory MatchHistory to belong to chess class?
-        public IReadOnlyCollection<MoveEntry> MoveEntries { get => MatchHistory.ToList<MoveEntry>(); }
-
-        private History MatchHistory { get; set; } = new History();
+        public IReadOnlyCollection<MoveEntry> MoveEntries { get => chess.History.ToList<MoveEntry>(); }
 
         public bool CurrentPlayerIsChecked 
         {
@@ -164,7 +161,7 @@ namespace Mate
             var playerOne = PlayerTurn ? chess.White : chess.Black;
             var playerTwo = PlayerTurn ? chess.Black : chess.White;
 
-            MatchHistory.Add(this.GetMoveEntry(move));
+            chess.History.Add(this.GetMoveEntry(move));
 
             switch (move.Item3) 
             {
