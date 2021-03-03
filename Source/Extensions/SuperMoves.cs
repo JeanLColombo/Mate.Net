@@ -55,12 +55,21 @@ namespace Mate.Extensions
             if (!(pawn.GetSquare().GetAdjacentPositions().Contains(lastSquare.GetPosition())))
                 return moves; 
 
-            //TODO: It is guaranteed that the pieces are pawns, in the correct position. Need to check if their original position whas at the correct file and rank;
+            var passantOriginalFile = lastSquare.GetPosition().Item1;
+            var passantOriginalRank = pawn.Color ? Ranks.seven : Ranks.two;
 
-            //var previousSquare = chess.Board.GetSquare(lastMove.Item3);
+            var passantOriginalPosition = new Position(passantOriginalFile, passantOriginalRank);
 
-            //TODO: We've checked if this is not the first move, if this pawn is in the right rank and if last piece is a pawn.
-            //TODO: Now we need to check if last piece is in position, and if it was a double move.
+            if (lastSquare.GetPosition() != passantOriginalPosition)
+                return moves;
+
+            moves.Add(
+                new Move(
+                    pawn, 
+                    new Position(passantOriginalFile, pawn.Color ? Ranks.six : Ranks.three), 
+                    MoveType.Passant));
+
+            //TODO: Passant Finished. In dare need of testing!
 
             return moves;
         }
