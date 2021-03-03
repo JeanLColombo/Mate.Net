@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Linq;
 using System.Xml.Schema;
 
 namespace Mate.Extensions
@@ -113,5 +114,15 @@ namespace Mate.Extensions
         
         public static Square GetSquare(this Board board, Position position) => board.Squares[position];
 
+        //TODO: Test this method
+        public static HashSet<Position> GetAdjacentPositions(this Square square) => 
+            new HashSet<Position>(
+                Enumerable
+                .Range(0, 1)
+                .Select(x => -1^x)
+                .Select(files => square.MoveThrough<Files>(files))
+                .Where(pos => pos != null)
+                .ToList());
+        
     }
 }

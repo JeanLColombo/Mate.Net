@@ -47,10 +47,17 @@ namespace Mate.Extensions
 
             var lastMove = chess.History.Last();
 
-            var lastPiece = chess.Board.GetSquare(lastMove.Item4).Piece;
+            var lastSquare = chess.Board.GetSquare(lastMove.Item4);
 
-            if (!(lastPiece is Pawn))
+            if (!(lastSquare.Piece is Pawn))
                 return moves; 
+
+            if (!(pawn.GetSquare().GetAdjacentPositions().Contains(lastSquare.GetPosition())))
+                return moves; 
+
+            //TODO: It is guaranteed that the pieces are pawns, in the correct position. Need to check if their original position whas at the correct file and rank;
+
+            //var previousSquare = chess.Board.GetSquare(lastMove.Item3);
 
             //TODO: We've checked if this is not the first move, if this pawn is in the right rank and if last piece is a pawn.
             //TODO: Now we need to check if last piece is in position, and if it was a double move.
