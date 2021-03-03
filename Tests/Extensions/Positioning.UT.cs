@@ -99,7 +99,26 @@ namespace Mate.UT.Extensions
             var square = new Square(Files.a, Ranks.one, false);
 
             Assert.Throws<ApplicationException>(() => square.PieceColor());
+        }
 
+        [Theory]
+        [InlineData(Files.a, Ranks.one, Files.b, Ranks.one, Files.b, Ranks.one, 1)]
+        [InlineData(Files.b, Ranks.two, Files.a, Ranks.two, Files.c, Ranks.two, 2)]
+        [InlineData(Files.h, Ranks.three, Files.g, Ranks.three, Files.g, Ranks.three, 1)]
+        public void TryGetAdjacentPositions(
+            Files posFile, Ranks posRank,
+            Files adjFile1, Ranks adjRank1,
+            Files adjFile2, Ranks adjRank2,
+            int size)
+        {
+            var board = new Board();
+            var pos = new Position(posFile, posRank);
+
+            var adjacentPos = board.GetSquare(pos).GetAdjacentPositions();
+            
+            Assert.Contains(new Position(adjFile1,adjRank1), adjacentPos);
+            Assert.Contains(new Position(adjFile2,adjRank2), adjacentPos);
+            Assert.Equal(size, adjacentPos.Count);
 
         }
     }
