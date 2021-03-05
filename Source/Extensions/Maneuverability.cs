@@ -38,9 +38,9 @@ namespace Mate.Extensions
         /// <returns></returns>
         public static HashSet<Move> LegalMoves(this Chess chess, bool color)
         {
-            var moves = new HashSet<Move>();
-
             Player player = color ? chess.White : chess.Black;
+
+            var moves = chess.GetSuperMoves(player);
 
             foreach (Piece piece in player.Pieces)
             {
@@ -54,8 +54,6 @@ namespace Mate.Extensions
                 moves.UnionWith(chess.CheckLegalityOf(pieceMoves));
 
             }
-
-            // TODO: Add SuperMoves
 
             return moves;
         }
@@ -85,6 +83,19 @@ namespace Mate.Extensions
                     case MoveType.QueenSideCaste:
                         break;
                     case MoveType.Passant:
+                        var passantPosition = new Position(move.Item1.Position.Item1, move.Item1.Color ? Ranks.five : Ranks.four);
+                        var pawnCaptured = chess.Board.GetSquare(passantPosition).Piece;
+
+                        move.Item1.MoveTo(move.Item2);
+                        pawnCaptured.MoveTo(null);
+
+                        chess.UpdateAttackers();
+                        if (!player.IsChecked())
+                            legalMoves.Add(new Move(move.Item1, move.Item2, move.Item3));
+
+                        move.Item1.MoveTo(move.Item1.LastPosition);
+                        pawnCaptured.MoveTo(pawnCaptured.LastPosition);
+
                         break;
                     default:
                         var captured = move.Item1.MoveTo(move.Item2);

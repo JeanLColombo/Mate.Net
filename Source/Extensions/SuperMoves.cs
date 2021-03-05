@@ -14,26 +14,23 @@ namespace Mate.Extensions
     internal static class SuperMoves
     {
         // TODO: How to implement supermoves, if it is a match or chess responsability.
-        internal static HashSet<Move> GetSuperMoves(this Chess chess, bool color)
+        internal static HashSet<Move> GetSuperMoves(this Chess chess, Player player)
         {
             var moves = new HashSet<Move>();
-
-            Player player = color ? chess.White : chess.Black;
 
             foreach (Piece piece in player.Pieces)
             {
                 if (piece is Pawn)
                 {
-
+                    moves.UnionWith(chess.GetPassant((Pawn)piece));
                 }
-
             }
-
+            
             return moves;
 
         }
 
-        private static HashSet<Move> GetPassant(this Chess chess, Pawn pawn)
+        public static HashSet<Move> GetPassant(this Chess chess, Pawn pawn)
         {
             var moves = new HashSet<Move>();
 
@@ -47,26 +44,23 @@ namespace Mate.Extensions
 
             var lastMove = chess.History.Last();
 
-            var lastSquare = chess.Board.GetSquare(lastMove.Item4);
+            var lastPiece = chess.Board.GetSquare(lastMove.Item4).Piece;
 
-            if (!(lastSquare.Piece is Pawn))
+            if (!(lastPiece is Pawn))
                 return moves; 
 
-            if (!(pawn.GetSquare().GetAdjacentPositions().Contains(lastSquare.GetPosition())))
+            if (!(pawn.GetSquare().GetAdjacentPositions().Contains(lastPiece.Position)))
                 return moves; 
 
-            var passantOriginalFile = lastSquare.GetPosition().Item1;
-            var passantOriginalRank = pawn.Color ? Ranks.seven : Ranks.two;
+            var passantOriginalPosition = new Position(lastPiece.Position.Item1, pawn.Color ? Ranks.seven : Ranks.two);
 
-            var passantOriginalPosition = new Position(passantOriginalFile, passantOriginalRank);
-
-            if (lastSquare.GetPosition() != passantOriginalPosition)
+            if (lastMove.Item3 != passantOriginalPosition)
                 return moves;
 
             moves.Add(
                 new Move(
                     pawn, 
-                    new Position(passantOriginalFile, pawn.Color ? Ranks.six : Ranks.three), 
+                    new Position(passantOriginalPosition.Item1, pawn.Color ? Ranks.six : Ranks.three), 
                     MoveType.Passant));
 
             //TODO: Passant Finished. In dare need of testing!

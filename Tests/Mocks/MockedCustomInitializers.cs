@@ -66,5 +66,30 @@ namespace Mate.UT.Mocks
 
             return customInput;
         }
+
+        /// <summary>
+        /// <summary>
+        /// <see cref="Pawn"/>'s, <see cref="Queen"/>'s and <see cref="Kings"/> at their original positions.
+        /// </summary>
+        /// <returns></returns>
+        public static CustomPieceInput CustomInputD()
+        {
+            var customInput = new CustomPieceInput();
+
+            customInput.Add(new PieceInput(true, ChessPieces.King, Files.e, Ranks.one));
+            customInput.Add(new PieceInput(true, ChessPieces.Queen, Files.d, Ranks.one));
+
+
+            customInput.Add(new PieceInput(false, ChessPieces.King, Files.e, Ranks.eigth));
+            customInput.Add(new PieceInput(false, ChessPieces.Queen, Files.d, Ranks.eigth));
+
+            foreach (Files file in Enum.GetValues(typeof(Files)))
+            {
+                customInput.Add(new PieceInput(true, ChessPieces.Pawns, file, Ranks.two));
+                customInput.Add(new PieceInput(false, ChessPieces.Pawns, file, Ranks.seven));
+            }
+
+            return customInput;
+        }
     }
 }
