@@ -163,6 +163,48 @@ namespace Mate.UT.Pieces
 
         }
 
+        // TODO: Implement 2 tests - 1. Pawn can't move foward 2 squares when he has already moved, and 2. Pawn can't move foward if it is occupied.
+        [Fact]
+        public void PawnDoubleMoveAfterItHasMoved()
+        {
+            var match = new Match(MockedCustomInitializers.CustomInputC());
+
+            match.ProcessMove(3);           // 1.a4
+            match.ProcessMove(2);           // 1..h6    
+
+            Assert.Equal(4, match.AvailableMoves.Count);
+
+            match.ProcessMove(3);           // 2.a5
+
+            Assert.Equal(4, match.AvailableMoves.Count);
+        }
+
+        [Fact]
+        public void PawnDoubleMoveWhenBlocked()
+        {
+            var match = new Match(MockedCustomInitializers.CustomInputC());
+
+            match.ProcessMove(1);           // 1.Kb2      
+            match.ProcessMove(1);           // 1..Kg7
+            match.ProcessMove(5);           // 2.Ka3     
+            match.ProcessMove(4);           // 2..Kf6
+
+            Assert.Equal(4, match.AvailableMoves.Count);
+            Assert.Empty(match.AvailableMoves.Select(m => m.Item1).Where(p => p is Pawn));
+
+            match.ProcessMove(1);           // 3.Ka4
+            match.ProcessMove(5);           // 3..Ke5
+
+            //TODO: white pawn moved to a3 by it's own... why?
+            // a3 was on the pawn move list, and it somehow iterfered.
+
+
+            Assert.Equal(5, match.AvailableMoves.Count);
+            Assert.Single(match.AvailableMoves.Select(m => m.Item1).Where(p => p is Pawn));
+
+
+            Assert.True(true);
+        }
 
     }
 }

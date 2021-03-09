@@ -46,7 +46,17 @@ namespace Mate.UT.Extensions
 
             Assert.Equal(new Position(Files.f, Ranks.eigth), match.MoveEntries.Last().Item4);
             Assert.DoesNotContain(MoveType.Passant,match.AvailableMoves.Select(m => m.Item3).ToList());
+        }
 
+        [Fact]
+        public void NoPassantWhenPawnIsNotAdjacent()
+        {
+            var match = new Match(MockedCustomInitializers.CustomInputD());
+
+            match.ProcessMove(13);                          // 1.e4
+            match.ProcessMove(5);                           // 1..a5
+            match.ProcessMove(17);                          // 2.e5
+            // TODO: Double move when piece is occupied.
         }
 
     }
