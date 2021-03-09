@@ -75,6 +75,7 @@ namespace Mate
                 throw new ArgumentOutOfRangeException("Move Index is greater than Move.Count", nameof(moveIndex));
             }
 
+            //TODO: This is the precise moment when bug happens.
             ProcessMove(availableMoves.ElementAt((int)moveIndex));
 
             return UpdateOutcome();
