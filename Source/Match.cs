@@ -177,22 +177,22 @@ namespace Mate
                 case MoveType.Passant:
                     break;
                 case MoveType.PromoteToKnight:
-                    move.Item1.ChangePosition();
+                    move.Item1.MoveTo();
                     playerOne.Pieces.Remove(move.Item1);
                     playerOne.AddPiece<Knight>(move.Item2);
                     break;
                 case MoveType.PromoteToBishop:
-                    move.Item1.ChangePosition();
+                    move.Item1.MoveTo();
                     playerOne.Pieces.Remove(move.Item1);
                     playerOne.AddPiece<Bishop>(move.Item2);
                     break;
                 case MoveType.PromoteToRook:
-                    move.Item1.ChangePosition();
+                    move.Item1.MoveTo();
                     playerOne.Pieces.Remove(move.Item1);
                     playerOne.AddPiece<Rook>(move.Item2);
                     break;
                 case MoveType.PromoteToQueen:
-                    move.Item1.ChangePosition();
+                    move.Item1.MoveTo();
                     playerOne.Pieces.Remove(move.Item1);
                     playerOne.AddPiece<Queen>(move.Item2);
                     break;

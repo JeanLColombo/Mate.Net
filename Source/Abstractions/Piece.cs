@@ -61,22 +61,25 @@ namespace Mate.Abstractions
         /// </summary>
         /// <param name="newPosition"></param>
         /// <returns></returns>
-        internal Piece MoveTo(Position newPosition)
+        internal Piece MoveTo(Position newPosition = null)
         {
             if (newPosition == Position)
                 return null;
 
-            if (!Player.Board.Squares.TryGetValue(newPosition, out Square newSquare))
+            if (newPosition is null)
+            {   
+                ChangePosition();    
                 return null;
+            }
 
             Piece piece = null;
 
-            if (!Player.Board.PositionIsEmpty(newPosition))
+            if (Player.Board.GetSquare(newPosition).Occupied())
             {
-                if (newSquare.PieceColor() == Color)
-                    return piece;
+                if (Player.Board.GetSquare(newPosition).PieceColor() == Color)
+                    return null;
 
-                piece = newSquare.Piece;
+                piece = Player.Board.GetSquare(newPosition).Piece;
                 piece.ChangePosition();
             }
 
