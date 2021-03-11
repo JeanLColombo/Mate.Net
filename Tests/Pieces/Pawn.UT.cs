@@ -199,7 +199,7 @@ namespace Mate.UT.Pieces
             // a3 was on the pawn move list, and it somehow iterfered.
 
 
-            Assert.Equal(5, match.AvailableMoves.Count);
+            Assert.Equal(6, match.AvailableMoves.Count);
             Assert.Single(match.AvailableMoves.Select(m => m.Item1).Where(p => p is Pawn));
 
 

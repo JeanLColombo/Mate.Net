@@ -134,20 +134,20 @@ namespace Mate.Pieces
 
             var fowardPosition = this.GetSquare().MoveThrough<Ranks>(Color ? 1 : -1);
 
-            if (this.Player.Board.PositionIsEmpty(fowardPosition))
-            {
-                positions.Add(fowardPosition);
+            if (Player.Board.GetSquare(fowardPosition).Occupied())
+                return positions;
 
-                if (!HasMoved)
-                {
-                    var rushPosition = this.GetSquare().MoveThrough<Ranks>(Color ? 2 : -2);
+            positions.Add(fowardPosition);
 
-                    if (this.Player.Board.PositionIsEmpty(fowardPosition))
-                    {
-                        positions.Add(rushPosition);
-                    }
-                }
-            }
+            if (HasMoved && this.Position.Item2 != (Color ? Ranks.two : Ranks.seven))
+                return positions;
+
+            var rushPosition = this.GetSquare().MoveThrough<Ranks>(Color ? 2 : -2);
+
+            if (Player.Board.GetSquare(rushPosition).Occupied())
+                return positions;
+
+            positions.Add(rushPosition); 
             
             return positions;
         }
