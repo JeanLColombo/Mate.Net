@@ -163,7 +163,6 @@ namespace Mate.UT.Pieces
 
         }
 
-        // TODO: Implement 2 tests - 1. Pawn can't move foward 2 squares when he has already moved, and 2. Pawn can't move foward if it is occupied.
         [Fact]
         public void PawnDoubleMoveAfterItHasMoved()
         {
@@ -195,15 +194,34 @@ namespace Mate.UT.Pieces
             match.ProcessMove(1);           // 3.Ka4
             match.ProcessMove(5);           // 3..Ke5
 
-            //TODO: white pawn moved to a3 by it's own... why?
-            // a3 was on the pawn move list, and it somehow iterfered.
-
-
             Assert.Equal(6, match.AvailableMoves.Count);
             Assert.Single(match.AvailableMoves.Select(m => m.Item1).Where(p => p is Pawn));
 
+            match.ProcessMove(1);           // 4.Ka5
+            match.ProcessMove(5);           // 4..Kd4
 
-            Assert.True(true);
+            Assert.Equal(7, match.AvailableMoves.Count);
+            Assert.Equal(2, match.AvailableMoves.Select(m => m.Item1).Where(p => p is Pawn).Count());
+
+            match.ProcessMove(1);           // 5.Ka6
+            match.ProcessMove(1);           // 5..Kc4
+
+            Assert.Equal(4, match.AvailableMoves.Select(m => m.Item1).Where(p => p is King).Count());
+
+            match.ProcessMove(0);           // 6.Kb6
+            match.ProcessMove(1);           // 6..Kb4
+            match.ProcessMove(1);           // 7.Ka6
+            match.ProcessMove(1);           // 7..Ka4
+
+            Assert.Single(match.AvailableMoves.Select(m => m.Item1).Where(p => p is Pawn));
+
+            match.ProcessMove(0);           // 8.Kb6
+
+            Assert.False(match.CurrentPlayerIsChecked);
+
+            match.ProcessMove(1);           // 8..ka3
+
+            Assert.Empty(match.AvailableMoves.Select(m => m.Item1).Where(p => p is Pawn));
         }
 
     }

@@ -30,16 +30,16 @@ namespace Mate.Extensions
 
         }
 
-        public static HashSet<Move> GetPassant(this Chess chess, Pawn pawn)
+        public static HashSet<Move> GetPassant(this Chess chess, Piece piece)
         {
             var moves = new HashSet<Move>();
 
-            if (chess.History.Count == 0)
-                return moves;    
+            if (!(piece is Pawn) || chess.History.Count == 0)
+                return moves;
 
-            Ranks rank = pawn.Color ? Ranks.five : Ranks.four;
+            Ranks rank = piece.Color ? Ranks.five : Ranks.four;
 
-            if (pawn.Position.Item2 != rank)
+            if (piece.Position.Item2 != rank)
                 return moves;
 
             var lastMove = chess.History.Last();
@@ -49,18 +49,18 @@ namespace Mate.Extensions
             if (!(lastPiece is Pawn))
                 return moves; 
 
-            if (!(pawn.GetSquare().GetAdjacentPositions().Contains(lastPiece.Position)))
+            if (!(piece.GetSquare().GetAdjacentPositions().Contains(lastPiece.Position)))
                 return moves; 
 
-            var passantOriginalPosition = new Position(lastPiece.Position.Item1, pawn.Color ? Ranks.seven : Ranks.two);
+            var passantOriginalPosition = new Position(lastPiece.Position.Item1, piece.Color ? Ranks.seven : Ranks.two);
 
             if (lastMove.Item3 != passantOriginalPosition)
                 return moves;
 
             moves.Add(
                 new Move(
-                    pawn, 
-                    new Position(passantOriginalPosition.Item1, pawn.Color ? Ranks.six : Ranks.three), 
+                    piece, 
+                    new Position(passantOriginalPosition.Item1, piece.Color ? Ranks.six : Ranks.three), 
                     MoveType.Passant));
 
             //TODO: Passant Finished. In dare need of testing!

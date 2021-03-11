@@ -40,11 +40,13 @@ namespace Mate.Extensions
         {
             Player player = color ? chess.White : chess.Black;
 
-            var moves = chess.GetSuperMoves(player);
+            var moves = new HashSet<Move>();//chess.GetSuperMoves(player);
 
             foreach (Piece piece in player.Pieces)
             {
                 var pieceMoves = piece.SpecialMoves;
+
+                pieceMoves.UnionWith(chess.GetPassant(piece));
 
                 foreach (Position position in piece.AttackedSquares())
                 {
