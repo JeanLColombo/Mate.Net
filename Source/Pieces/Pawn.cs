@@ -139,7 +139,7 @@ namespace Mate.Pieces
 
             positions.Add(fowardPosition);
 
-            if (HasMoved && this.Position.Item2 != (Color ? Ranks.two : Ranks.seven))
+            if (this.Position.Item2 != (Color ? Ranks.two : Ranks.seven) || HasMoved)
                 return positions;
 
             var rushPosition = this.GetSquare().MoveThrough<Ranks>(Color ? 2 : -2);

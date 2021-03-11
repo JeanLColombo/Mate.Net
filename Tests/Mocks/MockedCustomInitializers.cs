@@ -68,7 +68,6 @@ namespace Mate.UT.Mocks
         }
 
         /// <summary>
-        /// <summary>
         /// <see cref="Pawn"/>'s, <see cref="Queen"/>'s and <see cref="Kings"/> at their original positions.
         /// </summary>
         /// <returns></returns>
@@ -88,6 +87,23 @@ namespace Mate.UT.Mocks
                 customInput.Add(new PieceInput(true, ChessPieces.Pawns, file, Ranks.two));
                 customInput.Add(new PieceInput(false, ChessPieces.Pawns, file, Ranks.seven));
             }
+
+            return customInput;
+        }
+
+
+        /// <summary>
+        /// <see cref="Pawn"/> placed out of position.
+        /// </summary>
+        /// <returns></returns>
+        public static CustomPieceInput CustomInputE()
+        {
+            var customInput = new CustomPieceInput();
+
+            customInput.Add(new PieceInput(true, ChessPieces.King, Files.a, Ranks.one));
+            customInput.Add(new PieceInput(true, ChessPieces.Pawns, Files.a, Ranks.three));
+
+            customInput.Add(new PieceInput(false, ChessPieces.King, Files.h, Ranks.eigth));
 
             return customInput;
         }

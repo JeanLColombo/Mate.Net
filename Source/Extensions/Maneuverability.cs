@@ -85,7 +85,7 @@ namespace Mate.Extensions
                     case MoveType.QueenSideCaste:
                         break;
                     case MoveType.Passant:
-                        var passantPosition = new Position(move.Item1.Position.Item1, move.Item1.Color ? Ranks.five : Ranks.four);
+                        var passantPosition = new Position(move.Item2.Item1, move.Item1.Color ? Ranks.five : Ranks.four);
                         var pawnCaptured = chess.Board.GetSquare(passantPosition).Piece;
 
                         move.Item1.MoveTo(move.Item2);

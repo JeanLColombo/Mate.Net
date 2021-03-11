@@ -1,9 +1,6 @@
 ﻿using Mate.Extensions;
 using Mate.Pieces;
 using Mate.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 using System.Linq;
 using Mate.UT.Mocks;
@@ -222,6 +219,14 @@ namespace Mate.UT.Pieces
             match.ProcessMove(1);           // 8..ka3
 
             Assert.Empty(match.AvailableMoves.Select(m => m.Item1).Where(p => p is Pawn));
+        }
+
+        [Fact]
+        public void PawnMoveFowardPlacedOutOfPosition()
+        {
+            var match = new Match(MockedCustomInitializers.CustomInputE());
+
+            Assert.Single(match.AvailableMoves.Select(m => m.Item1).Where(p => p is Pawn));               
         }
 
     }
