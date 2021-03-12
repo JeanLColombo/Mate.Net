@@ -94,6 +94,21 @@ namespace Mate.UT.Extensions
             Assert.Empty(match.WhitePieces.Select(wp => wp.Position).Where(p => p.SamePosition(new Position(Files.f, Ranks.five))));
         }    
 
+        [Fact]
+        public void PassantIsIlegal()
+        {
+            var match = new Match(MockedCustomInitializers.CustomInputD());
+
+            match.ProcessMove(13);                          // 1.e4    
+            match.ProcessMove(0);                           // 1..Kf8
+            match.ProcessMove(8);                           // 2.Qh5
+            match.ProcessMove(0);                           // 2..Kg8
+            match.ProcessMove(5);                           // 3.Qe5
+            match.ProcessMove(1);                           // 3..Kf8    
+
+            // TODO: Found bug! Queen can't move to e8!
+        }
+
         //TODO: Check/implement passant move. Check if passant is unavailable due to check. Check if passant works properly.
 
     }
