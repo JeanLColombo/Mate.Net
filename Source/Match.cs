@@ -175,6 +175,13 @@ namespace Mate
                 case MoveType.QueenSideCaste:
                     break;
                 case MoveType.Passant:
+                    captured = chess.Board.GetSquare(
+                        new Position(
+                            move.Item2.Item1, 
+                            move.Item1.Color ? Ranks.five : Ranks.four))
+                            .Piece;
+                    move.Item1.MoveTo(move.Item2);
+                    captured.MoveTo(null);
                     break;
                 case MoveType.PromoteToKnight:
                     move.Item1.MoveTo();

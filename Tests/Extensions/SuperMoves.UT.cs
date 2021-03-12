@@ -74,6 +74,26 @@ namespace Mate.UT.Extensions
             Assert.Single(match.AvailableMoves.Select(m => m.Item3).Where(t => t == MoveType.Passant));
         }
 
+        [Fact]
+        public void CapturedEnPassant()
+        {
+            var match = new Match(MockedCustomInitializers.CustomInputD());
+
+            match.ProcessMove(13);                          // 1.e4
+            match.ProcessMove(5);                           // 1..a5
+            match.ProcessMove(17);                          // 2.e5
+            match.ProcessMove(13);                          // 2..f5
+
+            match.ProcessMove(18);                          // 3.exf6e.p.
+
+            Assert.Equal(7, match.BlackPieces.Where(p => p is Pawn).ToList().Count);
+            Assert.Single(match.WhiteCapturedPieces.Where(p => p is Pawn).ToList());
+            
+            Assert.Single(match.WhitePieces.Where(p => p.Position.SamePosition(match.MoveEntries.Last().Item4)));
+            Assert.Empty(match.BlackPieces.Select(bp => bp.Position).Where(p => p.SamePosition(new Position(Files.f, Ranks.five))));
+            Assert.Empty(match.WhitePieces.Select(wp => wp.Position).Where(p => p.SamePosition(new Position(Files.f, Ranks.five))));
+        }    
+
         //TODO: Check/implement passant move. Check if passant is unavailable due to check. Check if passant works properly.
 
     }
